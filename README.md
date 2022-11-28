@@ -1,5 +1,3 @@
-<br><br><p align="center"><img src="https://turinha-static.pkds.it/build/leiturinha-ebook/1.2/assets/images/logo-leiturinha-new.png" width="500" alt="Leiturinha"></p><br>
-
 ## About
 
 Simple project to use for new projects
