@@ -68,3 +68,4 @@ To do:
 - [ ] Add configurações de infra
 
 # stand-app-comedy
+# stand-app-comedy
