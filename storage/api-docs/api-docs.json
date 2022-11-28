@@ -1,0 +1,38 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Base Project",
+        "description": "Documentation API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/health": {
+            "get": {
+                "tags": [
+                    "health"
+                ],
+                "description": "Returns if apllication is running.",
+                "operationId": "healthCheck",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "example",
+            "description": "Documentation API"
+        }
+    ]
+}
