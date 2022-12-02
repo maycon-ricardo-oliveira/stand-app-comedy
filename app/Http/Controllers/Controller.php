@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Commons\ApiResponse;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use Mayconoliveira\SimpleResponse\ApiResponse;
 
 class Controller extends BaseController
 {
