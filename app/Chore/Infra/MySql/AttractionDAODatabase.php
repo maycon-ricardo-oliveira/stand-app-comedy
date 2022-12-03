@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Chore\Infra;
+namespace App\Chore\Infra\MySql;
 
 use App\Chore\Domain\AttractionRepository;
 

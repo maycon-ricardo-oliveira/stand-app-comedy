@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Chore\UseCases;
+namespace App\Chore\UseCases\ListAttractions;
 
 /**
  * @OA\Schema(

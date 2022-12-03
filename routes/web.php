@@ -13,8 +13,6 @@
 |
 */
 
-use App\Chore\UseCases\ListAttractions;
-
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });

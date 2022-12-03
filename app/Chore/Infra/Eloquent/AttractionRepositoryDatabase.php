@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Chore\Infra;
+namespace App\Chore\Infra\Eloquent;
 
 use App\Chore\Domain\AttractionRepository;
 use App\Models\Attraction;

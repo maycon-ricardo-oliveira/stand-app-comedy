@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Chore\UseCases;
+namespace App\Chore\UseCases\ListAttractions;
 
-use App\Chore\Domain\Attraction;
 use App\Chore\Domain\AttractionRepository;
 
 class ListAttractions
@@ -11,19 +10,17 @@ class ListAttractions
     /**
      * @var AttractionRepository
      */
-    private $attractionDAO;
+    private $attractionRepo;
 
-    public function __construct(AttractionRepository $attractionDAO)
+    public function __construct(AttractionRepository $attractionRepo)
     {
-        $this->attractionDAO = $attractionDAO;
+        $this->attractionRepo = $attractionRepo;
     }
 
     public function handle(string $place): array
     {
-        $attractionsData = $this->attractionDAO->getAttractionsInAPlace($place);
-
         $response = [];
-
+        $attractionsData = $this->attractionRepo->getAttractionsInAPlace($place);
         foreach ($attractionsData as $attraction) {
 
             $serialize = new AttractionResponse(

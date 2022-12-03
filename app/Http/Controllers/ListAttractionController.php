@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Chore\Infra\AttractionDAODatabase;
-use App\Chore\Infra\AttractionRepositoryDatabase;
-use App\Chore\Infra\MySqlAdapter;
-use App\Chore\UseCases\ListAttractions;
-use App\Models\Attraction;
+use App\Chore\Infra\Eloquent\AttractionRepositoryDatabase;
+use App\Chore\UseCases\ListAttractions\ListAttractions;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
