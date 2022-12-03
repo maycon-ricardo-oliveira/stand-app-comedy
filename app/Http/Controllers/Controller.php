@@ -12,7 +12,7 @@ class Controller extends BaseController
     /**
 	 * @OA\Info(
 	 *      version="1.0.0",
-	 *      title="Base Project",
+	 *      title="StandApp Project",
 	 *      description="Documentation API",
 	 * )
 	 * @OA\Tag(
@@ -23,6 +23,6 @@ class Controller extends BaseController
      */
     public function __construct()
     {
-        $this->response = new ApiResponse();
+        $this->response = new ApiResponse(env('APP_SLUG'));
     }
 }

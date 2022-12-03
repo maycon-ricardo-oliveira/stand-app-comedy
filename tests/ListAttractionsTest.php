@@ -3,23 +3,23 @@
 use App\Chore\Domain\AttractionRepository;
 use App\Chore\UseCases\ListAttractions;
 
-class DaoStub implements AttractionRepository {
+class RepositoryStub implements AttractionRepository {
 
 
-    public function getAttractionsInAPlace(string $place)
+    public function getAttractionsInAPlace(string $place): array
     {
         return [[
-                'id' => '',
-                'artist' => '',
-                'place' => '',
-                'date' => '',
-                'title' => '',
+                'id' => 'any_id',
+                'artist' => 'any_artist',
+                'place' => 'any_place',
+                'date' => 'any_date',
+                'title' => 'any_title',
             ], [
-                'id' => '',
-                'artist' => '',
-                'place' => '',
-                'date' => '',
-                'title' => '',
+                'id' => 'any_id',
+                'artist' => 'any_artist',
+                'place' => 'any_place',
+                'date' => 'any_date',
+                'title' => 'any_title',
             ],
         ];
     }
@@ -31,7 +31,7 @@ class ListAttractionsTest extends TestCase
     public function testMustBeReturnAListOfAttractions()
     {
 
-        $dao = new DaoStub();
+        $dao = new RepositoryStub();
         $listAttractions = new ListAttractions($dao);
         $output = $listAttractions->handle('Hillarius');
         $this->assertSame(2, count($output));

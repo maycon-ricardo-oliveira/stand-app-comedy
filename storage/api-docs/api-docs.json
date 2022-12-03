@@ -27,6 +27,79 @@
                     }
                 ]
             }
+        },
+        "/api/v1/attractions/{place}": {
+            "get": {
+                "tags": [
+                    "attractions"
+                ],
+                "description": "Returns all attractions available in a place.",
+                "operationId": "ListAttractionController@handle",
+                "parameters": [
+                    {
+                        "name": "place",
+                        "in": "path",
+                        "description": "place name",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Attraction"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Attraction": {
+                "title": "Attraction Schema",
+                "description": "Attraction",
+                "properties": {
+                    "id": {
+                        "description": "The attraction id",
+                        "type": "string"
+                    },
+                    "title": {
+                        "description": "The attraction title",
+                        "type": "string"
+                    },
+                    "date": {
+                        "description": "The attraction description",
+                        "type": "string"
+                    },
+                    "place": {
+                        "description": "The attraction publisher",
+                        "type": "string"
+                    },
+                    "artist": {
+                        "description": "The attraction isbn",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
         }
     },
     "tags": [

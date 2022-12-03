@@ -18,7 +18,7 @@ class ListAttractions
         $this->attractionDAO = $attractionDAO;
     }
 
-    public function handle($place)
+    public function handle(string $place): array
     {
         $attractionsData = $this->attractionDAO->getAttractionsInAPlace($place);
 
@@ -26,7 +26,7 @@ class ListAttractions
 
         foreach ($attractionsData as $attraction) {
 
-            $serialize = new Attraction(
+            $serialize = new AttractionResponse(
                 $attraction['id'],
                 $attraction['title'],
                 $attraction['date'],
