@@ -12,6 +12,7 @@ class Attraction
     public $artist;
 
     /**
+     * @param string $id
      * @param string $title
      * @param string $date
      * @param string $place
