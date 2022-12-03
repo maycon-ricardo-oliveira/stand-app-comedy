@@ -2,10 +2,10 @@
 
 namespace App\Chore\Infra;
 
-use App\Chore\Domain\AttractionDAO;
+use App\Chore\Domain\AttractionRepository;
 use App\Models\Attraction;
 
-class AttractionRepositoryDatabase implements AttractionDAO
+class AttractionRepositoryDatabase implements AttractionRepository
 {
 
     public function getAttractionsInAPlace(string $place)

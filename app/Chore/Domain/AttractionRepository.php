@@ -2,7 +2,7 @@
 
 namespace App\Chore\Domain;
 
-interface AttractionDAO
+interface AttractionRepository
 {
     public function getAttractionsInAPlace(string $place);
 

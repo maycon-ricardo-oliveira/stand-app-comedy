@@ -3,17 +3,17 @@
 namespace App\Chore\UseCases;
 
 use App\Chore\Domain\Attraction;
-use App\Chore\Domain\AttractionDAO;
+use App\Chore\Domain\AttractionRepository;
 
 class ListAttractions
 {
 
     /**
-     * @var AttractionDAO
+     * @var AttractionRepository
      */
     private $attractionDAO;
 
-    public function __construct(AttractionDAO $attractionDAO)
+    public function __construct(AttractionRepository $attractionDAO)
     {
         $this->attractionDAO = $attractionDAO;
     }

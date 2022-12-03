@@ -2,9 +2,9 @@
 
 namespace App\Chore\Infra;
 
-use App\Chore\Domain\AttractionDAO;
+use App\Chore\Domain\AttractionRepository;
 
-class AttractionDAODatabase implements AttractionDAO
+class AttractionDAODatabase implements AttractionRepository
 {
 
     private $connection;

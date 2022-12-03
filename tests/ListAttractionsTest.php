@@ -1,9 +1,9 @@
 <?php
 
-use App\Chore\Domain\AttractionDAO;
+use App\Chore\Domain\AttractionRepository;
 use App\Chore\UseCases\ListAttractions;
 
-class DaoStub implements AttractionDAO {
+class DaoStub implements AttractionRepository {
 
 
     public function getAttractionsInAPlace(string $place)
