@@ -2,18 +2,18 @@
 
 namespace App\Chore\UseCases\ListAttractions;
 
-/**
- * @OA\Schema(
- *   schema="Attraction",
- *   description="Attraction",
- *   title="Attraction Schema",
- *   @OA\Property(property="id", type="string", description="The attraction id"),
- *   @OA\Property(property="title", type="string", description="The attraction title"),
- *   @OA\Property(property="date", type="string", description="The attraction description"),
- *   @OA\Property(property="place", type="string", description="The attraction publisher"),
- *   @OA\Property(property="artist", type="string", description="The attraction isbn"),
- * )
- */
+    /**
+     * @OA\Schema(
+     *   schema="Attraction",
+     *   description="Attraction",
+     *   title="Attraction Schema",
+     *   @OA\Property(property="id", type="string", description="The attraction id"),
+     *   @OA\Property(property="title", type="string", description="The attraction title"),
+     *   @OA\Property(property="date", type="string", description="The attraction description"),
+     *   @OA\Property(property="place", type="string", description="The attraction publisher"),
+     *   @OA\Property(property="artist", type="string", description="The attraction isbn"),
+     * )
+     */
 
 
 class AttractionResponse
