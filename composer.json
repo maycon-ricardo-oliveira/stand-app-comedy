@@ -51,7 +51,7 @@
         "up": "vendor/bin/sail up -d",
         "test" : "vendor/bin/phpunit",
         "testdox": "@test --testdox",
-        "down": "vendor/bin/sail down",
+        "down": "vendor/bin/sail down"
     },
     "extra": {
         "laravel": {

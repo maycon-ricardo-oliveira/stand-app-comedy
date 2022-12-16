@@ -23,4 +23,9 @@ class AttractionRepositoryMemory implements AttractionRepository {
         ],
         ];
     }
+
+    public function getPlacesByLocation(string $lat, string $long, int $distance, int $limit = 20)
+    {
+
+    }
 }
