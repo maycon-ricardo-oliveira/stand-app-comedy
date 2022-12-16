@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Chore\Adapters\EloquentAdapter;
 use App\Chore\Infra\Eloquent\AttractionRepositoryDatabase;
 use App\Chore\UseCases\ListAttractions\ListAttractions;
+use App\Models\Attraction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -38,7 +40,8 @@ class ListAttractionController extends Controller
      */
     public function handle(Request $request)
     {
-        $dao = new AttractionRepositoryDatabase();
+        $mysql = new EloquentAdapter(new Attraction());
+        $dao = new AttractionRepositoryDatabase($mysql);
         $listAttractions = new ListAttractions($dao);
         $output = $listAttractions->handle($request->place);
 

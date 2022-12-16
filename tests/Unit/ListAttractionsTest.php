@@ -2,10 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Domain\AttractionRepository;
+use App\Chore\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\UseCases\ListAttractions\AttractionResponse;
 use App\Chore\UseCases\ListAttractions\ListAttractions;
-use Tests\Mocks\AttractionRepositoryMemory;
 
 
 class ListAttractionsTest extends UnitTestCase

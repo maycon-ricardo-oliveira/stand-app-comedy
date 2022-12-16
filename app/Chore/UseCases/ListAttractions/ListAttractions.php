@@ -10,7 +10,7 @@ class ListAttractions
     /**
      * @var AttractionRepository
      */
-    private $attractionRepo;
+    private AttractionRepository $attractionRepo;
 
     public function __construct(AttractionRepository $attractionRepo)
     {

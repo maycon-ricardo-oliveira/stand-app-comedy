@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Mocks;
+namespace App\Chore\Infra\Memory;
 
 use App\Chore\Domain\AttractionRepository;
 

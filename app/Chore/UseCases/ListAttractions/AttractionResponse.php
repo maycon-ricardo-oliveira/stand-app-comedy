@@ -18,11 +18,11 @@ namespace App\Chore\UseCases\ListAttractions;
 
 class AttractionResponse
 {
-    public $id;
-    public $title;
-    public $date;
-    public $place;
-    public $artist;
+    public string $id;
+    public string $title;
+    public string $date;
+    public string $place;
+    public string $artist;
 
     /**
      * @param string $id

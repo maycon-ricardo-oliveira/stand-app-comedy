@@ -7,9 +7,9 @@ use App\Chore\Domain\AttractionRepository;
 class AttractionDAODatabase implements AttractionRepository
 {
 
-    private Connection $connection;
+    private DBConnection $connection;
 
-    public function __construct(Connection $connection)
+    public function __construct(DBConnection $connection)
     {
         $this->connection = $connection;
     }

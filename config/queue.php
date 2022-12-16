@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Queue Connection Name
+    | Default Queue DBConnection Name
     |--------------------------------------------------------------------------
     |
     | Laravel's queue API supports an assortment of back-ends via a single

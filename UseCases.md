@@ -8,6 +8,9 @@
 - [ ] Integrate of Youtube and get Most Whatched videos
 - [ ] Integrate with GeoLocation Google Api
 - [ ] Evaluate an Attraction with 5 stars
+- [ ] Login
+- [ ] Logout
+
 
 ### Architecture Base:
 I Use Clean Architecture and Hexagonal Architecture with reference to do this. 
