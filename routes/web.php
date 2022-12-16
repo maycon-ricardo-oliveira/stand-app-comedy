@@ -17,15 +17,5 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => '/api'], function () use ($router) {
-    $router->get('/health', ['uses' => 'HealthController@healthCheck']);
 
-    $router->group(['prefix' => '/v1'], function () use ($router) {
-
-        $router->group(['prefix' => '/attractions'], function () use ($router) {
-            $router->get('{place}', ['uses' => 'ListAttractionController@handle']);
-
-        });
-    });
-});
 
