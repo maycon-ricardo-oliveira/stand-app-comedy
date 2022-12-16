@@ -47,7 +47,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+        "up": "vendor/bin/sail up -d",
+        "test" : "vendor/bin/phpunit",
+        "testdox": "@test --testdox",
+        "down": "vendor/bin/sail down",
     },
     "extra": {
         "laravel": {
