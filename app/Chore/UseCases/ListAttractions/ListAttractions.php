@@ -10,7 +10,7 @@ class ListAttractions
     /**
      * @var AttractionRepository
      */
-    private $attractionRepo;
+    private AttractionRepository $attractionRepo;
 
     public function __construct(AttractionRepository $attractionRepo)
     {
@@ -27,7 +27,6 @@ class ListAttractions
                 $attraction['id'],
                 $attraction['title'],
                 $attraction['date'],
-                $attraction['place'],
                 $attraction['artist']
             );
 

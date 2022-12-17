@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Attraction extends Model
 {
@@ -19,6 +20,11 @@ class Attraction extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id', 'title', 'date', 'place', 'artist'];
+    protected $fillable = ['id', 'title', 'date', 'place', 'artist', 'place_id'];
+
+    public function place(): BelongsTo
+    {
+        return $this->belongsTo(Place::class, 'place_id', 'id');
+    }
 
 }

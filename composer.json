@@ -10,7 +10,8 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "playkids/api-response": "^1.0"
+        "playkids/api-response": "^1.0",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -46,7 +47,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+        "up": "vendor/bin/sail up -d",
+        "test" : "vendor/bin/phpunit",
+        "testdox": "@test --testdox",
+        "down": "vendor/bin/sail down"
     },
     "extra": {
         "laravel": {

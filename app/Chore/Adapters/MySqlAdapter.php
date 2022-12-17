@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Chore\Infra\MySql;
+namespace App\Chore\Adapters;
 
+use App\Chore\Infra\MySql\DBConnection;
 use PDO;
 
-class MySqlAdapter implements Connection
+class MySqlAdapter implements DBConnection
 {
 
     public $connection;
