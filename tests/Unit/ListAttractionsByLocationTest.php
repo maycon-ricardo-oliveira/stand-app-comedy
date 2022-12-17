@@ -4,7 +4,8 @@ namespace Tests\Unit;
 
 use App\Chore\Adapters\EloquentAdapter;
 use App\Chore\Adapters\MySqlAdapter;
-use App\Chore\Infra\Eloquent\AttractionRepositoryDatabase;
+use App\Chore\Infra\Eloquent\AttractionRepositoryEloquent;
+use App\Chore\Infra\MySql\AttractionDAODatabase;
 use App\Chore\UseCases\ListAttractionsByLocation\ListAttractionsByLocation;
 use App\Models\Attraction;
 use App\Models\Place;
@@ -15,16 +16,36 @@ class ListAttractionsByLocationTest extends UnitTestCase
     {
 
         $adapter = new MySqlAdapter();
-        $repo = new AttractionRepositoryDatabase($adapter);
+        $repo = new AttractionDAODatabase($adapter);
         $useCase = new ListAttractionsByLocation($repo);
 
         $lat = '-23.546184';
         $lng = '-46.5798771';
-        $response = $useCase->handle($lat, $lng);
+        $distanceInKM = 10;
+        $limit = 100;
 
-        var_dump($response);
+        $response = $useCase->handle($lat, $lng, $distanceInKM, $limit);
 
+        $this->assertSame(5, count($response));
         $this->assertTrue(true);
+    }
+
+    public function testMusEnsureOnlyAttractionsAreLowerDistanceThenDistancePassed()
+    {
+
+        $adapter = new MySqlAdapter();
+        $repo = new AttractionDAODatabase($adapter);
+        $useCase = new ListAttractionsByLocation($repo);
+
+        $lat = '-23.546184';
+        $lng = '-46.5798771';
+        $distanceInKM = 10;
+        $limit = 100;
+
+        $response = $useCase->handle($lat, $lng, $distanceInKM, $limit);
+
+        $this->assertSame("Afonso Padilha", $response[0]->artist);
+
     }
 
 }

@@ -3,6 +3,7 @@
 namespace App\Chore\UseCases\ListAttractionsByLocation;
 
 use App\Chore\Domain\AttractionRepository;
+use App\Chore\UseCases\ListAttractions\AttractionWithLocation;
 use App\Chore\UseCases\ListAttractions\AttractionResponse;
 
 class ListAttractionsByLocation
@@ -21,11 +22,38 @@ class ListAttractionsByLocation
     }
 
 
-    public function handle(string $lat, string $long): array
+    public function handle(string $lat, string $long, int $distance, $limit = 100): array
     {
-        $attractionsData = $this->attractionRepo->getPlacesByLocation($lat, $long, 10);
+        $attractionsData = $this->attractionRepo->getPlacesByLocation($lat, $long, $distance, $limit);
 
-        return $attractionsData;
+
+        $response = [];
+
+        if ($attractionsData == null) {
+            return [];
+        }
+
+        foreach ($attractionsData as $item) {
+
+            $serialize = new AttractionWithLocation(
+                $item['id'],
+                $item['artist'],
+                $item['place'],
+                $item['date'],
+                $item['title'],
+                $item['place_id'],
+                $item['name'],
+                $item['address'],
+                $item['zipcode'],
+                $item['lat'],
+                $item['lng'],
+                $item['distance'],
+            );
+
+            $response[] = $serialize;
+        }
+
+        return $response ?? [];
     }
 
 }

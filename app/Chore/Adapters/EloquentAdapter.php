@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class EloquentAdapter implements DBConnection
 {
+    // TODO: This Adapter needs a complete revision
+    // TODO: Refactor to use models
 
     public Model $model;
 
@@ -20,7 +22,7 @@ class EloquentAdapter implements DBConnection
 
     public function query(string $statement, array $params)
     {
-        return $this->model->newQuery();
+        return $this->model->query();
     }
 
     public function close(): void

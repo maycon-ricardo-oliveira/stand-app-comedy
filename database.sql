@@ -31,7 +31,7 @@ CREATE TABLE `attractions` (
 
 INSERT INTO `attractions` (`artist`,`place`,`date`,`title`, `place_id`)
 VALUES
-    ('fonso Padilha','Espaço Cultural Urca','2023-02-21 16:14:08','Espalhando a Palavra', 6),
+    ('Afonso Padilha','Espaço Cultural Urca','2023-02-21 16:14:08','Espalhando a Palavra', 6),
     ('Rodrigo Marques','Espaço Cultural Urca','2023-02-21 22:50:59','O Problema é meu', 6),
     ('Thiago Ventura','Clube do Minhoca','2023-01-20 19:37:20','Só Agradece', 6),
     ('Danilo Gentilli','My Fucking Comedy Club','2023-01-17 09:55:17','Politicamente Incorreto', 6),
