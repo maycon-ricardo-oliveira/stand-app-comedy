@@ -3,6 +3,7 @@
 namespace App\Chore\Infra\Eloquent;
 
 use App\Chore\Infra\MySql\DBConnection;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class EloquentBase
 {
@@ -11,7 +12,7 @@ abstract class EloquentBase
 
     abstract public function __construct(DBConnection $connection);
 
-    public function getModel() {
+    public function getModel():Model {
         return $this->connection->model;
     }
 

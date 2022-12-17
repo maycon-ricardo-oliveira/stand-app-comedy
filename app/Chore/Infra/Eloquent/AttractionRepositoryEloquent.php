@@ -4,7 +4,6 @@ namespace App\Chore\Infra\Eloquent;
 
 use App\Chore\Domain\AttractionRepository;
 use App\Chore\Infra\MySql\DBConnection;
-use App\Models\Attraction;
 
 class AttractionRepositoryEloquent extends EloquentBase implements AttractionRepository
 {
@@ -18,14 +17,11 @@ class AttractionRepositoryEloquent extends EloquentBase implements AttractionRep
 
     public function getAttractionsInAPlace(string $place)
     {
-//        return Attraction::where(['place' => $place])->get();
-
-        $query = $this->query()->where(['place' => $place])->toSql();
-        return $this->connection->query($query, []);
+        return $this->getModel()->with('place')->where(['place' => $place])->get();
     }
 
     public function getPlacesByLocation(string $lat, string $long, int $distance, int $limit = 20)
     {
-        // TODO: Implement getPlacesByLocation() method.
+        // TODO: implement this method
     }
 }
