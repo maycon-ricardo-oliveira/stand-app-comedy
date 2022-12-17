@@ -18,7 +18,7 @@
 A ideia consiste em ser um aplicativo de stream focado em comédia, onde o foco será atribuir aos comediantes uma plataforma especializada em gerir o conteúdo gerado por eles.
 
 ## Use Cases
-Can you see details about planning on file UseCases.md
+Can you see details about planning on file `documentation/UseCases.md`
 
 ## Let's get started!
 
