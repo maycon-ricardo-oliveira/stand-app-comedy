@@ -20,7 +20,7 @@ class AttractionRepositoryMemory implements AttractionRepository {
     public function __construct(array $attractions = [])
     {
 
-        if (empty($audiobooks)) {
+        if (empty($attractions)) {
             $this->attractions = $this->dataSet();
             return;
         }

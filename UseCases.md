@@ -1,15 +1,18 @@
 ### Use Cases:
 - [x] List Attractions by place
-- [ ] List Attractions by Location (Lat Long)
+- [x] List Attractions by Location (Lat Long)
 - [ ] List Attractions by Comedian
 - [ ] Follow a comedian
 - [ ] UnFollow a comedian
 - [ ] Show data of a comedian profile
-- [ ] Integrate of Youtube and get Most Whatched videos
+- [ ] Integrate of Youtube and get Most watched videos
 - [ ] Integrate with GeoLocation Google Api
 - [ ] Evaluate an Attraction with 5 stars
 - [ ] Login
 - [ ] Logout
+
+### Business Rules
+- [ ] Only Attractions in a future date can be returned
 
 
 ### Architecture Base:
