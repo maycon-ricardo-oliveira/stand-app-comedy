@@ -27,7 +27,6 @@ class ListAttractions
                 $attraction['id'],
                 $attraction['title'],
                 $attraction['date'],
-                $attraction['place'],
                 $attraction['artist']
             );
 

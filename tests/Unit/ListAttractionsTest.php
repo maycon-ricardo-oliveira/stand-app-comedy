@@ -23,22 +23,5 @@ class ListAttractionsTest extends UnitTestCase
         $this->assertSame(2, count($output));
         $this->assertInstanceOf(AttractionResponse::class, $output[0]);
     }
-    public function testMustBeReturnAListOfAttractionsUsingEloquent()
-    {
-
-        $adapter = new EloquentAdapter(new Attraction());
-        $repository = new AttractionRepositoryEloquent($adapter);
-        $useCase = new ListAttractionsByLocation($repository);
-
-        $lat = '-23.546184';
-        $lng = '-46.5798771';
-        $distanceInKM = 10;
-        $limit = 100;
-        $response = $useCase->handle($lat, $lng, $distanceInKM, $limit);
-
-
-        $this->assertSame(2, count($response));
-        $this->assertInstanceOf(AttractionResponse::class, $response[0]);
-    }
 
 }

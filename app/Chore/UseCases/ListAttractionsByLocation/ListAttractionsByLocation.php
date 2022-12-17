@@ -21,15 +21,11 @@ class ListAttractionsByLocation
     public function handle(string $lat, string $long, int $distance, $limit = 100): array
     {
         $attractionsData = $this->attractionRepo->getPlacesByLocation($lat, $long, $distance, $limit);
-
         $response = [];
-
         if ($attractionsData == null) {
             return [];
         }
-
         foreach ($attractionsData as $item) {
-
             $serialize = new AttractionWithLocationResponse(
                 $item['id'],
                 $item['artist'],
@@ -45,10 +41,8 @@ class ListAttractionsByLocation
                     $item['distance'],
                 )
             );
-
             $response[] = $serialize;
         }
-
         return $response ?? [];
     }
 
