@@ -3,14 +3,11 @@
 namespace App\Chore\UseCases\ListAttractionsByLocation;
 
 use App\Chore\Domain\AttractionRepository;
-use App\Chore\UseCases\ListAttractions\AttractionWithLocation;
-use App\Chore\UseCases\ListAttractions\AttractionResponse;
+use App\Chore\UseCases\ListAttractions\AttractionWithLocationResponse;
+use App\Chore\UseCases\ListAttractions\PlaceResponse;
 
 class ListAttractionsByLocation
 {
-
-    // https://www.anycodings.com/1questions/279869/find-nearest-latitudelongitude-with-an-sql-query
-
     private AttractionRepository $attractionRepo;
 
     /**
@@ -21,11 +18,9 @@ class ListAttractionsByLocation
         $this->attractionRepo = $attractionRepo;
     }
 
-
     public function handle(string $lat, string $long, int $distance, $limit = 100): array
     {
         $attractionsData = $this->attractionRepo->getPlacesByLocation($lat, $long, $distance, $limit);
-
 
         $response = [];
 
@@ -35,19 +30,20 @@ class ListAttractionsByLocation
 
         foreach ($attractionsData as $item) {
 
-            $serialize = new AttractionWithLocation(
+            $serialize = new AttractionWithLocationResponse(
                 $item['id'],
                 $item['artist'],
-                $item['place'],
                 $item['date'],
                 $item['title'],
-                $item['place_id'],
-                $item['name'],
-                $item['address'],
-                $item['zipcode'],
-                $item['lat'],
-                $item['lng'],
-                $item['distance'],
+                new PlaceResponse(
+                    $item['place_id'],
+                    $item['name'],
+                    $item['address'],
+                    $item['zipcode'],
+                    $item['lat'],
+                    $item['lng'],
+                    $item['distance'],
+                )
             );
 
             $response[] = $serialize;

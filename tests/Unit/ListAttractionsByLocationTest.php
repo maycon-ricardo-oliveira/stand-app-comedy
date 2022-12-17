@@ -2,13 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Adapters\EloquentAdapter;
 use App\Chore\Adapters\MySqlAdapter;
-use App\Chore\Infra\Eloquent\AttractionRepositoryEloquent;
 use App\Chore\Infra\MySql\AttractionDAODatabase;
 use App\Chore\UseCases\ListAttractionsByLocation\ListAttractionsByLocation;
-use App\Models\Attraction;
-use App\Models\Place;
+
 
 class ListAttractionsByLocationTest extends UnitTestCase
 {
