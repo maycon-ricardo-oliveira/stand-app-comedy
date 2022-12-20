@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-class FollowComedianTest extends UnitTestCase
+class FollowComedian extends UnitTestCase
 {
     public function testMustFollowAComedian()
     {

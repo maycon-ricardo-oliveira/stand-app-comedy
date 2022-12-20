@@ -49,7 +49,7 @@ class ListAttractionsByLocationController extends Controller
         $date = new DateTimeAdapter();
         $mysql = new MySqlAdapter();
 
-        $dao = new AttractionRepositoryMemory($date);
+        $dao = new AttractionDAODatabase($mysql, $date);
         $listAttractions = new ListAttractionsByLocation($dao);
         $response = $listAttractions->handle($lat, $lng, $distanceInKM, $limit);
 

@@ -5,6 +5,7 @@ namespace App\Chore\Infra\Memory;
 use App\Chore\Domain\Comedian;
 use App\Chore\Domain\ComedianRepository;
 use App\Chore\Domain\IDateTime;
+use App\Chore\Domain\IUniqId;
 use App\Chore\Infra\ComedianMapper;
 
 class ComedianRepositoryMemory extends ComedianMapper implements ComedianRepository
@@ -48,7 +49,7 @@ class ComedianRepositoryMemory extends ComedianMapper implements ComedianReposit
 
     public function dataSet() {
         return [[
-            "id" => 'any_id',
+            "id" => 'any_id_1',
             "name" => 'any_name',
             "miniBio" => 'any_miniBio',
             "socialMedias" => [
@@ -57,7 +58,7 @@ class ComedianRepositoryMemory extends ComedianMapper implements ComedianReposit
             ],
             "attractions" => [],
         ], [
-            "id" => 'any_id',
+            "id" => 'any_id_2',
             "name" => 'any_name',
             "miniBio" => 'any_miniBio',
             "socialMedias" => [
