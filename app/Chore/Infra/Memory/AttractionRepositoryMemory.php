@@ -96,4 +96,12 @@ class AttractionRepositoryMemory implements AttractionRepository {
             "distance" => 0.0001320590301398874
         ]];
     }
+
+    public function getAttractionsByComedian(string $comedian)
+    {
+        $response = array_filter($this->attractions, function ($attraction) use ($comedian) {
+            return str_contains($attraction['artist'], $comedian);
+        });
+        return $response;
+    }
 }

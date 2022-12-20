@@ -2,17 +2,23 @@
 
 namespace App\Chore\Infra\MySql;
 
+use App\Chore\Adapters\DateTimeAdapter;
+use App\Chore\Domain\Attraction;
 use App\Chore\Domain\AttractionRepository;
+use App\Chore\Domain\IDateTime;
+use App\Chore\Domain\Place;
 
 class AttractionDAODatabase implements AttractionRepository
 {
     const EARTH_RADIUS_IN_KM = 6371;
 
     private DBConnection $connection;
+    private IDateTime $time;
 
-    public function __construct(DBConnection $connection)
+    public function __construct(DBConnection $connection, IDateTime $time)
     {
         $this->connection = $connection;
+        $this->time = $time;
     }
 
     public function getAttractionsInAPlace(string $place)
@@ -24,7 +30,10 @@ class AttractionDAODatabase implements AttractionRepository
 
     }
 
-    public function getPlacesByLocation(string $lat, string $long, int $distance, int $limit = 100)
+    /**
+     * @throws \Exception
+     */
+    public function getPlacesByLocation(string $lat, string $long, int $distance, int $limit = 100): array
     {
         $params = [
             'lat' => $lat,
@@ -48,7 +57,45 @@ class AttractionDAODatabase implements AttractionRepository
                 and lat between  (:lat-(20/69))
                 and  (:lat +(20/69))
             having  distance <= :maxDistance ORDER BY distance limit 100;";
-        return $this->connection->query($query, $params);
 
+        $attractionsData = $this->connection->query($query, $params);
+        $response = [];
+        if ($attractionsData == null) {
+            return $response;
+        }
+
+        foreach ($attractionsData as $item) {
+
+            $serialize = new Attraction(
+                $item['id'],
+                $item['artist'],
+                new DateTimeAdapter($item['date']),
+                $this->time,
+                $item['title'],
+                new Place(
+                    $item['place_id'],
+                    $item['name'],
+                    $item['address'],
+                    $item['zipcode'],
+                    $item['lat'],
+                    $item['lng'],
+                    $item['distance'],
+                )
+            );
+            $response[] = $serialize;
+        }
+        return $response;
+    }
+
+    public function getAttractionsByComedian(string $comedian)
+    {
+        $comedian = '%' . $comedian . '%';
+        // TODO: Inner join with comedians
+        $query = "SELECT * FROM attractions
+
+         WHERE attractions.artist like :comedian ";
+        $params = ['comedian' => $comedian];
+
+        return $this->connection->query($query, $params);
     }
 }

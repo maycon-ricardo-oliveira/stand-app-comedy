@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Chore\UseCases\ListAttractions;
+namespace App\Chore\UseCases\DTOs;
 
 /**
  * @OA\Schema(

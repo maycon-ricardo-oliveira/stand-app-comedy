@@ -2,9 +2,13 @@
 
 namespace App\Chore\UseCases\ListAttractionsByLocation;
 
+use App\Chore\Adapters\DateTimeAdapter;
+use App\Chore\Domain\Attraction;
 use App\Chore\Domain\AttractionRepository;
-use App\Chore\UseCases\ListAttractions\AttractionWithLocationResponse;
-use App\Chore\UseCases\ListAttractions\PlaceResponse;
+use App\Chore\Domain\Place;
+use App\Chore\UseCases\DTOs\AttractionWithLocationResponse;
+use App\Chore\UseCases\DTOs\PlaceResponse;
+use App\Chore\Domain\IDateTime;
 
 class ListAttractionsByLocation
 {
@@ -18,32 +22,16 @@ class ListAttractionsByLocation
         $this->attractionRepo = $attractionRepo;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function handle(string $lat, string $long, int $distance, $limit = 100): array
     {
-        $attractionsData = $this->attractionRepo->getPlacesByLocation($lat, $long, $distance, $limit);
-        $response = [];
-        if ($attractionsData == null) {
-            return [];
-        }
-        foreach ($attractionsData as $item) {
-            $serialize = new AttractionWithLocationResponse(
-                $item['id'],
-                $item['artist'],
-                $item['date'],
-                $item['title'],
-                new PlaceResponse(
-                    $item['place_id'],
-                    $item['name'],
-                    $item['address'],
-                    $item['zipcode'],
-                    $item['lat'],
-                    $item['lng'],
-                    $item['distance'],
-                )
-            );
-            $response[] = $serialize;
-        }
-        return $response ?? [];
+        $attractions = $this->attractionRepo->getPlacesByLocation($lat, $long, $distance, $limit);
+
+
+        return $attractions;
+
     }
 
 }
