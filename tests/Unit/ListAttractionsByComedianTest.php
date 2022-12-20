@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\UseCases\ListAttractionsByComedian\ListAttractionsByComedian;
 
@@ -11,7 +12,8 @@ class ListAttractionsByComedianTest extends UnitTestCase
     public function testMusEnsureOnlyAttractionsAreLowerDistanceThenDistancePassed()
     {
 
-        $repo = new AttractionRepositoryMemory($this->dataSet());
+        $date = new DateTimeAdapter();
+        $repo = new AttractionRepositoryMemory($date, $this->dataSet());
         $useCase = new ListAttractionsByComedian($repo);
 
         $response = $useCase->handle('Afonso');

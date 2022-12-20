@@ -4,12 +4,9 @@ namespace App\Chore\UseCases\ListAttractionsByComedian;
 
 use App\Chore\Domain\AttractionRepository;
 use App\Chore\UseCases\DTOs\AttractionResponse;
-use App\Chore\UseCases\DTOs\AttractionWithLocationResponse;
-use App\Chore\UseCases\DTOs\PlaceResponse;
 
 class ListAttractionsByComedian
 {
-
 
     private AttractionRepository $repo;
 

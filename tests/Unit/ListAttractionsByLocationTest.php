@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\MySqlAdapter;
 use App\Chore\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Infra\MySql\AttractionDAODatabase;
@@ -12,8 +13,8 @@ class ListAttractionsByLocationTest extends UnitTestCase
 {
     public function testMustReturnAListOfAttractions()
     {
-
-        $repo = new AttractionRepositoryMemory();
+        $date = new DateTimeAdapter();
+        $repo = new AttractionRepositoryMemory($date);
         $useCase = new ListAttractionsByLocation($repo);
 
         $lat = '-23.546184';
@@ -28,8 +29,8 @@ class ListAttractionsByLocationTest extends UnitTestCase
 
     public function testMusEnsureOnlyAttractionsAreLowerDistanceThenDistancePassed()
     {
-
-        $repo = new AttractionRepositoryMemory($this->dataSet());
+        $date = new DateTimeAdapter();
+        $repo = new AttractionRepositoryMemory($date, $this->dataSet());
         $useCase = new ListAttractionsByLocation($repo);
 
         $lat = '-23.546184';

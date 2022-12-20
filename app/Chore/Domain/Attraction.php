@@ -16,6 +16,7 @@ class Attraction
      * @param string $id
      * @param string $title
      * @param IDateTime $date
+     * @param IDateTime $time
      * @param string $artist
      * @param Place $place
      */

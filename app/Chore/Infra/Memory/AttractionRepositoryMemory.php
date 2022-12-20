@@ -2,8 +2,10 @@
 
 namespace App\Chore\Infra\Memory;
 
+use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Domain\Attraction;
 use App\Chore\Domain\AttractionRepository;
+use App\Chore\Domain\IDateTime;
 use App\Chore\Domain\Place;
 
 class AttractionRepositoryMemory implements AttractionRepository {
@@ -13,18 +15,22 @@ class AttractionRepositoryMemory implements AttractionRepository {
      * @var Attraction[]
      */
     private array $attractions;
+    private IDateTime $time;
 
     /**
      * @param array $attractions
      */
-    public function __construct(array $attractions = [])
+    public function __construct(IDateTime $time, array $attractions = [])
     {
 
         if (empty($attractions)) {
             $this->attractions = $this->dataSet();
+            $this->time = $time;
             return;
         }
         $this->attractions = $attractions;
+        $this->time = $time;
+
     }
     public function getAttractionsInAPlace(string $place): array
     {
@@ -42,6 +48,9 @@ class AttractionRepositoryMemory implements AttractionRepository {
         return $response;
     }
 
+    /**
+     * @throws \Exception
+     */
     private function generateAttractions()
     {
         $attractions = [];
@@ -50,7 +59,8 @@ class AttractionRepositoryMemory implements AttractionRepository {
             $item = new Attraction(
                 $key,
                 $item['title'],
-                $item['date'],
+                new DateTimeAdapter($item['date']),
+                $this->time,
                 $item['artist'],
                 new Place(
                     $item["place_id"],
