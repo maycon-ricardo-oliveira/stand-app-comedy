@@ -21,9 +21,8 @@ class ComedianDAODatabase implements ComedianRepository
 
     public function getComedianById(string $id)
     {
-        $query = "select * from attractions
-             inner join places on places.id = attractions.place_id
-             where attractions.place = :id";
+        $query = "select * from comedians
+             where comedians.id = :id";
         $params = ['id' => $id];
 
         $response = $this->connection->query($query, $params);

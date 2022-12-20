@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS `places`;
 DROP TABLE IF EXISTS `attractions`;
+DROP TABLE IF EXISTS `comedians`;
 
 
 CREATE TABLE `places` (
@@ -37,3 +38,22 @@ VALUES
     ('Danilo Gentilli','My Fucking Comedy Club','2023-01-17 09:55:17','Politicamente Incorreto', 6),
     ('Bruna Louise','Hillarius','2023-01-05 09:55:17','Desbocada', 6),
     ('Nando Vianna','Hillarius','2022-12-10 17:06:40','Processo de Brisa', 6);
+
+
+
+
+CREATE TABLE `comedians`
+(
+    `id` INT NOT  NULL AUTO_INCREMENT PRIMARY KEY ,
+    uuid     VARCHAR(32)   NOT NULL ,
+    name     VARCHAR(255)  NOT NULL ,
+    mini_bio VARCHAR(255)  NOT NULL
+);
+INSERT INTO `comedians` (`uuid`,`name`,`mini_bio`)
+VALUES
+    ('any_id_1', 'Afonso Padilha', ' Qualquer coisa aqui na mini bio do Afonso Padilha'),
+    ('any_id_2', 'Rodrigo Marques', ' Qualquer coisa aqui na mini bio do Rodrigo Marques'),
+    ('any_id_3', 'Thiago Ventura', ' Qualquer coisa aqui na mini bio do Thiago Ventura'),
+    ('any_id_4', 'Danilo Gentilli', ' Qualquer coisa aqui na mini bio do Danilo Gentilli'),
+    ('any_id_5', 'Bruna Louise', ' Qualquer coisa aqui na mini bio da Bruna Louise'),
+    ('any_id_6', 'Nando Vianna', ' Qualquer coisa aqui na mini bio do Nando Vianna');

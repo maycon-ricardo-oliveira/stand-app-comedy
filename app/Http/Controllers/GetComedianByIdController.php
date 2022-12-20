@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\MySqlAdapter;
-use App\Chore\Infra\Memory\ComedianRepositoryMemory;
+use App\Chore\Infra\MySql\ComedianDAODatabase;
 use App\Chore\UseCases\GetComedianDetailsById\GetComedianDetailsById;
 use Illuminate\Http\Request;
 
@@ -19,11 +19,10 @@ class GetComedianByIdController extends Controller
     public function handle(Request $request)
     {
 
-
         $mysql = new MySqlAdapter();
         $date = new DateTimeAdapter();
 
-        $repo = new ComedianRepositoryMemory($date);
+        $repo = new ComedianDAODatabase($mysql, $date);
         $useCase = new GetComedianDetailsById($repo);
 
         $response = $useCase->handle($request->comedian);
