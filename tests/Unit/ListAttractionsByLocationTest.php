@@ -44,7 +44,6 @@ class ListAttractionsByLocationTest extends UnitTestCase
         $this->assertSame(1, count($response));
     }
 
-
     /**
      * @throws \Exception
      */
@@ -65,6 +64,25 @@ class ListAttractionsByLocationTest extends UnitTestCase
         $this->assertSame("2 days and 0:0 hours", $response[0]->timeToEvent);
     }
 
+    /**
+     * @throws \Exception
+     */
+    public function testMustReturnFalseWhenEventIsPassed()
+    {
+
+        $date = new DateTimeAdapter('2023-01-11 00:00:01');
+        $repo = new AttractionRepositoryMemory($date, $this->dataSet());
+        $useCase = new ListAttractionsByLocation($repo);
+
+        $lat = '-23.546184';
+        $lng = '-46.5798771';
+        $distanceInKM = 12;
+        $limit = 100;
+
+        $response = $useCase->handle($lat, $lng, $distanceInKM, $limit);
+
+        $this->assertFalse($response[0]->timeToEvent);
+    }
 
     public function dataSet() {
         return [[

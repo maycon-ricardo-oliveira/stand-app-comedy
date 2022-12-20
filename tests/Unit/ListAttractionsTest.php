@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Domain\Attraction;
 use App\Chore\Infra\Memory\AttractionRepositoryMemory;
-use App\Chore\UseCases\DTOs\AttractionResponse;
 use App\Chore\UseCases\ListAttractions\ListAttractions;
 
 

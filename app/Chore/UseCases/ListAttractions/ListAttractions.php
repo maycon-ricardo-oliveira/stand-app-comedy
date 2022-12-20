@@ -3,7 +3,6 @@
 namespace App\Chore\UseCases\ListAttractions;
 
 use App\Chore\Domain\AttractionRepository;
-use App\Chore\UseCases\DTOs\AttractionResponse;
 
 class ListAttractions
 {
@@ -21,7 +20,6 @@ class ListAttractions
     public function handle(string $place): array
     {
         return $this->attractionRepo->getAttractionsInAPlace($place);
-
     }
 
 }

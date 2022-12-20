@@ -32,13 +32,8 @@ class Attraction
 
     public function getAmountTimeAtAttraction(IDateTime $time, IDateTime $date): false|string
     {
-
-        if ($date <= $time) {
-            return false;
-        }
-
+        if ($date <= $time) return false;
         return $date->diff($time, true)->format('%a days and %h:%i hours');
-
     }
 
 }

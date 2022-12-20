@@ -2,31 +2,34 @@
 
 namespace App\Chore\Infra\MySql;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Domain\Attraction;
 use App\Chore\Domain\AttractionRepository;
 use App\Chore\Domain\IDateTime;
-use App\Chore\Domain\Place;
+use App\Chore\Infra\AttractionMapper;
 
-class AttractionDAODatabase implements AttractionRepository
+class AttractionDAODatabase extends AttractionMapper implements AttractionRepository
 {
     const EARTH_RADIUS_IN_KM = 6371;
 
     private DBConnection $connection;
-    private IDateTime $time;
+
+    public IDateTime $time;
 
     public function __construct(DBConnection $connection, IDateTime $time)
     {
+        parent::__construct();
         $this->connection = $connection;
         $this->time = $time;
     }
 
     public function getAttractionsInAPlace(string $place)
     {
-        $query = "SELECT * FROM attractions WHERE attractions.place = :place";
+        $query = "select * from attractions
+             inner join places on places.id = attractions.place_id
+             where attractions.place = :place";
         $params = ['place' => $place];
 
-        return $this->connection->query($query, $params);
+        $attractionsData = $this->connection->query($query, $params);
+        return $this->mapper($this->time, $attractionsData);
 
     }
 
@@ -59,52 +62,21 @@ class AttractionDAODatabase implements AttractionRepository
             having  distance <= :maxDistance ORDER BY distance limit 100;";
 
         $attractionsData = $this->connection->query($query, $params);
-        return $this->attractionMapper($attractionsData);
+        return $this->mapper($this->time, $attractionsData);
 
     }
 
     public function getAttractionsByComedian(string $comedian)
     {
         $comedian = '%' . $comedian . '%';
-        // TODO: Inner join with comedians
         $query = "SELECT * FROM attractions
         inner join places on places.id = attractions.place_id
          WHERE attractions.artist like :comedian ";
         $params = ['comedian' => $comedian];
 
         $attractionsData = $this->connection->query($query, $params);
-
-        return $this->attractionMapper($attractionsData);
-
-    }
-
-    private function attractionMapper($attractionsData = [])
-    {
-        if ($attractionsData == []) {
-            return [];
-        }
-
-        return array_map(function($item) {
-            return [
-                new Attraction(
-                    $item['id'],
-                    $item['artist'],
-                    new DateTimeAdapter($item['date']),
-                    $this->time,
-                    $item['title'],
-                    new Place(
-                        $item['place_id'],
-                        $item['name'],
-                        $item['address'],
-                        $item['zipcode'],
-                        $item['lat'],
-                        $item['lng'],
-                        $item['distance'] ?? 0,
-                    )
-                )
-            ];
-
-        }, $attractionsData);
+        return $this->mapper($this->time, $attractionsData);
 
     }
+
 }

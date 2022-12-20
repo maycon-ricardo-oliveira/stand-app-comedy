@@ -32,6 +32,5 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function can($abilities, $arguments = [])
     {
-        // TODO: Implement can() method.
     }
 }

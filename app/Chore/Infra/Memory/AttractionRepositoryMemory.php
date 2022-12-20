@@ -7,8 +7,9 @@ use App\Chore\Domain\Attraction;
 use App\Chore\Domain\AttractionRepository;
 use App\Chore\Domain\IDateTime;
 use App\Chore\Domain\Place;
+use App\Chore\Infra\AttractionMapper;
 
-class AttractionRepositoryMemory implements AttractionRepository {
+class AttractionRepositoryMemory extends AttractionMapper implements AttractionRepository {
 
 
     /**
@@ -23,7 +24,9 @@ class AttractionRepositoryMemory implements AttractionRepository {
      */
     public function __construct(IDateTime $time, array $attractions = [])
     {
+
         $this->time = $time;
+        parent::__construct();
         $this->generateAttractions($attractions);
     }
 
@@ -56,29 +59,8 @@ class AttractionRepositoryMemory implements AttractionRepository {
      */
     private function generateAttractions(array $attractions = []): void
     {
-        if (empty($attractions)) {
-            $attractions = $this->dataSet();
-        }
-
-        foreach ($attractions as $item) {
-            $item = new Attraction(
-                $item['id'],
-                $item['title'],
-                new DateTimeAdapter($item['date']),
-                $this->time,
-                $item['artist'],
-                new Place(
-                    $item["place_id"],
-                    $item["name"],
-                    $item["address"],
-                    $item["zipcode"],
-                    $item["lat"],
-                    $item["lng"],
-                    $item["distance"]
-                ),
-            );
-            $this->attractions[] = $item;
-        }
+        if (empty($attractions)) $attractions = $this->dataSet();
+        $this->attractions = $this->mapper($this->time, $attractions);
     }
 
     public function dataSet() {
