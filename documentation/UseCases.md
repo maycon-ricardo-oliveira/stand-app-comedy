@@ -1,7 +1,7 @@
 ### Use Cases:
 - [x] List Attractions by place
 - [x] List Attractions by Location (Lat Long)
-- [ ] List Attractions by Comedian
+- [x] List Attractions by Comedian
 - [ ] Follow a comedian
 - [ ] UnFollow a comedian
 - [ ] Show data of a comedian profile
