@@ -2,76 +2,71 @@
 
 namespace App\Chore\Infra\Memory;
 
+use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Domain\Attraction;
 use App\Chore\Domain\AttractionRepository;
+use App\Chore\Domain\IDateTime;
 use App\Chore\Domain\Place;
+use App\Chore\Infra\AttractionMapper;
 
-class AttractionRepositoryMemory implements AttractionRepository {
+class AttractionRepositoryMemory extends AttractionMapper implements AttractionRepository {
 
 
     /**
      * @var Attraction[]
      */
     private array $attractions;
+    private IDateTime $time;
 
     /**
      * @param array $attractions
+     * @throws \Exception
      */
-    public function __construct(array $attractions = [])
+    public function __construct(IDateTime $time, array $attractions = [])
     {
 
-        if (empty($attractions)) {
-            $this->attractions = $this->dataSet();
-            return;
-        }
-        $this->attractions = $attractions;
+        $this->time = $time;
+        parent::__construct();
+        $this->generateAttractions($attractions);
     }
+
     public function getAttractionsInAPlace(string $place): array
     {
+
         $response = array_filter($this->attractions, function ($attraction) use ($place) {
-            return $attraction['name'] == $place;
+            return $attraction->place->name == $place;
         });
         return $response;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function getPlacesByLocation(string $lat, string $long, int $distance, int $limit = 20)
     {
-        $response = array_filter($this->attractions, function ($attraction) use ($lat, $long, $distance, $limit) {
-            return $attraction['distance'] <= $distance;
+        $places = array_filter($this->attractions, function ($attraction) use ($lat, $long, $distance, $limit) {
+            return $attraction->place->distance <= $distance;
         });
-        return $response;
+
+        return $places;
     }
 
-    private function generateAttractions()
-    {
-        $attractions = [];
-        $dataset = $this->dataSet();
-        foreach ($dataset as $key => $item) {
-            $item = new Attraction(
-                $key,
-                $item['title'],
-                $item['date'],
-                $item['artist'],
-                new Place(
-                    $item["place_id"],
-                    $item["name"],
-                    $item["address"],
-                    $item["zipcode"],
-                    $item["lat"],
-                    $item["lng"],
-                    $item["distance"]
-                ),
-            );
-            $attractions[] = $item;
-        }
 
-        return $attractions;
+    /**
+     * @param array $attractions
+     * @return void
+     * @throws \Exception
+     */
+    private function generateAttractions(array $attractions = []): void
+    {
+        if (empty($attractions)) $attractions = $this->dataSet();
+        $this->attractions = $this->mapper($this->time, $attractions);
     }
 
     public function dataSet() {
         return [[
             "id" => 6,
-            "artist" => "Afonso Padilha",
+            "artist" => "Afonsoo repo",
             "date" => "2023-02-21 16:14:08",
             "title" => "Espalhando a Palavra",
             "place_id" => 6,
@@ -83,7 +78,7 @@ class AttractionRepositoryMemory implements AttractionRepository {
             "distance" => 0.0001320590301398874
         ], [
             "id" => 6,
-            "artist" => "Rodrigo Marques",
+            "artist" => "Rodrigo repo",
             "place" => "Espaço Cultural Urca",
             "date" => "2023-02-21 22:50:59",
             "title" => "O Problema é meu",
@@ -95,5 +90,13 @@ class AttractionRepositoryMemory implements AttractionRepository {
             "lng" => -46.579876,
             "distance" => 0.0001320590301398874
         ]];
+    }
+
+    public function getAttractionsByComedian(string $comedian)
+    {
+        $response = array_filter($this->attractions, function ($attraction) use ($comedian) {
+            return str_contains($attraction->artist, $comedian);
+        });
+        return $response;
     }
 }

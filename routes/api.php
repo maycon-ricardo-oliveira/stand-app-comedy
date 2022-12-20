@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\ListAttractionController;
+use App\Http\Controllers\ListAttractionsController;
+use App\Http\Controllers\ListAttractionsByComedianController;
 use App\Http\Controllers\ListAttractionsByLocationController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     Route::get('/health', ['uses' => 'HealthController@healthCheck']);
     Route::get('attractions/location',  [ListAttractionsByLocationController::class, 'handle']);
-    Route::get('attractions/{place}',  [ListAttractionController::class, 'handle']);
+    Route::get('attractions/{place}',  [ListAttractionsController::class, 'handle']);
+    Route::get('attractions/comedian/{comedian}',  [ListAttractionsByComedianController::class, 'handle']);
 
 });

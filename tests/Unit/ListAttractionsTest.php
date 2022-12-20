@@ -2,13 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Adapters\EloquentAdapter;
-use App\Chore\Infra\Eloquent\AttractionRepositoryEloquent;
+use App\Chore\Adapters\DateTimeAdapter;
+use App\Chore\Domain\Attraction;
 use App\Chore\Infra\Memory\AttractionRepositoryMemory;
-use App\Chore\UseCases\ListAttractions\AttractionResponse;
 use App\Chore\UseCases\ListAttractions\ListAttractions;
-use App\Chore\UseCases\ListAttractionsByLocation\ListAttractionsByLocation;
-use App\Models\Attraction;
 
 
 class ListAttractionsTest extends UnitTestCase
@@ -16,12 +13,12 @@ class ListAttractionsTest extends UnitTestCase
 
     public function testMustBeReturnAListOfAttractions()
     {
-
-        $dao = new AttractionRepositoryMemory();
-        $listAttractions = new ListAttractions($dao);
+        $date = new DateTimeAdapter();
+        $repo = new AttractionRepositoryMemory($date);
+        $listAttractions = new ListAttractions($repo);
         $output = $listAttractions->handle('Hillarius');
         $this->assertSame(2, count($output));
-        $this->assertInstanceOf(AttractionResponse::class, $output[0]);
+        $this->assertInstanceOf(Attraction::class, $output[0]);
     }
 
 }
