@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Chore\Adapters\DateTimeAdapter;
+use App\Chore\Domain\Attraction;
 use App\Chore\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\UseCases\DTOs\AttractionResponse;
 use App\Chore\UseCases\ListAttractions\ListAttractions;
@@ -18,7 +19,7 @@ class ListAttractionsTest extends UnitTestCase
         $listAttractions = new ListAttractions($repo);
         $output = $listAttractions->handle('Hillarius');
         $this->assertSame(2, count($output));
-        $this->assertInstanceOf(AttractionResponse::class, $output[0]);
+        $this->assertInstanceOf(Attraction::class, $output[0]);
     }
 
 }

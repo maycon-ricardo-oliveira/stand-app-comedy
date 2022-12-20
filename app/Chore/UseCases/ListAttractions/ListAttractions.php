@@ -20,21 +20,8 @@ class ListAttractions
 
     public function handle(string $place): array
     {
-        $response = [];
-        $attractionsData = $this->attractionRepo->getAttractionsInAPlace($place);
+        return $this->attractionRepo->getAttractionsInAPlace($place);
 
-        foreach ($attractionsData as $attraction) {
-
-            $serialize = new AttractionResponse(
-                $attraction['id'],
-                $attraction['title'],
-                $attraction['date'],
-                $attraction['artist']
-            );
-
-            $response[] = $serialize;
-        }
-        return $response;
     }
 
 }

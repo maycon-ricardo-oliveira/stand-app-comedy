@@ -9,7 +9,7 @@ class Attraction
     public string $title;
     public IDateTime $date;
     public string $artist;
-    public null|IDateTime $timeToEvent;
+    public false|string $timeToEvent;
     public Place $place;
 
     /**
@@ -30,24 +30,14 @@ class Attraction
         $this->timeToEvent = $this->getAmountTimeAtAttraction($time, $date);
     }
 
-    public function getAmountTimeAtAttraction(IDateTime $time, IDateTime $date)
+    public function getAmountTimeAtAttraction(IDateTime $time, IDateTime $date): false|string
     {
-        var_dump($date);
-        var_dump($time);
-        var_dump($date->diff($time));
 
-        // payment on a future always must be true
-        if ($date >= $time) return true;
+        if ($date <= $time) {
+            return false;
+        }
 
-        $difference = $time->diff($date, true);
-
-        var_dump($difference);
-
-        return false;
-
-
-        // TODO: Verificar corretamente se a tava do evento já se passou
-        return $date <= $time;
+        return $date->diff($time, true)->format('%a days and %h:%i hours');
 
     }
 

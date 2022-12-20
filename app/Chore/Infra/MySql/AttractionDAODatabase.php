@@ -59,32 +59,8 @@ class AttractionDAODatabase implements AttractionRepository
             having  distance <= :maxDistance ORDER BY distance limit 100;";
 
         $attractionsData = $this->connection->query($query, $params);
-        $response = [];
-        if ($attractionsData == null) {
-            return $response;
-        }
+        return $this->attractionMapper($attractionsData);
 
-        foreach ($attractionsData as $item) {
-
-            $serialize = new Attraction(
-                $item['id'],
-                $item['artist'],
-                new DateTimeAdapter($item['date']),
-                $this->time,
-                $item['title'],
-                new Place(
-                    $item['place_id'],
-                    $item['name'],
-                    $item['address'],
-                    $item['zipcode'],
-                    $item['lat'],
-                    $item['lng'],
-                    $item['distance'],
-                )
-            );
-            $response[] = $serialize;
-        }
-        return $response;
     }
 
     public function getAttractionsByComedian(string $comedian)
@@ -92,10 +68,43 @@ class AttractionDAODatabase implements AttractionRepository
         $comedian = '%' . $comedian . '%';
         // TODO: Inner join with comedians
         $query = "SELECT * FROM attractions
-
+        inner join places on places.id = attractions.place_id
          WHERE attractions.artist like :comedian ";
         $params = ['comedian' => $comedian];
 
-        return $this->connection->query($query, $params);
+        $attractionsData = $this->connection->query($query, $params);
+
+        return $this->attractionMapper($attractionsData);
+
+    }
+
+    private function attractionMapper($attractionsData = [])
+    {
+        if ($attractionsData == []) {
+            return [];
+        }
+
+        return array_map(function($item) {
+            return [
+                new Attraction(
+                    $item['id'],
+                    $item['artist'],
+                    new DateTimeAdapter($item['date']),
+                    $this->time,
+                    $item['title'],
+                    new Place(
+                        $item['place_id'],
+                        $item['name'],
+                        $item['address'],
+                        $item['zipcode'],
+                        $item['lat'],
+                        $item['lng'],
+                        $item['distance'] ?? 0,
+                    )
+                )
+            ];
+
+        }, $attractionsData);
+
     }
 }

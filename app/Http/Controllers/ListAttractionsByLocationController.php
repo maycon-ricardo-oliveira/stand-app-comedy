@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\MySqlAdapter;
+use App\Chore\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Infra\MySql\AttractionDAODatabase;
 use App\Chore\UseCases\ListAttractionsByLocation\ListAttractionsByLocation;
 use Illuminate\Http\Request;
@@ -48,7 +49,7 @@ class ListAttractionsByLocationController extends Controller
         $date = new DateTimeAdapter();
         $mysql = new MySqlAdapter();
 
-        $dao = new AttractionDAODatabase($mysql, $date);
+        $dao = new AttractionRepositoryMemory($date);
         $listAttractions = new ListAttractionsByLocation($dao);
         $response = $listAttractions->handle($lat, $lng, $distanceInKM, $limit);
 

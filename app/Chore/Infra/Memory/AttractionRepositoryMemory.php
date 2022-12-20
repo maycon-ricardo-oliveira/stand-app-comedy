@@ -19,31 +19,19 @@ class AttractionRepositoryMemory implements AttractionRepository {
 
     /**
      * @param array $attractions
+     * @throws \Exception
      */
     public function __construct(IDateTime $time, array $attractions = [])
     {
-
-        if (empty($attractions)) {
-            $this->attractions = $this->dataSet();
-            $this->time = $time;
-            return;
-        }
-        $this->attractions = $attractions;
         $this->time = $time;
-
+        $this->generateAttractions($attractions);
     }
+
     public function getAttractionsInAPlace(string $place): array
     {
-        $response = array_filter($this->attractions, function ($attraction) use ($place) {
-            return $attraction['name'] == $place;
-        });
-        return $response;
-    }
 
-    public function getPlacesByLocation(string $lat, string $long, int $distance, int $limit = 20)
-    {
-        $response = array_filter($this->attractions, function ($attraction) use ($lat, $long, $distance, $limit) {
-            return $attraction['distance'] <= $distance;
+        $response = array_filter($this->attractions, function ($attraction) use ($place) {
+            return $attraction->place->name == $place;
         });
         return $response;
     }
@@ -51,13 +39,30 @@ class AttractionRepositoryMemory implements AttractionRepository {
     /**
      * @throws \Exception
      */
-    private function generateAttractions()
+    public function getPlacesByLocation(string $lat, string $long, int $distance, int $limit = 20)
     {
-        $attractions = [];
-        $dataset = $this->dataSet();
-        foreach ($dataset as $key => $item) {
+        $places = array_filter($this->attractions, function ($attraction) use ($lat, $long, $distance, $limit) {
+            return $attraction->place->distance <= $distance;
+        });
+
+        return $places;
+    }
+
+
+    /**
+     * @param array $attractions
+     * @return void
+     * @throws \Exception
+     */
+    private function generateAttractions(array $attractions = []): void
+    {
+        if (empty($attractions)) {
+            $attractions = $this->dataSet();
+        }
+
+        foreach ($attractions as $item) {
             $item = new Attraction(
-                $key,
+                $item['id'],
                 $item['title'],
                 new DateTimeAdapter($item['date']),
                 $this->time,
@@ -72,16 +77,14 @@ class AttractionRepositoryMemory implements AttractionRepository {
                     $item["distance"]
                 ),
             );
-            $attractions[] = $item;
+            $this->attractions[] = $item;
         }
-
-        return $attractions;
     }
 
     public function dataSet() {
         return [[
             "id" => 6,
-            "artist" => "Afonso Padilha",
+            "artist" => "Afonsoo repo",
             "date" => "2023-02-21 16:14:08",
             "title" => "Espalhando a Palavra",
             "place_id" => 6,
@@ -93,7 +96,7 @@ class AttractionRepositoryMemory implements AttractionRepository {
             "distance" => 0.0001320590301398874
         ], [
             "id" => 6,
-            "artist" => "Rodrigo Marques",
+            "artist" => "Rodrigo repo",
             "place" => "Espaço Cultural Urca",
             "date" => "2023-02-21 22:50:59",
             "title" => "O Problema é meu",
@@ -110,7 +113,7 @@ class AttractionRepositoryMemory implements AttractionRepository {
     public function getAttractionsByComedian(string $comedian)
     {
         $response = array_filter($this->attractions, function ($attraction) use ($comedian) {
-            return str_contains($attraction['artist'], $comedian);
+            return str_contains($attraction->artist, $comedian);
         });
         return $response;
     }

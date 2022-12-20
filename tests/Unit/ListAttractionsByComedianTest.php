@@ -9,7 +9,10 @@ use App\Chore\UseCases\ListAttractionsByComedian\ListAttractionsByComedian;
 class ListAttractionsByComedianTest extends UnitTestCase
 {
 
-    public function testMusEnsureOnlyAttractionsAreLowerDistanceThenDistancePassed()
+    /**
+     * @throws \Exception
+     */
+    public function testMustReturnAttractionsOfAnArtistNameIsPassed()
     {
 
         $date = new DateTimeAdapter();
@@ -22,11 +25,26 @@ class ListAttractionsByComedianTest extends UnitTestCase
         $this->assertSame(1, count($response));
     }
 
+    /**
+     * @throws \Exception
+     */
+    public function testMustReturnNullWhenNotKnowNameIsPassed()
+    {
+
+        $date = new DateTimeAdapter();
+        $repo = new AttractionRepositoryMemory($date, $this->dataSet());
+        $useCase = new ListAttractionsByComedian($repo);
+
+        $response = $useCase->handle('any_name');
+
+        $this->assertCount(0, $response);
+    }
+
     public function dataSet() {
         return [[
             "id" => '6',
-            "artist" => "Afonso Padilha",
-            "date" => "2023-02-21 16:14:08",
+            "artist" => "Afonso Padilha" ,
+            "date" => "2023-01-10 00:00:00",
             "title" => "Espalhando a Palavra",
             "place_id" => 6,
             "name" => "Hillarius",
@@ -39,7 +57,7 @@ class ListAttractionsByComedianTest extends UnitTestCase
             "id" => '6',
             "artist" => "Rodrigo Marques",
             "place" => "Espaço Cultural Urca",
-            "date" => "2023-02-21 22:50:59",
+            "date" => "2023-01-09 00:00:00",
             "title" => "O Problema é meu",
             "place_id" => 6,
             "name" => "Hillarius",

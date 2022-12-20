@@ -3,7 +3,6 @@
 namespace App\Chore\UseCases\ListAttractionsByComedian;
 
 use App\Chore\Domain\AttractionRepository;
-use App\Chore\UseCases\DTOs\AttractionResponse;
 
 class ListAttractionsByComedian
 {
@@ -17,19 +16,6 @@ class ListAttractionsByComedian
 
     public function handle(string $comedian)
     {
-        $attractions = $this->repo->getAttractionsByComedian($comedian);
-
-        foreach ($attractions as $attraction) {
-
-            $serialize = new AttractionResponse(
-                $attraction['id'],
-                $attraction['title'],
-                $attraction['date'],
-                $attraction['artist']
-            );
-
-            $response[] = $serialize;
-        }
-        return $response;
+        return $this->repo->getAttractionsByComedian($comedian);
     }
 }

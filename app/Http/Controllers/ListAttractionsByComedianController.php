@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\MySqlAdapter;
-use App\Chore\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Infra\MySql\AttractionDAODatabase;
 use App\Chore\UseCases\ListAttractionsByComedian\ListAttractionsByComedian;
 use Illuminate\Http\Request;
