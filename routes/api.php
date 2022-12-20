@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GetComedianByIdController;
 use App\Http\Controllers\ListAttractionsController;
 use App\Http\Controllers\ListAttractionsByComedianController;
 use App\Http\Controllers\ListAttractionsByLocationController;
@@ -22,5 +23,6 @@ Route::prefix('v1')->group(function () {
     Route::get('attractions/location',  [ListAttractionsByLocationController::class, 'handle']);
     Route::get('attractions/{place}',  [ListAttractionsController::class, 'handle']);
     Route::get('attractions/comedian/{comedian}',  [ListAttractionsByComedianController::class, 'handle']);
+    Route::get('comedian/{comedian}',  [GetComedianByIdController::class, 'handle']);
 
 });
