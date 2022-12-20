@@ -3,6 +3,7 @@
 namespace App\Chore\UseCases\ListAttractions;
 
 use App\Chore\Domain\AttractionRepository;
+use App\Chore\UseCases\DTOs\AttractionResponse;
 
 class ListAttractions
 {
@@ -21,6 +22,7 @@ class ListAttractions
     {
         $response = [];
         $attractionsData = $this->attractionRepo->getAttractionsInAPlace($place);
+
         foreach ($attractionsData as $attraction) {
 
             $serialize = new AttractionResponse(

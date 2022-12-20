@@ -2,44 +2,21 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Adapters\MySqlAdapter;
 use App\Chore\Infra\Memory\AttractionRepositoryMemory;
-use App\Chore\Infra\MySql\AttractionDAODatabase;
-use App\Chore\UseCases\ListAttractionsByLocation\ListAttractionsByLocation;
+use App\Chore\UseCases\ListAttractionsByComedian\ListAttractionsByComedian;
 
-
-class ListAttractionsByLocationTest extends UnitTestCase
+class ListAttractionsByComedianTest extends UnitTestCase
 {
-    public function testMustReturnAListOfAttractions()
-    {
-
-        $repo = new AttractionRepositoryMemory();
-        $useCase = new ListAttractionsByLocation($repo);
-
-        $lat = '-23.546184';
-        $lng = '-46.5798771';
-        $distanceInKM = 10;
-        $limit = 100;
-
-        $response = $useCase->handle($lat, $lng, $distanceInKM, $limit);
-
-        $this->assertSame(2, count($response));
-    }
 
     public function testMusEnsureOnlyAttractionsAreLowerDistanceThenDistancePassed()
     {
 
         $repo = new AttractionRepositoryMemory($this->dataSet());
-        $useCase = new ListAttractionsByLocation($repo);
+        $useCase = new ListAttractionsByComedian($repo);
 
-        $lat = '-23.546184';
-        $lng = '-46.5798771';
-        $distanceInKM = 10;
-        $limit = 100;
+        $response = $useCase->handle('Afonso');
 
-        $response = $useCase->handle($lat, $lng, $distanceInKM, $limit);
-
-        $this->assertSame($this->dataSet()[0]['id'], $response[0]['id']);
+        $this->assertSame($this->dataSet()[0]['id'], $response[0]->id);
         $this->assertSame(1, count($response));
     }
 
@@ -71,4 +48,5 @@ class ListAttractionsByLocationTest extends UnitTestCase
             "distance" => 12
         ]];
     }
+
 }
