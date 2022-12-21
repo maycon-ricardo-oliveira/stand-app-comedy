@@ -56,7 +56,6 @@ class ComedianRepositoryMemory extends ComedianMapper implements ComedianReposit
                 'mediaName' => 'instagram',
                 'profile' => '@any_id'
             ],
-            "attractions" => [],
         ], [
             "id" => 'any_id_2',
             "name" => 'any_name',
@@ -65,7 +64,6 @@ class ComedianRepositoryMemory extends ComedianMapper implements ComedianReposit
                 'mediaName' => 'instagram',
                 'profile' => '@any_id'
             ],
-            "attractions" => [],
         ]];
     }
 }
