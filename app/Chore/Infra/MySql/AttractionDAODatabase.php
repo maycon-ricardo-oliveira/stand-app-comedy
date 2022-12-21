@@ -25,7 +25,7 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
     {
         $query = "select * from attractions
              inner join places on places.id = attractions.place_id
-             where attractions.place = :place";
+             where places.name = :place";
         $params = ['place' => $place];
 
         $attractionsData = $this->connection->query($query, $params);
@@ -71,7 +71,8 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
         $comedian = '%' . $comedian . '%';
         $query = "SELECT * FROM attractions
         inner join places on places.id = attractions.place_id
-         WHERE attractions.artist like :comedian ";
+        inner join comedians on comedians.id = attractions.comedian_id
+         WHERE comedians.name like :comedian ";
         $params = ['comedian' => $comedian];
 
         $attractionsData = $this->connection->query($query, $params);
