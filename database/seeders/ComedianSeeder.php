@@ -23,11 +23,11 @@ class ComedianSeeder extends Seeder
     public function dataSet() {
         return [[
             "id" => uniqid(),
-            "name" => 'any_name',
+            "name" => 'Afonso Padilha',
             "miniBio" => 'any_miniBio',
         ], [
             "id" => uniqid(),
-            "name" => 'any_name',
+            "name" => 'Rodrigo Marques',
             "miniBio" => 'any_miniBio',
         ]];
     }
