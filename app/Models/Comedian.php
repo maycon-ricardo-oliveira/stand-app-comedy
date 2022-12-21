@@ -7,6 +7,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @OA\Schema(
+ *   schema="ComedianResponse",
+ *   description="Comedian",
+ *   title="Comedian Schema",
+ *   @OA\Property(property="id", type="string", description="The place id"),
+ *   @OA\Property(property="name", type="string", description="The place id"),
+ *   @OA\Property(property="miniBio", type="string", description="The place id"),
+ *   @OA\Property(property="socialMedias", type="string", description="The place id"),
+ *   @OA\Property(property="attractions", type="string", description="The place id"),
+ * )
+ */
+
 class Comedian extends Model
 {
     use HasFactory;
