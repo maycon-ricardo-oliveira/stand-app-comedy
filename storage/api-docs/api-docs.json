@@ -76,17 +76,17 @@
                 "tags": [
                     "attractions"
                 ],
-                "description": "Returns all attractions available by comedian name",
+                "description": "Returns all attractions available by comedian id",
                 "operationId": "ListAttractionsByComedianController@handle",
                 "parameters": [
                     {
                         "name": "comedian",
                         "in": "path",
-                        "description": "Comedian name",
+                        "description": "Comedian id",
                         "schema": {
                             "type": "string"
                         },
-                        "example": "Afonso"
+                        "example": "63a277fc7b251"
                     }
                 ],
                 "responses": {
