@@ -14,6 +14,13 @@
 ### Business Rules
 - [ ] Only Attractions in a future date can be returned
 
+### Dev Tools 
+- [ ] Logger Adapter
+- [ ] Unique Id Adapter
+
+### Fix 
+- [ ] check when used null parameters on ListAttractionsByLocation
+
 
 ### Architecture Base:
 I Use Clean Architecture and Hexagonal Architecture with reference to do this. 

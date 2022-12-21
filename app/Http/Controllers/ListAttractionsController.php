@@ -22,19 +22,16 @@ class ListAttractionsController extends Controller
      *   description="Returns all attractions available in a place.",
      *   security={ {"token": {} }},
      *   @OA\Parameter(
-     *     name="place",
+     *     name="place", in="path",
      *     description="place name",
-     *     in="path",
-     *     @OA\Schema(
-     *       type="string"
-     *     )
+     *     @OA\Schema(type="string"),
      *   ),
      *   @OA\Response(
      *     response=200,
-     *     description="successful operation",
+     *     description="Successful Operation",
      *     @OA\JsonContent(
      *       type="array",
-     *       @OA\Items(ref="#/components/schemas/Attraction")
+     *       @OA\Items(ref="#/components/schemas/AttractionResponse")
      *     ),
      *   ),
      *   @OA\Response(response=404, description="Not found operation"),
