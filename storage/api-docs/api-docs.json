@@ -6,6 +6,49 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/comedian/{comedian}": {
+            "get": {
+                "tags": [
+                    "comedian"
+                ],
+                "description": "Returns details by comedian id",
+                "operationId": "GetComedianByIdController@handle",
+                "parameters": [
+                    {
+                        "name": "comedian",
+                        "in": "path",
+                        "description": "Comedian id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "63a277fc7b251"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ComedianResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
         "/api/health": {
             "get": {
                 "tags": [
@@ -28,15 +71,117 @@
                 ]
             }
         },
-        "/api/subscriptions/{subscriptionId}/payment": {
+        "/api/v1/attractions/comedian/{comedian}": {
             "get": {
-                "description": "Proccess payment for subscription",
-                "operationId": "97a862c6f52d54227dc9f1b4f40d5634",
+                "tags": [
+                    "attractions"
+                ],
+                "description": "Returns all attractions available by comedian name",
+                "operationId": "ListAttractionsByComedianController@handle",
+                "parameters": [
+                    {
+                        "name": "comedian",
+                        "in": "path",
+                        "description": "Comedian name",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Afonso"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AttractionResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/attractions/location": {
+            "get": {
+                "tags": [
+                    "attractions"
+                ],
+                "description": "Returns all attractions available using lat and lng",
+                "operationId": "ListAttractionsByLocationController@handle",
+                "parameters": [
+                    {
+                        "name": "lat",
+                        "in": "query",
+                        "description": "Latitude parameter",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "-23.546184"
+                    },
+                    {
+                        "name": "lng",
+                        "in": "query",
+                        "description": "Longitude parameter",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "-46.5798771"
+                    },
+                    {
+                        "name": "distance",
+                        "in": "query",
+                        "description": "Distance parameter",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "100"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit parameter",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "100"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AttractionResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
             }
         },
         "/api/v1/attractions/{place}": {
@@ -98,6 +243,34 @@
                     },
                     "timezone": {
                         "description": "The date timezone",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "AttractionResponse": {
+                "title": "Attraction Schema",
+                "description": "Attraction",
+                "properties": {
+                    "id": {
+                        "description": "The place id",
+                        "type": "string"
+                    },
+                    "title": {
+                        "description": "The place name",
+                        "type": "string"
+                    },
+                    "date": {
+                        "$ref": "#/components/schemas/DateTimeResponse"
+                    },
+                    "comedian": {
+                        "$ref": "#/components/schemas/ComedianResponse"
+                    },
+                    "place": {
+                        "$ref": "#/components/schemas/PlaceResponse"
+                    },
+                    "timeToEvent": {
+                        "description": "The place address",
                         "type": "string"
                     }
                 },
@@ -168,35 +341,13 @@
                     }
                 },
                 "type": "object"
-            },
-            "AttractionResponse": {
-                "title": "Attraction Schema",
-                "description": "Attraction",
-                "properties": {
-                    "id": {
-                        "description": "The place id",
-                        "type": "string"
-                    },
-                    "title": {
-                        "description": "The place name",
-                        "type": "string"
-                    },
-                    "date": {
-                        "$ref": "#/components/schemas/DateTimeResponse"
-                    },
-                    "comedian": {
-                        "$ref": "#/components/schemas/ComedianResponse"
-                    },
-                    "place": {
-                        "$ref": "#/components/schemas/PlaceResponse"
-                    },
-                    "timeToEvent": {
-                        "description": "The place address",
-                        "type": "string"
-                    }
-                },
-                "type": "object"
             }
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "public",
+            "description": "Public Routes"
+        }
+    ]
 }

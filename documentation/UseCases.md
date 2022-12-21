@@ -18,6 +18,10 @@
 - [ ] Logger Adapter
 - [ ] Unique Id Adapter
 
+### Fix 
+- [ ] check when used null parameters on ListAttractionsByLocation
+
+
 ### Architecture Base:
 I Use Clean Architecture and Hexagonal Architecture with reference to do this. 
 -Trying use best practices of SOLID principles.

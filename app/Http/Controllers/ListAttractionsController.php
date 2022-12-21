@@ -22,12 +22,9 @@ class ListAttractionsController extends Controller
      *   description="Returns all attractions available in a place.",
      *   security={ {"token": {} }},
      *   @OA\Parameter(
-     *     name="place",
+     *     name="place", in="path",
      *     description="place name",
-     *     in="path",
-     *     @OA\Schema(
-     *       type="string"
-     *     )
+     *     @OA\Schema(type="string"),
      *   ),
      *   @OA\Response(
      *     response=200,
