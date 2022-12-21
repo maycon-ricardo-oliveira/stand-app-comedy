@@ -15,18 +15,16 @@ class Controller extends BaseController
 
     public $response;
 
-
     /**
-	 * @OA\Info(
-	 *      version="1.0.0",
-	 *      title="StandApp Project",
-	 *      description="Documentation API",
-	 * )
-	 * @OA\Tag(
-     *     name="example",
-     *     description="Documentation API"
+     * @OA\Info(
+     *   version="1.0.0",
+     *   title="StandApp Documentation",
+     *   description="Documentation API",
      * )
-     *
+	 * @OA\Tag(
+     *   name="public",
+     *   description="Public Routes"
+     * )
      */
     public function __construct()
     {
