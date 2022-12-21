@@ -8,7 +8,7 @@ class Attraction
     public string $id;
     public string $title;
     public IDateTime $date;
-    public string $artist;
+    public Comedian $comedian;
     public false|string $timeToEvent;
     public Place $place;
 
@@ -17,15 +17,15 @@ class Attraction
      * @param string $title
      * @param IDateTime $date
      * @param IDateTime $time
-     * @param string $artist
+     * @param Comedian $comedian
      * @param Place $place
      */
-    public function __construct(string $id, string $title, IDateTime $date, IDateTime $time, string $artist, Place $place)
+    public function __construct(string $id, string $title, IDateTime $date, Comedian $comedian, Place $place, IDateTime $time)
     {
         $this->id = $id;
         $this->title = $title;
+        $this->comedian = $comedian;
         $this->date = $date;
-        $this->artist = $artist;
         $this->place = $place;
         $this->timeToEvent = $this->getAmountTimeAtAttraction($time, $date);
     }

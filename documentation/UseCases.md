@@ -14,6 +14,9 @@
 ### Business Rules
 - [ ] Only Attractions in a future date can be returned
 
+### Dev Tools 
+- [ ] Logger Adapter
+- [ ] Unique Id Adapter
 
 ### Architecture Base:
 I Use Clean Architecture and Hexagonal Architecture with reference to do this. 

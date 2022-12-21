@@ -4,6 +4,7 @@ namespace App\Chore\Infra;
 
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Domain\Attraction;
+use App\Chore\Domain\Comedian;
 use App\Chore\Domain\IDateTime;
 use App\Chore\Domain\Place;
 use ArrayIterator;
@@ -26,17 +27,24 @@ class AttractionMapper extends ArrayIterator {
                 $item['id'],
                 $item['title'],
                 new DateTimeAdapter($item['date']),
-                $time,
-                $item['artist'],
+                new Comedian(
+                    $item['id'],
+                    $item['comedianName'],
+                    $item['miniBio'],
+                    $item['socialMedias'] ?? [],
+                    $item['attractions'] ?? [],
+                ),
                 new Place(
                     $item['place_id'],
-                    $item['name'],
+                    $item['placeName'],
+                    $item['seats'],
                     $item['address'],
                     $item['zipcode'],
                     $item['lat'],
                     $item['lng'],
                     $item['distance'] ?? 0,
-                )
+                ),
+                $time
             );
 
         }, $attractionsData);

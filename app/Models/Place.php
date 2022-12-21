@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Place extends Model
 {
+
+    use HasUuids;
 
     /**
      * The table associated with the model.
@@ -20,7 +23,7 @@ class Place extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id', 'name', 'address', 'zipcode', 'lat', 'lng'];
+    protected $fillable = ['id', 'name', 'seats', 'address', 'zipcode', 'lat', 'lng', 'created_at', 'updated_at'];
 
     public function attractions(): HasMany
     {
