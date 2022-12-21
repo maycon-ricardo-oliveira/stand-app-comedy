@@ -18,9 +18,11 @@ return new class extends Migration
             $table->string('title');
             $table->dateTime('date');
             $table->string('duration');
-            $table->foreignUuid('artist_id');
-            $table->foreignUuid('place_id');
             $table->timestamps();
+
+            $table->foreignUuid('comedian_id')->constrained('comedians');
+            $table->foreignUuid('place_id')->constrained('places');
+
         });
     }
 
