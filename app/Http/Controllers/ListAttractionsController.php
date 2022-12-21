@@ -31,10 +31,10 @@ class ListAttractionsController extends Controller
      *   ),
      *   @OA\Response(
      *     response=200,
-     *     description="successful operation",
+     *     description="Successful Operation",
      *     @OA\JsonContent(
      *       type="array",
-     *       @OA\Items(ref="#/components/schemas/Attraction")
+     *       @OA\Items(ref="#/components/schemas/AttractionResponse")
      *     ),
      *   ),
      *   @OA\Response(response=404, description="Not found operation"),
