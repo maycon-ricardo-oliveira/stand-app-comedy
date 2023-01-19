@@ -16,11 +16,11 @@ class ListAttractionsByComedianController extends Controller
      *   path="/api/v1/attractions/comedian/{comedian}",
      *   tags={"attractions"},
      *   operationId="ListAttractionsByComedianController@handle",
-     *   description="Returns all attractions available by comedian name",
+     *   description="Returns all attractions available by comedian id",
      *   security={ {"token": {} }},
      *   @OA\Parameter(
-     *     name="comedian", in="path", example="Afonso",
-     *     description="Comedian name",
+     *     name="comedian", in="path", example="63a277fc7b251",
+     *     description="Comedian id",
      *     @OA\Schema(type="string")
      *   ),
      *   @OA\Response(
@@ -39,6 +39,9 @@ class ListAttractionsByComedianController extends Controller
      */
     public function handle(Request $request)
     {
+        $this->validate($request, [
+            'comedianId' => 'required|string'
+        ]);
 
         $mysql = new MySqlAdapter();
         $date = new DateTimeAdapter();
@@ -46,7 +49,7 @@ class ListAttractionsByComedianController extends Controller
         $repo = new AttractionDAODatabase($mysql, $date);
         $useCase = new ListAttractionsByComedian($repo);
 
-        $response = $useCase->handle($request->comedian);
+        $response = $useCase->handle($request->comedianId);
 
         return $this->response->successResponse($response);
 

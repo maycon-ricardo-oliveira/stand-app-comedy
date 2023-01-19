@@ -24,7 +24,9 @@ class AttractionControllersTest extends FeatureTestCase
     public function testMustBeReturn200OnListAttractionsByComedianController()
     {
         $request = new Request();
-        $request->comedian = 'Afonso';
+        $request->replace([
+            'comedianId' =>  '63a277fc7b251',
+        ]);
 
         $controller = new ListAttractionsByComedianController();
         $response = $controller->handle($request);
