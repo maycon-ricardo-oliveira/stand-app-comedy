@@ -5,6 +5,9 @@
 - [x] Show data of a comedian profile
 - [ ] Login
 - [ ] Logout
+- [ ] Register
+- [ ] Forgot password
+- [ ] Recover password
 - [ ] Follow a comedian
 - [ ] UnFollow a comedian
 - [ ] Evaluate an Attraction with 5 stars
