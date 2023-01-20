@@ -96,11 +96,20 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
         ]];
     }
 
-    public function getAttractionsByComedian(string $comedian)
+    public function getAttractionsByComedianName(string $comedianName)
     {
-        $response = array_filter($this->attractions, function ($attraction) use ($comedian) {
-            return str_contains($attraction->comedian->name, $comedian);
+        $response = array_filter($this->attractions, function ($attraction) use ($comedianName) {
+            return str_contains($attraction->comedian->name, $comedianName);
         });
         return $response;
     }
+
+    public function getAttractionsByComedianId(string $comedianId)
+    {
+        $response = array_filter($this->attractions, function ($attraction) use ($comedianId) {
+            return str_contains($attraction->comedian->id, $comedianId);
+        });
+        return $response;
+    }
+
 }

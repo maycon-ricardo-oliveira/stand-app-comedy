@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Http\Controllers\ListAttractionsByComedianController;
+use App\Http\Controllers\ListAttractionsByComedianNameController;
 use App\Http\Controllers\ListAttractionsByLocationController;
 use App\Http\Controllers\ListAttractionsController;
 use Illuminate\Http\Request;
@@ -48,4 +49,14 @@ class AttractionControllersTest extends FeatureTestCase
         $this->assertSame(200, $response->getData()->status);
     }
 
+    public function testMustBeReturn200OnListAttractionsByComedianNameController()
+    {
+        $request = new Request();
+        $request->comedianName = 'Afonso';
+
+        $controller = new ListAttractionsByComedianNameController();
+        $response = $controller->handle($request);
+
+        $this->assertSame(200, $response->getData()->status);
+    }
 }

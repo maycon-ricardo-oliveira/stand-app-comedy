@@ -11,7 +11,7 @@ class ComedianControllersTest extends FeatureTestCase
     public function testMustBeReturn200OnListAttractionsByComedianController()
     {
         $request = new Request();
-        $request->comedian = '63a277fc7b251';
+        $request->comedianId = '63a277fc7b251';
 
         $controller = new GetComedianByIdController();
         $response = $controller->handle($request);

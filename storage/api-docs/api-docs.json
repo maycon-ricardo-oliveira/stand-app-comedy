@@ -6,7 +6,7 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/v1/comedian/{comedian}": {
+        "/api/v1/comedian/{comedianId}": {
             "get": {
                 "tags": [
                     "comedian"
@@ -15,7 +15,7 @@
                 "operationId": "GetComedianByIdController@handle",
                 "parameters": [
                     {
-                        "name": "comedian",
+                        "name": "comedianId",
                         "in": "path",
                         "description": "Comedian id",
                         "schema": {
@@ -49,7 +49,7 @@
                 ]
             }
         },
-        "/api/health": {
+        "/api/v1/health": {
             "get": {
                 "tags": [
                     "health"
@@ -71,7 +71,7 @@
                 ]
             }
         },
-        "/api/v1/attractions/comedian/{comedian}": {
+        "/api/v1/attractions/comedian/{comedianId}": {
             "get": {
                 "tags": [
                     "attractions"
@@ -80,13 +80,56 @@
                 "operationId": "ListAttractionsByComedianController@handle",
                 "parameters": [
                     {
-                        "name": "comedian",
+                        "name": "comedianId",
                         "in": "path",
                         "description": "Comedian id",
                         "schema": {
                             "type": "string"
                         },
                         "example": "63a277fc7b251"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AttractionResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/attractions/comedian/name/{comedianName}": {
+            "get": {
+                "tags": [
+                    "attractions"
+                ],
+                "description": "Returns all attractions available by comedian name",
+                "operationId": "ListAttractionsByComedianNameController@handle",
+                "parameters": [
+                    {
+                        "name": "comedianName",
+                        "in": "path",
+                        "description": "Comedian name",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Afonso"
                     }
                 ],
                 "responses": {

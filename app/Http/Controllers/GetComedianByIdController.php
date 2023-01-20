@@ -19,13 +19,13 @@ class GetComedianByIdController extends Controller
 
     /**
      * @OA\Get(
-     *   path="/api/v1/comedian/{comedian}",
+     *   path="/api/v1/comedian/{comedianId}",
      *   tags={"comedian"},
      *   operationId="GetComedianByIdController@handle",
      *   description="Returns details by comedian id",
      *   security={ {"token": {} }},
      *   @OA\Parameter(
-     *     name="comedian", in="path", example="63a277fc7b251",
+     *     name="comedianId", in="path", example="63a277fc7b251",
      *     description="Comedian id",
      *     @OA\Schema(type="string")
      *   ),
@@ -51,7 +51,7 @@ class GetComedianByIdController extends Controller
         $repo = new ComedianDAODatabase($mysql, $date);
         $useCase = new GetComedianDetailsById($repo);
 
-        $response = $useCase->handle($request->comedian);
+        $response = $useCase->handle($request->comedianId);
 
         return $this->response->successResponse($response);
 

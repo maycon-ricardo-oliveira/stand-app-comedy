@@ -8,6 +8,8 @@ interface AttractionRepository
 
     public function getPlacesByLocation(string $lat, string $long, int $distance, int $limit = 20);
 
-    public function getAttractionsByComedian(string $comedian);
+    public function getAttractionsByComedianName(string $comedianName);
+
+    public function getAttractionsByComedianId(string $comedianId);
 
 }

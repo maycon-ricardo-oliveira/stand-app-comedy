@@ -25,8 +25,14 @@ class AttractionRepositoryEloquent extends EloquentBase implements AttractionRep
         // TODO: implement this method
     }
 
-    public function getAttractionsByComedian(string $comedian)
+    public function getAttractionsByComedianName(string $comedianName)
     {
-        return $this->getModel()->with('place')->where(['artist' => $comedian])->get();
+        return $this->getModel()->with('place')->where(['artist' => $comedianName])->get();
+
+    }
+
+    public function getAttractionsByComedianId(string $comedianId)
+    {
+        return $this->getModel()->with('place')->where(['artist' => $comedianId])->get();
     }
 }
