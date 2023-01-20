@@ -2,14 +2,14 @@
 - [x] List Attractions by place
 - [x] List Attractions by Location (Lat Long)
 - [x] List Attractions by Comedian
-- [ ] Show data of a comedian profile
-- [ ] Follow a comedian
-- [ ] UnFollow a comedian
-- [ ] Integrate of YouTube and get Most watched videos
-- [ ] Integrate with GeoLocation Google Api
-- [ ] Evaluate an Attraction with 5 stars
+- [x] Show data of a comedian profile
 - [ ] Login
 - [ ] Logout
+- [ ] Follow a comedian
+- [ ] UnFollow a comedian
+- [ ] Evaluate an Attraction with 5 stars
+- [ ] Integrate of YouTube and get Most watched videos
+- [ ] Integrate with GeoLocation Google Api
 
 ### Business Rules
 - [ ] Only Attractions in a future date can be returned
