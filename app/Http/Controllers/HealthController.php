@@ -16,7 +16,7 @@ class HealthController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/health",
+     *     path="/api/v1/health",
      *     tags={"health"},
      *     operationId="healthCheck",
      *     description="Returns if apllication is running.",
