@@ -6,21 +6,22 @@ use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\MySqlAdapter;
 use App\Chore\Infra\MySql\AttractionDAODatabase;
 use App\Chore\UseCases\ListAttractionsByComedianId\ListAttractionsByComedianId;
+use App\Chore\UseCases\ListAttractionsByComedianName\ListAttractionsByComedianName;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ListAttractionsByComedianController extends Controller
+class ListAttractionsByComedianNameController extends Controller
 {
     /**
      * @OA\Get(
-     *   path="/api/v1/attractions/comedian/{comedianId}",
+     *   path="/api/v1/attractions/comedian/name/{comedianName}",
      *   tags={"attractions"},
-     *   operationId="ListAttractionsByComedianController@handle",
-     *   description="Returns all attractions available by comedian id",
+     *   operationId="ListAttractionsByComedianNameController@handle",
+     *   description="Returns all attractions available by comedian name",
      *   security={ {"token": {} }},
      *   @OA\Parameter(
-     *     name="comedianId", in="path", example="63a277fc7b251",
-     *     description="Comedian id",
+     *     name="comedianName", in="path", example="Afonso",
+     *     description="Comedian name",
      *     @OA\Schema(type="string")
      *   ),
      *   @OA\Response(
@@ -39,17 +40,14 @@ class ListAttractionsByComedianController extends Controller
      */
     public function handle(Request $request)
     {
-        $this->validate($request, [
-            'comedianId' => 'required|string'
-        ]);
 
         $mysql = new MySqlAdapter();
         $date = new DateTimeAdapter();
 
         $repo = new AttractionDAODatabase($mysql, $date);
-        $useCase = new ListAttractionsByComedianId($repo);
+        $useCase = new ListAttractionsByComedianName($repo);
 
-        $response = $useCase->handle($request->comedianId);
+        $response = $useCase->handle($request->comedianName);
 
         return $this->response->successResponse($response);
 

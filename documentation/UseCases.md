@@ -5,7 +5,7 @@
 - [ ] Show data of a comedian profile
 - [ ] Follow a comedian
 - [ ] UnFollow a comedian
-- [ ] Integrate of Youtube and get Most watched videos
+- [ ] Integrate of YouTube and get Most watched videos
 - [ ] Integrate with GeoLocation Google Api
 - [ ] Evaluate an Attraction with 5 stars
 - [ ] Login

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Chore\UseCases\ListAttractionsByComedian;
+namespace App\Chore\UseCases\ListAttractionsByComedianId;
 
 use App\Chore\Domain\AttractionRepository;
 
-class ListAttractionsByComedian
+class ListAttractionsByComedianId
 {
 
     private AttractionRepository $repo;
@@ -14,8 +14,8 @@ class ListAttractionsByComedian
         $this->repo = $repository;
     }
 
-    public function handle(string $comedian)
+    public function handle(string $comedianId)
     {
-        return $this->repo->getAttractionsByComedian($comedian);
+        return $this->repo->getAttractionsByComedianId($comedianId);
     }
 }

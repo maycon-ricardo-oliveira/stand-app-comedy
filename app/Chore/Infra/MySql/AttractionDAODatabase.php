@@ -73,9 +73,9 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
 
     }
 
-    public function getAttractionsByComedian(string $comedian)
+    public function getAttractionsByComedianName(string $comedianName)
     {
-        $comedian = '%' . $comedian . '%';
+        $comedian = '%' . $comedianName . '%';
 
         $query = "select a.*, p.*, c.*,
                 p.name as placeName,
@@ -87,6 +87,22 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
             where c.name like :comedian ";
 
         $params = ['comedian' => $comedian];
+
+        $attractionsData = $this->connection->query($query, $params);
+        return $this->mapper($this->time, $attractionsData);
+
+    }    public function getAttractionsByComedianId(string $comedianId)
+    {
+        $query = "select a.*, p.*, c.*,
+                p.name as placeName,
+                c.name as comedianName,
+                c.mini_bio as miniBio
+            from attractions a
+            inner join places p on p.id = a.place_id
+            inner join comedians c on c.id = a.comedian_id
+            where c.id = :comedian ";
+
+        $params = ['comedian' => $comedianId];
 
         $attractionsData = $this->connection->query($query, $params);
         return $this->mapper($this->time, $attractionsData);

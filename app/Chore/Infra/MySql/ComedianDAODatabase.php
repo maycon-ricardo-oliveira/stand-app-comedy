@@ -4,8 +4,9 @@ namespace App\Chore\Infra\MySql;
 
 use App\Chore\Domain\ComedianRepository;
 use App\Chore\Domain\IDateTime;
+use App\Chore\Infra\ComedianMapper;
 
-class ComedianDAODatabase implements ComedianRepository
+class ComedianDAODatabase extends ComedianMapper implements ComedianRepository
 {
 
     private DBConnection $connection;
@@ -17,16 +18,21 @@ class ComedianDAODatabase implements ComedianRepository
 
         $this->connection = $connection;
         $this->time = $time;
+        parent::__construct();
     }
 
     public function getComedianById(string $id)
     {
-        $query = "select * from comedians
-             where comedians.id = :id";
+        $query = "select
+                c.*,
+                c.name as comedianName,
+                c.mini_bio as miniBio
+            from comedians c
+            where c.id = :id";
         $params = ['id' => $id];
 
         $response = $this->connection->query($query, $params);
-        return $response;
+        return $this->mapper($this->time, $response);
 
     }
 }
