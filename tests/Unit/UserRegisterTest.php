@@ -47,6 +47,7 @@ class UserRegisterTest extends TestCase
 
         $this->expectException(\Exception::class);
         $this->expectDeprecationMessage('This user already registered');
+
         $bcrypt = new HashAdapter();
         $date = new DateTimeAdapter();
         $mysql = new MySqlAdapter();
