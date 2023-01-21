@@ -2,8 +2,9 @@
 
 namespace App\Chore\UseCases\Login;
 
+use App\Chore\Adapters\JwtAdapter;
+use App\Chore\Domain\User;
 use App\Chore\Domain\UserRepository;
-use Illuminate\Support\Facades\Auth;
 
 class Login
 {
@@ -13,12 +14,21 @@ class Login
         $this->userRepository = $userRepository;
     }
 
-    public function handle($username, $password)
+    public function handle($email, $password)
     {
-         if (Auth::attempt(['email'=> $username,'password'=> $password])) {
-            return true;
-         }
-         return false;
+
+        $user = $this->userRepository->findUserByEmail($email);
+
+        if (!$user instanceof User) {
+            throw new \Exception("Password or Email Incorrect");
+        }
+
+        if (!$token = auth()->attempt(['email' => $email, 'password' => $password])) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        $jwt = new JwtAdapter();
+        return $jwt->createToken($user, $token);
 
     }
 

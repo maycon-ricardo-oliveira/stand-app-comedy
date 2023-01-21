@@ -31,7 +31,8 @@ class UserMapper extends ArrayIterator
                 $item['id'],
                 $item['name'],
                 $item['email'],
-                $item['password']
+                $item['password'],
+                $item['remember_token']
             );
 
         }, $userData);

@@ -5,9 +5,11 @@ namespace App\Chore\Infra\MySql;
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Domain\IDateTime;
 use App\Chore\Domain\IHash;
+use App\Chore\Domain\User;
 use App\Chore\Domain\UserRepository;
 use App\Chore\Infra\UserMapper;
 use Exception;
+use Illuminate\Support\Str;
 
 class UserDAODatabase extends UserMapper implements UserRepository
 {
@@ -15,25 +17,24 @@ class UserDAODatabase extends UserMapper implements UserRepository
     private DBConnection $connection;
 
     public IDateTime $time;
-    public IHash $bcrypt;
-    public function __construct(DBConnection $connection, IDateTime $time, IHash $bcrypt)
+    public function __construct(DBConnection $connection, IDateTime $time)
     {
         parent::__construct();
         $this->connection = $connection;
         $this->time = $time;
-        $this->bcrypt = $bcrypt;
     }
 
-    public function register($userData, DateTimeAdapter $date): bool
+    public function register(User $user, DateTimeAdapter $date): bool
     {
 
-        $query = "INSERT INTO users (name, email, password, created_at, updated_at)
-                  VALUES (:name, :email, :password, :created_at, :updated_at)";
+        $query = "INSERT INTO users (name, email, password, remember_token, created_at, updated_at)
+                  VALUES (:name, :email, :password, :remember_token, :created_at, :updated_at)";
 
         $params = [
-            "name" => $userData["name"],
-            "email" => $userData["email"],
-            "password" => $this->bcrypt->make($userData["password"]),
+            "name" => $user->name,
+            "email" => $user->email,
+            "password" =>$user->password,
+            "remember_token" => $user->rememberToken,
             "created_at" => $date->format('Y-m-d H:i:s'),
             "updated_at" => $date->format('Y-m-d H:i:s'),
         ];

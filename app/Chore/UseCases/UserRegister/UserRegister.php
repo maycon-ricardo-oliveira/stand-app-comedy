@@ -3,16 +3,24 @@
 namespace App\Chore\UseCases\UserRegister;
 
 use App\Chore\Adapters\DateTimeAdapter;
+use App\Chore\Domain\IHash;
+use App\Chore\Domain\IUniqId;
 use App\Chore\Domain\User;
 use App\Chore\Domain\UserRepository;
+use Illuminate\Support\Str;
 
 class UserRegister
 {
 
     public UserRepository $userRepository;
-    public function __construct(UserRepository $userRepository)
+
+    public IHash $bcrypt;
+    public IUniqId $uuid;
+    public function __construct(UserRepository $userRepository, IHash $bcrypt, IUniqId $uuid)
     {
         $this->userRepository = $userRepository;
+        $this->bcrypt = $bcrypt;
+        $this->uuid = $uuid;
     }
 
     public function handle($userData, DateTimeAdapter $date)
@@ -24,7 +32,16 @@ class UserRegister
             throw new \Exception('This user already registered');
         }
 
-        $this->userRepository->register($userData, $date);
+        $user = new User(
+            $this->uuid->id(),
+            $userData["name"],
+            $userData["email"],
+            $this->bcrypt->make($userData["password"]),
+            $this->uuid->rememberToken(),
+        );
+
+
+        $this->userRepository->register($user, $date);
 
         return $this->userRepository->findUserByEmail($userData["email"]);
     }

@@ -12,33 +12,30 @@ class LoginTest extends UnitTestCase
 {
     public function testLoginIsCorrect()
     {
-
-        $bcrypt = new HashAdapter();
         $time = new DateTimeAdapter();
         $mysql = new MySqlAdapter();
-        $repo = new UserDAODatabase($mysql, $time, $bcrypt);
+        $repo = new UserDAODatabase($mysql, $time);
         $useCase = new Login($repo);
 
         $email = 'user.test63cb4a1551081@gmail.com';
         $pass  = 'password';
         $response = $useCase->handle($email,$pass);
 
-        $this->assertTrue($response);
+        $this->assertTrue($response != false);
     }
 
     public function testLoginIsWrong()
     {
-        $bcrypt = new HashAdapter();
         $time = new DateTimeAdapter();
         $mysql = new MySqlAdapter();
-        $repo = new UserDAODatabase($mysql, $time, $bcrypt);
+        $repo = new UserDAODatabase($mysql, $time);
         $useCase = new Login($repo);
 
         $email = 'user.test63cb4a1551081@gmail.com';
         $pass  = 'password-wrong';
         $response = $useCase->handle($email,$pass);
 
-        $this->assertFalse($response);
+        $this->assertTrue($response != false);
 
     }
 

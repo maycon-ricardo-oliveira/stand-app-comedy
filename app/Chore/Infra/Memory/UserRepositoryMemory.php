@@ -29,30 +29,23 @@ class UserRepositoryMemory extends UserMapper implements UserRepository
         $this->time = $time;
         $this->generateUsers($users);
     }
-    public function register($userData, DateTimeAdapter $date): bool
+    public function register(User $userData, DateTimeAdapter $date): bool
     {
 
-        $user = $this->findUserByEmail($userData['email']);
+        $user = $this->findUserByEmail($userData->email);
 
         if (count($user) != 0) {
             throw new \Exception('This user already registered');
         }
 
-        $user = new User(
-            $this->bcrypt->make($userData['name']),
-            $userData['name'],
-            $userData['email'],
-            $this->bcrypt->make($userData["password"]),
-        );
-
-        $this->users[] = $user;
+        $this->users[] = $userData;
         return true;
     }
 
     public function findUserByEmail(string $email)
     {
-        $response = array_values(array_filter($this->users, function ($users) use ($email) {
-            return $users->email == $email;
+        $response = array_values(array_filter($this->users, function ($user) use ($email) {
+            return $user->email == $email;
         }));
         return $response;
     }
@@ -67,12 +60,14 @@ class UserRepositoryMemory extends UserMapper implements UserRepository
             "id" => 'any_id_1',
             "name" => 'any_name',
             "email" => 'any_email_1@email.com',
-            "password" => 'password'
-        ], [
+            "password" => 'password',
+            "remember_token" => 'remember_token'
+        ],[
             "id" => 'any_id_2',
             "name" => 'any_name',
             "email" => 'any_email_2@email.com',
-            "password" => 'password'
+            "password" => 'password',
+            "remember_token" => 'remember_token'
         ]];
     }
 }

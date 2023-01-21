@@ -5,9 +5,11 @@ namespace Tests\Unit;
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\HashAdapter;
 use App\Chore\Adapters\MySqlAdapter;
+use App\Chore\Adapters\UniqIdAdapter;
 use App\Chore\Infra\Memory\UserRepositoryMemory;
 use App\Chore\Infra\MySql\UserDAODatabase;
 use App\Chore\UseCases\UserRegister\UserRegister;
+use Illuminate\Hashing\BcryptHasher;
 use Tests\TestCase;
 
 class UserRegisterTest extends TestCase
@@ -27,8 +29,9 @@ class UserRegisterTest extends TestCase
         $bcrypt = new HashAdapter();
         $date = new DateTimeAdapter();
         $repository = new UserRepositoryMemory($date, $bcrypt);
-
-        $useCase = new UserRegister($repository);
+        $hashAdapter = new HashAdapter();
+        $uuidAdapter = new UniqIdAdapter();
+        $useCase = new UserRegister($repository, $hashAdapter, $uuidAdapter);
 
         $userData = [
             "name" => "User Teste 1",
@@ -50,9 +53,11 @@ class UserRegisterTest extends TestCase
 
         $bcrypt = new HashAdapter();
         $date = new DateTimeAdapter();
+        $hashAdapter = new HashAdapter();
+        $uuidAdapter = new UniqIdAdapter();
         $repository = new UserRepositoryMemory($date, $bcrypt);
 
-        $useCase = new UserRegister($repository);
+        $useCase = new UserRegister($repository, $hashAdapter, $uuidAdapter);
 
         $userData = [
             "name" => "User Teste 1",
