@@ -34,7 +34,7 @@ class UserRegisterTest extends TestCase
             "password" => "password",
         ];
 
-        $response = $useCase->handle($userData);
+        $response = $useCase->handle($userData, $date);
 
         $this->assertTrue($response);
     }
@@ -56,7 +56,7 @@ class UserRegisterTest extends TestCase
             "password" => "password",
         ];
 
-        $response = $useCase->handle($userData);
+        $response = $useCase->handle($userData, $date);
 
         $this->assertTrue($response);
     }

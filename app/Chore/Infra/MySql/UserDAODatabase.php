@@ -2,6 +2,7 @@
 
 namespace App\Chore\Infra\MySql;
 
+use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Domain\IDateTime;
 use App\Chore\Domain\UserRepository;
 use App\Chore\Infra\UserMapper;
@@ -15,19 +16,23 @@ class UserDAODatabase extends UserMapper implements UserRepository
     public IDateTime $time;
     public function __construct(DBConnection $connection, IDateTime $time)
     {
+        parent::__construct();
         $this->connection = $connection;
         $this->time = $time;
     }
 
-    public function register($userData): bool
+    public function register($userData, DateTimeAdapter $date): bool
     {
 
-        $query = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
+        $query = "INSERT INTO users (name, email, password, created_at, updated_at)
+                  VALUES (:name, :email, :password, :created_at, :updated_at)";
 
         $params = [
             "name" => $userData["name"],
             "email" => $userData["email"],
-            "password" => bcrypt($userData["password"])
+            "password" => bcrypt($userData["password"]),
+            "created_at" => $date->format('Y-m-d H:i:s'),
+            "updated_at" => $date->format('Y-m-d H:i:s'),
         ];
 
         $this->connection->query($query, $params);
