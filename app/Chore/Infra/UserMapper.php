@@ -22,7 +22,11 @@ class UserMapper extends ArrayIterator
     public function mapper($userData = [])
     {
 
-        return $userData == [] ? $userData : array_map(function ($item) {
+        if ($userData == []) {
+            return $userData;
+        }
+
+        return array_map(function ($item) {
             return new User(
                 $item['id'],
                 $item['name'],

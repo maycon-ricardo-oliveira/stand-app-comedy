@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Chore\Adapters\DateTimeAdapter;
+use App\Chore\Adapters\HashAdapter;
 use App\Chore\Adapters\MySqlAdapter;
 use App\Chore\Infra\MySql\UserDAODatabase;
 use App\Chore\UseCases\UserRegister\UserRegister;
@@ -22,9 +23,10 @@ class UserRegisterTest extends TestCase
     public function testMustResisterAsUser()
     {
 
+        $bcrypt = new HashAdapter();
         $date = new DateTimeAdapter();
         $mysql = new MySqlAdapter();
-        $repository = new UserDAODatabase($mysql, $date);
+        $repository = new UserDAODatabase($mysql, $date, $bcrypt);
 
         $useCase = new UserRegister($repository);
 
@@ -36,17 +38,19 @@ class UserRegisterTest extends TestCase
 
         $response = $useCase->handle($userData, $date);
 
-        $this->assertTrue($response);
+        $this->assertSame($response->name, $userData['name']);
+        $this->assertNotEquals($response->password, $userData['password']);
     }
+
     public function testMustThrowAExceptionUsingAExistentEmail()
     {
 
         $this->expectException(\Exception::class);
         $this->expectDeprecationMessage('This user already registered');
-
+        $bcrypt = new HashAdapter();
         $date = new DateTimeAdapter();
         $mysql = new MySqlAdapter();
-        $repository = new UserDAODatabase($mysql, $date);
+        $repository = new UserDAODatabase($mysql, $date, $bcrypt);
 
         $useCase = new UserRegister($repository);
 

@@ -20,12 +20,13 @@ class UserRegister
 
         $user = $this->userRepository->findUserByEmail($userData['email']);
 
-        if (count($user) > 0) {
+        if ($user instanceof User) {
             throw new \Exception('This user already registered');
         }
 
-        $stored = $this->userRepository->register($userData, $date);
+        $this->userRepository->register($userData, $date);
 
-        return $stored;
+        return $this->userRepository->findUserByEmail($userData["email"]);
     }
+
 }
