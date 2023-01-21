@@ -198,6 +198,12 @@ return [
                     'in' => 'header', // The location of the API key. Valid values are "query" or "header".
                 ],
                 */
+                'token' => [ // Unique name of security
+                    'type' => 'http',
+                    'description' => 'Leiturinha token authentication',
+                    'scheme' => 'bearer',
+                    'bearerFormat' => 'JWT'
+                ],
             ],
             'security' => [
                 /*

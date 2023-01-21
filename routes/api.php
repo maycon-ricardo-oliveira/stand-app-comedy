@@ -23,9 +23,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
 
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
 
     // example to using authenticated routes
 //    Route::middleware('jwt.verify')->group(function() {
@@ -33,7 +30,12 @@ Route::prefix('v1')->group(function () {
 //    });
 
     Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', 'AuthController@logout');
+    Route::middleware('jwt.verify')->group(function() {
+        Route::post('logout', [AuthController::class, 'logout']);
+    });
+
+    Route::post('refresh', [AuthController::class, 'refresh']);
+
 
     Route::get('health', [HealthController::class, 'healthCheck']);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Chore\UseCases\Login;
+namespace App\Chore\UseCases\Auth;
 
 use App\Chore\Adapters\AuthAdapter;
 use App\Chore\Adapters\JwtAdapter;
@@ -8,7 +8,7 @@ use App\Chore\Domain\IAuth;
 use App\Chore\Domain\User;
 use App\Chore\Domain\UserRepository;
 
-class Login
+class Auth
 {
     public UserRepository $userRepository;
     public IAuth $auth;
@@ -18,7 +18,7 @@ class Login
         $this->auth = $auth;
     }
 
-    public function handle($email, $password)
+    public function login($email, $password)
     {
 
         $user = $this->userRepository->findUserByEmail($email);
@@ -33,6 +33,17 @@ class Login
 
         $jwt = new JwtAdapter();
         return $jwt->createToken($user, $token);
+    }
+
+    public function logout(): bool
+    {
+        $this->auth->logout();
+        return true;
+    }
+
+    public function refresh()
+    {
+
     }
 
 }

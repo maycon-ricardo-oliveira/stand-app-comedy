@@ -3,11 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use JWTAuth;
+use Exception;
+use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 
-class JWTMiddleware
+class JWTMiddleware  extends BaseMiddleware
 {
     /**
      * Get the path the user should be redirected to when they are not authenticated.
@@ -25,12 +25,21 @@ class JWTMiddleware
     public function handle($request, Closure $next, ...$guards)
     {
         try {
-            $user = JWTAuth::parseToken()->authenticate();
-            if (!$user) {
-                return response()->json(['message' => 'user not found'], 500);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
+            // attempt to verify the credentials and create a token for the user
+            $token = JWTAuth::getToken();
+            $apy = JWTAuth::getPayload($token)->toArray();
+        } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+
+            return response()->json(['token_expired'], 500);
+
+        } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+
+            return response()->json(['token_invalid'], 500);
+
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+
+            return response()->json(['token_absent' => $e->getMessage()], 500);
+
         }
         return $next($request);
 

@@ -4,29 +4,36 @@ namespace Tests\Unit;
 
 use App\Chore\Adapters\AuthAdapter;
 use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\HashAdapter;
 use App\Chore\Adapters\JwtAdapter;
 use App\Chore\Adapters\MySqlAdapter;
 use App\Chore\Infra\MySql\UserDAODatabase;
-use App\Chore\UseCases\Login\Login;
+use App\Chore\UseCases\Auth\Auth;
+use Exception;
 
-class LoginTest extends UnitTestCase
+class AuthTest extends UnitTestCase
 {
-    public function testLoginIsCorrect()
+
+    /**
+     * @throws Exception
+     */
+    public function testLoginIsWorking()
     {
         $auth = new AuthAdapter(new JwtAdapter());
         $time = new DateTimeAdapter();
         $mysql = new MySqlAdapter();
         $repo = new UserDAODatabase($mysql, $time);
-        $useCase = new Login($repo, $auth);
+        $useCase = new Auth($repo, $auth);
 
         $email = 'user.test63cb4a1551081@gmail.com';
         $pass  = 'password';
-        $response = $useCase->handle($email,$pass);
+        $response = $useCase->login($email,$pass);
 
         $this->assertTrue($response != false);
     }
 
+    /**
+     * @throws Exception
+     */
     public function testLoginIsWrong()
     {
         $auth = new AuthAdapter(new JwtAdapter());
@@ -34,14 +41,32 @@ class LoginTest extends UnitTestCase
         $time = new DateTimeAdapter();
         $mysql = new MySqlAdapter();
         $repo = new UserDAODatabase($mysql, $time);
-        $useCase = new Login($repo, $auth);
+        $useCase = new Auth($repo, $auth);
 
         $email = 'user.test63cb4a1551081@gmail.com';
         $pass  = 'password-wrong';
-        $response = $useCase->handle($email,$pass);
+        $response = $useCase->login($email,$pass);
 
         $this->assertTrue($response != false);
+    }
 
+    /**
+     * @throws Exception
+     */
+    public function testLogoutIsWorking()
+    {
+
+        $auth = new AuthAdapter(new JwtAdapter());
+        $time = new DateTimeAdapter();
+        $mysql = new MySqlAdapter();
+        $repo = new UserDAODatabase($mysql, $time);
+        $useCase = new Auth($repo, $auth);
+
+        $email = 'user.test63cb4a1551081@gmail.com';
+        $pass  = 'password';
+        $useCase->login($email,$pass);
+
+        $this->assertTrue($useCase->logout());
     }
 
 }

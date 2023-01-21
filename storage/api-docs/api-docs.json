@@ -6,6 +6,98 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Login",
+                "operationId": "AuthController@login",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "user.test63cb4a1551081@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "description": "The access token",
+                                            "type": "string"
+                                        },
+                                        "token_type": {
+                                            "description": "The token_type",
+                                            "type": "string"
+                                        },
+                                        "expires_in": {
+                                            "description": "The expires_in",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/logout": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Login",
+                "operationId": "AuthController@logout",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out"
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
         "/api/v1/comedian/{comedianId}": {
             "get": {
                 "tags": [
@@ -384,6 +476,14 @@
                     }
                 },
                 "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "token": {
+                "type": "http",
+                "description": "Leiturinha token authentication",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
             }
         }
     },
