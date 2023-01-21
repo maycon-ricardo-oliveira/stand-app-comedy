@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GetComedianByIdController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\ListAttractionsByComedianNameController;
@@ -21,6 +22,19 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('v1')->group(function () {
+
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+
+    // example to using authenticated routes
+//    Route::middleware('jwt.verify')->group(function() {
+//        Route::get('/auth/comedian/{comedianId}',  [GetComedianByIdController::class, 'handle']);
+//    });
+
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', 'AuthController@logout');
+
     Route::get('health', [HealthController::class, 'healthCheck']);
 
     Route::get('attractions/location',  [ListAttractionsByLocationController::class, 'handle']);
@@ -28,6 +42,5 @@ Route::prefix('v1')->group(function () {
     Route::get('attractions/comedian/{comedianId}',  [ListAttractionsByComedianController::class, 'handle']);
     Route::get('attractions/comedian/name/{comedianName}',  [ListAttractionsByComedianNameController::class, 'handle']);
 
-    Route::get('comedian/{comedianId}',  [GetComedianByIdController::class, 'handle']);
 
 });
