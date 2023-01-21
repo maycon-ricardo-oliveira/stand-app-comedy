@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Chore\Adapters\AuthAdapter;
 use App\Chore\Adapters\DateTimeAdapter;
+use App\Chore\Adapters\JwtAdapter;
 use App\Chore\Adapters\MySqlAdapter;
 use App\Chore\Infra\MySql\UserDAODatabase;
 use App\Chore\UseCases\Login\Login;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -40,22 +40,13 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
+        $auth = new AuthAdapter(new JwtAdapter());
         $time = new DateTimeAdapter();
         $mysql = new MySqlAdapter();
         $repo = new UserDAODatabase($mysql, $time);
-        $useCase = new Login($repo);
+        $useCase = new Login($repo, $auth);
 
         return $this->response->successResponse($useCase->handle($request->email, $request->password));
-    }
-
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function me()
-    {
-        return response()->json(auth()->user());
     }
 
     /**
@@ -80,19 +71,4 @@ class AuthController extends Controller
         return $this->respondWithToken(auth()->refresh());
     }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
-    }
 }
