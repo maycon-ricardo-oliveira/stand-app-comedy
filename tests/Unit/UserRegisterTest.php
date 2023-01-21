@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\HashAdapter;
 use App\Chore\Adapters\MySqlAdapter;
+use App\Chore\Infra\Memory\UserRepositoryMemory;
 use App\Chore\Infra\MySql\UserDAODatabase;
 use App\Chore\UseCases\UserRegister\UserRegister;
 use Tests\TestCase;
@@ -25,8 +26,7 @@ class UserRegisterTest extends TestCase
 
         $bcrypt = new HashAdapter();
         $date = new DateTimeAdapter();
-        $mysql = new MySqlAdapter();
-        $repository = new UserDAODatabase($mysql, $date, $bcrypt);
+        $repository = new UserRepositoryMemory($date, $bcrypt);
 
         $useCase = new UserRegister($repository);
 
@@ -38,8 +38,8 @@ class UserRegisterTest extends TestCase
 
         $response = $useCase->handle($userData, $date);
 
-        $this->assertSame($response->name, $userData['name']);
-        $this->assertNotEquals($response->password, $userData['password']);
+        $this->assertSame($response[0]->name, $userData['name']);
+        $this->assertNotEquals($response[0]->password, $userData['password']);
     }
 
     public function testMustThrowAExceptionUsingAExistentEmail()
@@ -50,19 +50,18 @@ class UserRegisterTest extends TestCase
 
         $bcrypt = new HashAdapter();
         $date = new DateTimeAdapter();
-        $mysql = new MySqlAdapter();
-        $repository = new UserDAODatabase($mysql, $date, $bcrypt);
+        $repository = new UserRepositoryMemory($date, $bcrypt);
 
         $useCase = new UserRegister($repository);
 
         $userData = [
             "name" => "User Teste 1",
-            "email" => 'user.test63cb46a0b225e@gmail.com',
+            "email" => 'any_email_1@email.com',
             "password" => "password",
         ];
 
         $response = $useCase->handle($userData, $date);
 
-        $this->assertTrue($response);
+        $this->assertTrue($response[0]);
     }
 }
