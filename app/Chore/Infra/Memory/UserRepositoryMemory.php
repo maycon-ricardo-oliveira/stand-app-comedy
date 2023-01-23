@@ -50,6 +50,14 @@ class UserRepositoryMemory extends UserMapper implements UserRepository
         return $response;
     }
 
+    public function findUserById(string $id)
+    {
+        $response = array_values(array_filter($this->users, function ($user) use ($id) {
+            return $user->id == $id;
+        }));
+        return $response;
+    }
+
     private function generateUsers(array $users)
     {
         if (empty($users)) $users = $this->dataSet();
@@ -70,4 +78,5 @@ class UserRepositoryMemory extends UserMapper implements UserRepository
             "remember_token" => 'remember_token'
         ]];
     }
+
 }

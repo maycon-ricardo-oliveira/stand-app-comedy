@@ -5,10 +5,7 @@ namespace App\Chore\Adapters;
 use App\Chore\Domain\IAuth;
 use App\Chore\Domain\IJwt;
 use App\Chore\Domain\User;
-use App\Http\Middleware\Authenticate;
-use Illuminate\Auth\AuthManager;
 use Illuminate\Support\Facades\Auth;
-use Tymon\JWTAuth\JWTGuard;
 
 class AuthAdapter extends Auth implements IAuth
 {
@@ -32,10 +29,14 @@ class AuthAdapter extends Auth implements IAuth
         $this->auth->logout();
     }
 
-    public function refresh(User $user): string
+    public function refresh(User $user)
     {
-       $token = $this->auth->refresh();
-       return $this->jwt->createToken($user, $token);
+       return $this->auth->refresh();
+    }
+
+    public function user()
+    {
+       return $this->auth->user();
     }
 
 }

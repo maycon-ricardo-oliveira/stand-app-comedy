@@ -9,5 +9,6 @@ interface UserRepository
     public function register(User $user, DateTimeAdapter $date): bool;
 
     public function findUserByEmail(string $email);
+    public function findUserById(string $id);
 
 }

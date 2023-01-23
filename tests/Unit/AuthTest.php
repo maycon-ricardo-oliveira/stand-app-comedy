@@ -36,6 +36,8 @@ class AuthTest extends UnitTestCase
      */
     public function testLoginIsWrong()
     {
+
+        $this->expectExceptionMessage('Unauthorized');
         $auth = new AuthAdapter(new JwtAdapter());
 
         $time = new DateTimeAdapter();
@@ -45,9 +47,8 @@ class AuthTest extends UnitTestCase
 
         $email = 'user.test63cb4a1551081@gmail.com';
         $pass  = 'password-wrong';
-        $response = $useCase->login($email,$pass);
+        $useCase->login($email,$pass);
 
-        $this->assertTrue($response != false);
     }
 
     /**

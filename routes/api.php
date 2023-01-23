@@ -30,12 +30,13 @@ Route::prefix('v1')->group(function () {
 //    });
 
     Route::post('login', [AuthController::class, 'login']);
+
     Route::middleware('jwt.verify')->group(function() {
+        Route::get('/comedian/{comedianId}',  [GetComedianByIdController::class, 'handle']);
+        Route::post('refresh', [AuthController::class, 'refresh']);
+
         Route::post('logout', [AuthController::class, 'logout']);
     });
-
-    Route::post('refresh', [AuthController::class, 'refresh']);
-
 
     Route::get('health', [HealthController::class, 'healthCheck']);
 

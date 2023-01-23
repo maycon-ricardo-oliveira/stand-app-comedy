@@ -23,7 +23,6 @@ class AuthController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('auth:api', ['except' => ['login']]);
     }
 
     /**
@@ -118,8 +117,7 @@ class AuthController extends Controller
         $repo = new UserDAODatabase($mysql, $time);
         $useCase = new Auth($repo, $auth);
 
-        $useCase->logout();
-        return $this->response->successResponse('Successfully logged out');
+        return $this->response->successResponse($useCase->refresh());
     }
 
 }

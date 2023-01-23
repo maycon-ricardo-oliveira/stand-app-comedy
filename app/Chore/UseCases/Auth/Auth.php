@@ -28,7 +28,7 @@ class Auth
         }
 
         if (!$token = $this->auth->auth->attempt(['email' => $email, 'password' => $password])) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            throw new \Exception("Unauthorized");
         }
 
         $jwt = new JwtAdapter();
@@ -41,9 +41,20 @@ class Auth
         return true;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function refresh()
     {
+        $user = $this->userRepository->findUserById($this->auth->user()->getAuthIdentifier());
 
+        if (!$user instanceof User) {
+            throw new \Exception("Email does not exist");
+        }
+
+        $token = $this->auth->refresh($user);
+        $jwt = new JwtAdapter();
+        return $jwt->createToken($user, $token);
     }
 
 }

@@ -58,4 +58,16 @@ class UserDAODatabase extends UserMapper implements UserRepository
 
         return count($data) == 0 ? null : $data[0];
     }
+
+    public function findUserById(string $id)
+    {
+        $query = "select * from users u where u.id = :id";
+        $params = ['id' => $id];
+
+        $userData = $this->connection->query($query, $params);
+
+        $data = $this->mapper($userData);
+
+        return count($data) == 0 ? null : $data[0];
+    }
 }
