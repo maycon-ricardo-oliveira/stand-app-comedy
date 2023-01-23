@@ -6,23 +6,39 @@ use App\Chore\Adapters\AuthAdapter;
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\JwtAdapter;
 use App\Chore\Adapters\MySqlAdapter;
+use App\Chore\Domain\IAuth;
+use App\Chore\Domain\IDateTime;
+use App\Chore\Domain\IJwt;
+use App\Chore\Domain\UserRepository;
 use App\Chore\Infra\MySql\UserDAODatabase;
 use App\Chore\UseCases\Auth\Auth;
 use Exception;
 
 class AuthTest extends UnitTestCase
 {
+    public IJwt $jwt;
+    public IAuth $auth;
+    public UserRepository $repo;
+    public IDateTime $time;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->time = new DateTimeAdapter();
+        $this->auth = new AuthAdapter(new JwtAdapter());
+        $mysql = new MySqlAdapter();
+        $this->repo = new UserDAODatabase($mysql, $this->time);
+
+    }
 
     /**
      * @throws Exception
      */
     public function testLoginIsWorking()
     {
-        $auth = new AuthAdapter(new JwtAdapter());
-        $time = new DateTimeAdapter();
-        $mysql = new MySqlAdapter();
-        $repo = new UserDAODatabase($mysql, $time);
-        $useCase = new Auth($repo, $auth);
+
+        $useCase = new Auth($this->repo, $this->auth);
 
         $email = 'user.test63cb4a1551081@gmail.com';
         $pass  = 'password';
@@ -38,12 +54,8 @@ class AuthTest extends UnitTestCase
     {
 
         $this->expectExceptionMessage('Unauthorized');
-        $auth = new AuthAdapter(new JwtAdapter());
 
-        $time = new DateTimeAdapter();
-        $mysql = new MySqlAdapter();
-        $repo = new UserDAODatabase($mysql, $time);
-        $useCase = new Auth($repo, $auth);
+        $useCase = new Auth($this->repo, $this->auth);
 
         $email = 'user.test63cb4a1551081@gmail.com';
         $pass  = 'password-wrong';
@@ -57,14 +69,11 @@ class AuthTest extends UnitTestCase
     public function testLogoutIsWorking()
     {
 
-        $auth = new AuthAdapter(new JwtAdapter());
-        $time = new DateTimeAdapter();
-        $mysql = new MySqlAdapter();
-        $repo = new UserDAODatabase($mysql, $time);
-        $useCase = new Auth($repo, $auth);
+        $useCase = new Auth($this->repo, $this->auth);
 
         $email = 'user.test63cb4a1551081@gmail.com';
         $pass  = 'password';
+
         $useCase->login($email,$pass);
 
         $this->assertTrue($useCase->logout());
@@ -72,15 +81,10 @@ class AuthTest extends UnitTestCase
     public function testRefreshTokenIsWorking()
     {
 
-        $auth = new AuthAdapter(new JwtAdapter());
-        $time = new DateTimeAdapter();
-        $mysql = new MySqlAdapter();
-        $repo = new UserDAODatabase($mysql, $time);
-        $useCase = new Auth($repo, $auth);
-
         $email = 'user.test63cb4a1551081@gmail.com';
         $pass  = 'password';
 
+        $useCase = new Auth($this->repo, $this->auth);
         $loginResponse = $useCase->login($email,$pass);
         $loginToken = $loginResponse["access_token"];
 
