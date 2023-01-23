@@ -69,5 +69,27 @@ class AuthTest extends UnitTestCase
 
         $this->assertTrue($useCase->logout());
     }
+    public function testRefreshTokenIsWorking()
+    {
+
+        $auth = new AuthAdapter(new JwtAdapter());
+        $time = new DateTimeAdapter();
+        $mysql = new MySqlAdapter();
+        $repo = new UserDAODatabase($mysql, $time);
+        $useCase = new Auth($repo, $auth);
+
+        $email = 'user.test63cb4a1551081@gmail.com';
+        $pass  = 'password';
+
+        $loginResponse = $useCase->login($email,$pass);
+        $loginToken = $loginResponse["access_token"];
+
+        $refreshResponse = $useCase->refresh();
+        $refreshToken = $refreshResponse["access_token"];
+
+        $this->assertNotSame($loginToken, $refreshToken);
+        $this->assertSame($loginResponse["user"]["id"], $refreshResponse["user"]["id"]);
+
+    }
 
 }
