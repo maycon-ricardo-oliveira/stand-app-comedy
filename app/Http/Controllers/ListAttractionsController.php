@@ -40,9 +40,7 @@ class ListAttractionsController extends Controller
      */
     public function handle(Request $request)
     {
-        $mysql = new MySqlAdapter();
-        $date = new DateTimeAdapter();
-        $dao = new AttractionDAODatabase($mysql, $date);
+        $dao = new AttractionDAODatabase($this->dbConnection, $this->time);
         $listAttractions = new ListAttractions($dao);
         $output = $listAttractions->handle($request->place);
 

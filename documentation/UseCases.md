@@ -3,9 +3,9 @@
 - [x] List Attractions by Location (Lat Long)
 - [x] List Attractions by Comedian
 - [x] Show data of a comedian profile
-- [ ] Login
-- [ ] Logout
-- [ ] Register
+- [x] Login
+- [x] Logout
+- [x] Register
 - [ ] Forgot password
 - [ ] Recover password
 - [ ] Follow a comedian
@@ -23,6 +23,9 @@
 
 ### Fix 
 - [ ] check when used null parameters on ListAttractionsByLocation
+
+### Improvements
+- [] Turn login logout tests better, not need database connection
 
 
 ### Architecture Base:

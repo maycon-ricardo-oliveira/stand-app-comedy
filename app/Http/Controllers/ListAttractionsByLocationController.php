@@ -61,10 +61,7 @@ class ListAttractionsByLocationController extends Controller
         $distanceInKM = $request->distance ?? 100;
         $limit = $request->limit ?? 100;
 
-        $date = new DateTimeAdapter();
-        $mysql = new MySqlAdapter();
-
-        $dao = new AttractionDAODatabase($mysql, $date);
+        $dao = new AttractionDAODatabase($this->dbConnection, $this->time);
         $listAttractions = new ListAttractionsByLocation($dao);
         $response = $listAttractions->handle($lat, $lng, $distanceInKM, $limit);
 

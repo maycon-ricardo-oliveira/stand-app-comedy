@@ -41,10 +41,8 @@ class ListAttractionsByComedianNameController extends Controller
     public function handle(Request $request)
     {
 
-        $mysql = new MySqlAdapter();
-        $date = new DateTimeAdapter();
 
-        $repo = new AttractionDAODatabase($mysql, $date);
+        $repo = new AttractionDAODatabase($this->dbConnection, $this->time);
         $useCase = new ListAttractionsByComedianName($repo);
 
         $response = $useCase->handle($request->comedianName);

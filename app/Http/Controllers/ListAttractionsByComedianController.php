@@ -43,10 +43,7 @@ class ListAttractionsByComedianController extends Controller
             'comedianId' => 'required|string'
         ]);
 
-        $mysql = new MySqlAdapter();
-        $date = new DateTimeAdapter();
-
-        $repo = new AttractionDAODatabase($mysql, $date);
+        $repo = new AttractionDAODatabase($this->dbConnection, $this->time);
         $useCase = new ListAttractionsByComedianId($repo);
 
         $response = $useCase->handle($request->comedianId);

@@ -69,9 +69,8 @@ class AuthController extends Controller
         }
 
         $auth = new AuthAdapter(new JwtAdapter());
-        $time = new DateTimeAdapter();
         $mysql = new MySqlAdapter();
-        $repo = new UserDAODatabase($mysql, $time);
+        $repo = new UserDAODatabase($mysql, $this->time);
         $useCase = new Auth($repo, $auth);
 
         return $this->response->successResponse($useCase->login($request->email, $request->password));
