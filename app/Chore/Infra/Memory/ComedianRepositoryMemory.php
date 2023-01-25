@@ -6,6 +6,7 @@ use App\Chore\Domain\Comedian;
 use App\Chore\Domain\ComedianRepository;
 use App\Chore\Domain\IDateTime;
 use App\Chore\Domain\IUniqId;
+use App\Chore\Domain\User;
 use App\Chore\Infra\ComedianMapper;
 
 class ComedianRepositoryMemory extends ComedianMapper implements ComedianRepository
@@ -27,6 +28,25 @@ class ComedianRepositoryMemory extends ComedianMapper implements ComedianReposit
         parent::__construct();
         $this->generateComedians($comedians);
     }
+    public function dataSet() {
+        return [[
+            "id" => 'any_id_1',
+            "name" => 'any_name',
+            "miniBio" => 'any_miniBio',
+            "socialMedias" => [
+                'mediaName' => 'instagram',
+                'profile' => '@any_id'
+            ],
+        ], [
+            "id" => 'any_id_2',
+            "name" => 'any_name',
+            "miniBio" => 'any_miniBio',
+            "socialMedias" => [
+                'mediaName' => 'instagram',
+                'profile' => '@any_id'
+            ],
+        ]];
+    }
 
     public function getComedianById(string $id)
     {
@@ -47,23 +67,8 @@ class ComedianRepositoryMemory extends ComedianMapper implements ComedianReposit
         $this->comedians = $this->mapper($this->time, $comedians);
     }
 
-    public function dataSet() {
-        return [[
-            "id" => 'any_id_1',
-            "name" => 'any_name',
-            "miniBio" => 'any_miniBio',
-            "socialMedias" => [
-                'mediaName' => 'instagram',
-                'profile' => '@any_id'
-            ],
-        ], [
-            "id" => 'any_id_2',
-            "name" => 'any_name',
-            "miniBio" => 'any_miniBio',
-            "socialMedias" => [
-                'mediaName' => 'instagram',
-                'profile' => '@any_id'
-            ],
-        ]];
+    public function followComedian(User $user, Comedian $comedian)
+    {
+        // TODO: Implement followComedian() method.
     }
 }
