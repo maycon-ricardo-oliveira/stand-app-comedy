@@ -2,14 +2,17 @@
 - [x] List Attractions by place
 - [x] List Attractions by Location (Lat Long)
 - [x] List Attractions by Comedian
-- [ ] Show data of a comedian profile
+- [x] Show data of a comedian profile
+- [x] Login
+- [x] Logout
+- [x] Register
+- [ ] Forgot password
+- [ ] Recover password
 - [ ] Follow a comedian
 - [ ] UnFollow a comedian
+- [ ] Evaluate an Attraction with 5 stars
 - [ ] Integrate of YouTube and get Most watched videos
 - [ ] Integrate with GeoLocation Google Api
-- [ ] Evaluate an Attraction with 5 stars
-- [ ] Login
-- [ ] Logout
 
 ### Business Rules
 - [ ] Only Attractions in a future date can be returned
@@ -20,6 +23,9 @@
 
 ### Fix 
 - [ ] check when used null parameters on ListAttractionsByLocation
+
+### Improvements
+- [] Turn login logout tests better, not need database connection
 
 
 ### Architecture Base:

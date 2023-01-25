@@ -45,10 +45,8 @@ class GetComedianByIdController extends Controller
      */
     public function handle(Request $request)
     {
-        $mysql = new MySqlAdapter();
-        $date = new DateTimeAdapter();
 
-        $repo = new ComedianDAODatabase($mysql, $date);
+        $repo = new ComedianDAODatabase($this->dbConnection, $this->time);
         $useCase = new GetComedianDetailsById($repo);
 
         $response = $useCase->handle($request->comedianId);
