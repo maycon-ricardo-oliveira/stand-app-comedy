@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('user_follows', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id');
-            $table->uuid('comedian_id');
-            $table->timestamps();
 
             $table->foreignUuid('comedian_id')->constrained('comedians');
             $table->foreignUuid('user_id')->constrained('users');
+
+            $table->timestamps();
+
         });
     }
 
