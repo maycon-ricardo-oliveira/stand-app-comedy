@@ -33,6 +33,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'password',
     ];
 
+    protected $keyType = 'string';
+
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

@@ -21,7 +21,7 @@ class GetComedianDetailsByIdTest extends UnitTestCase
         $useCase = new GetComedianDetailsById($repo);
 
         $response = $useCase->handle($anyId);
-        $this->assertSame($anyId, $response[0]->id);
+        $this->assertSame($anyId, $response->id);
     }
 
 }

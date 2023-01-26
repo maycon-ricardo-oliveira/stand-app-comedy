@@ -18,6 +18,7 @@ class ComedianRepositoryMemory extends ComedianMapper implements ComedianReposit
     private IDateTime $time;
 
     /**
+     * @param IDateTime $time
      * @param array $comedians
      * @throws \Exception
      */
@@ -50,10 +51,10 @@ class ComedianRepositoryMemory extends ComedianMapper implements ComedianReposit
 
     public function getComedianById(string $id)
     {
-        $response = array_filter($this->comedians, function ($comedian) use ($id) {
+        $response = array_values(array_filter($this->comedians, function ($comedian) use ($id) {
             return $comedian->id == $id;
-        });
-        return $response;
+        }));
+        return count($response) == 0 ? null : $response[0];
     }
 
     /**
@@ -67,8 +68,4 @@ class ComedianRepositoryMemory extends ComedianMapper implements ComedianReposit
         $this->comedians = $this->mapper($this->time, $comedians);
     }
 
-    public function followComedian(User $user, Comedian $comedian)
-    {
-        // TODO: Implement followComedian() method.
-    }
 }

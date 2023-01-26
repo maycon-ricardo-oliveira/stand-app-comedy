@@ -39,6 +39,10 @@ class UserSeeder extends Seeder
             "name" => 'Rodrigo Marques',
             "email" => 'rodrigo.marques@gmail.com',
             "password" => 'password',
+        ], [
+            "name" => 'User Test',
+            "email" => 'user.test63cb4a1551081@gmail.com',
+            "password" => 'password',
         ]];
     }
 

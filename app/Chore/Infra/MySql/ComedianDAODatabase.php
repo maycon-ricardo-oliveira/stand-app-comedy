@@ -38,24 +38,4 @@ class ComedianDAODatabase extends ComedianMapper implements ComedianRepository
 
     }
 
-    public function followComedian(User $user, Comedian $comedian)
-    {
-        $query = "INSERT INTO users (name, email, password, remember_token, created_at, updated_at)
-                  VALUES (:name, :email, :password, :remember_token, :created_at, :updated_at)";
-
-        $params = [
-            "name" => $user->name,
-            "email" => $user->email,
-            "password" =>$user->password,
-            "remember_token" => $user->rememberToken,
-            "created_at" => $date->format('Y-m-d H:i:s'),
-            "updated_at" => $date->format('Y-m-d H:i:s'),
-        ];
-
-        $this->connection->query($query, $params);
-        return true;
-
-
-
-    }
 }

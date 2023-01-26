@@ -40,7 +40,6 @@ class UserRegister
             $this->uuid->rememberToken(),
         );
 
-
         $this->userRepository->register($user, $date);
 
         return $this->userRepository->findUserByEmail($userData["email"]);
