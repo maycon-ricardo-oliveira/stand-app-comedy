@@ -61,7 +61,9 @@ class UserDAODatabase extends UserMapper implements UserRepository
 
     public function findUserById(string $id)
     {
-        $query = "select * from users u where u.id = :id";
+        $query = "select u.*, GROUP_CONCAT(distinct(uf.comedian_id)) as followingComedians from users u
+         left join user_follows uf on u.id = uf.user_id
+         where u.id = :id GROUP BY u.id";
         $params = ['id' => $id];
 
         $userData = $this->connection->query($query, $params);
@@ -86,7 +88,17 @@ class UserDAODatabase extends UserMapper implements UserRepository
 
         $this->connection->query($query, $params);
         return true;
-
     }
 
+    public function checkIfIsFollowAComedian(User $user, Comedian $comedian)
+    {
+        $query = "select c.* from user_follows uf
+            inner join comedians c on uf.comedian_id = c.id
+         where uf.user_id = :user_id and uf.comedian_id = :comedian_id";
+        $params = ['user_id' => $user->id, 'comedian_id' => $comedian->id];
+
+        $userData = $this->connection->query($query, $params);
+
+        return count($userData);
+    }
 }

@@ -26,7 +26,7 @@ class AuthTest extends UnitTestCase
         parent::setUp();
 
         $this->time = new DateTimeAdapter();
-        $this->auth = new AuthAdapter(new JwtAdapter());
+        $this->auth = new AuthAdapter();
         $mysql = new MySqlAdapter();
         $this->repo = new UserDAODatabase($mysql, $this->time);
 

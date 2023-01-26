@@ -30,13 +30,20 @@ class FollowComedian
         if (!$user instanceof User) {
             throw new \Exception("User does not exist");
         }
-
         if (!$comedian instanceof Comedian) {
             throw new \Exception("Comedian does not exist");
         }
 
-        return $this->userRepository->followComedian($user, $comedian, $this->uuid->id());
-    }
+        $follows = $this->userRepository->checkIfIsFollowAComedian($user, $comedian);
 
+        if ($follows > 0) {
+            throw new \Exception("This user already following this Comedian");
+        }
+
+        $this->userRepository->followComedian($user, $comedian, $this->uuid->id());
+
+        return $this->userRepository->findUserById($userId);
+
+    }
 
 }

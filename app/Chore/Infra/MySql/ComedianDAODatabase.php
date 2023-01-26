@@ -33,9 +33,11 @@ class ComedianDAODatabase extends ComedianMapper implements ComedianRepository
             where c.id = :id";
         $params = ['id' => $id];
 
-        $response = $this->connection->query($query, $params);
-        return $this->mapper($this->time, $response);
+        $comedianData = $this->connection->query($query, $params);
 
+        $data = $this->mapper($comedianData);
+
+        return count($data) == 0 ? null : $data[0];
     }
 
 }

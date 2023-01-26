@@ -15,17 +15,13 @@ class ComedianRepositoryMemory extends ComedianMapper implements ComedianReposit
      * @var Comedian[]
      */
     private array $comedians;
-    private IDateTime $time;
 
     /**
-     * @param IDateTime $time
      * @param array $comedians
      * @throws \Exception
      */
-    public function __construct(IDateTime $time, array $comedians = [])
+    public function __construct(array $comedians = [])
     {
-
-        $this->time = $time;
         parent::__construct();
         $this->generateComedians($comedians);
     }
@@ -65,7 +61,7 @@ class ComedianRepositoryMemory extends ComedianMapper implements ComedianReposit
     private function generateComedians(array $comedians = []): void
     {
         if (empty($comedians)) $comedians = $this->dataSet();
-        $this->comedians = $this->mapper($this->time, $comedians);
+        $this->comedians = $this->mapper($comedians);
     }
 
 }

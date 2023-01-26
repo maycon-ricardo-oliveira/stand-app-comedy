@@ -14,8 +14,7 @@ class GetComedianDetailsByIdTest extends UnitTestCase
     public function testGetComedianDetailsById()
     {
 
-        $date = new DateTimeAdapter();
-        $repo = new ComedianRepositoryMemory($date);
+        $repo = new ComedianRepositoryMemory();
         $anyId = 'any_id_1';
 
         $useCase = new GetComedianDetailsById($repo);

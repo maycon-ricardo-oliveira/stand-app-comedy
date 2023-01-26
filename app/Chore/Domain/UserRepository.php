@@ -10,5 +10,6 @@ interface UserRepository
     public function findUserByEmail(string $email);
     public function findUserById(string $id);
     public function followComedian(User $user, Comedian $comedian, string $id);
+    public function checkIfIsFollowAComedian(User $user, Comedian $comedian);
 
 }

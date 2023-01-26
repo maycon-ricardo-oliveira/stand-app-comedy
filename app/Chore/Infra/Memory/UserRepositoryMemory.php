@@ -107,4 +107,8 @@ class UserRepositoryMemory extends UserMapper implements UserRepository
         ]];
     }
 
+    public function checkIfIsFollowAComedian(User $user, Comedian $comedian)
+    {
+        // TODO: Implement getFollows() method.
+    }
 }

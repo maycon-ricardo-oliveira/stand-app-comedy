@@ -68,7 +68,7 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $auth = new AuthAdapter(new JwtAdapter());
+        $auth = new AuthAdapter();
         $mysql = new MySqlAdapter();
         $repo = new UserDAODatabase($mysql, $this->time);
         $useCase = new Auth($repo, $auth);
@@ -91,7 +91,7 @@ class AuthController extends Controller
      */
     public function logout(): JsonResponse
     {
-        $auth = new AuthAdapter(new JwtAdapter());
+        $auth = new AuthAdapter();
 
         $time = new DateTimeAdapter();
         $mysql = new MySqlAdapter();
@@ -109,7 +109,7 @@ class AuthController extends Controller
      */
     public function refresh(): JsonResponse
     {
-        $auth = new AuthAdapter(new JwtAdapter());
+        $auth = new AuthAdapter();
 
         $time = new DateTimeAdapter();
         $mysql = new MySqlAdapter();

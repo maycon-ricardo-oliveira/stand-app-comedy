@@ -20,7 +20,7 @@ class FollowComedianTest extends UnitTestCase
         $bcrypt = new HashAdapter();
         $date = new DateTimeAdapter();
         $userRepo = new UserRepositoryMemory($date, $bcrypt);
-        $comedianRepo = new ComedianRepositoryMemory($date);
+        $comedianRepo = new ComedianRepositoryMemory();
         $uuid = new UniqIdAdapter();
 
         $anyUserId = 'any_id_1';

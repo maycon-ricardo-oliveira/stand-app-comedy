@@ -32,14 +32,17 @@ class UserSeeder extends Seeder
 
     public function dataSet() {
         return [[
+            "id" => "63d1c98e0038c",
             "name" => 'Afonso Padilha',
             "email" => 'afonso.padilha@gmail.com',
             "password" => 'password',
         ], [
+            "id" => "63d1c98e1164a",
             "name" => 'Rodrigo Marques',
             "email" => 'rodrigo.marques@gmail.com',
             "password" => 'password',
         ], [
+            "id" => "63d1c98e22ccb",
             "name" => 'User Test',
             "email" => 'user.test63cb4a1551081@gmail.com',
             "password" => 'password',
