@@ -3,13 +3,12 @@
 namespace App\Chore\Infra\MySql;
 
 use App\Chore\Adapters\DateTimeAdapter;
+use App\Chore\Domain\Comedian;
 use App\Chore\Domain\IDateTime;
-use App\Chore\Domain\IHash;
 use App\Chore\Domain\User;
 use App\Chore\Domain\UserRepository;
 use App\Chore\Infra\UserMapper;
 use Exception;
-use Illuminate\Support\Str;
 
 class UserDAODatabase extends UserMapper implements UserRepository
 {
@@ -27,10 +26,11 @@ class UserDAODatabase extends UserMapper implements UserRepository
     public function register(User $user, DateTimeAdapter $date): bool
     {
 
-        $query = "INSERT INTO users (name, email, password, remember_token, created_at, updated_at)
-                  VALUES (:name, :email, :password, :remember_token, :created_at, :updated_at)";
+        $query = "INSERT INTO users (id, name, email, password, remember_token, created_at, updated_at)
+                  VALUES (:id, :name, :email, :password, :remember_token, :created_at, :updated_at)";
 
         $params = [
+            "id" => $user->id,
             "name" => $user->name,
             "email" => $user->email,
             "password" =>$user->password,
@@ -61,7 +61,9 @@ class UserDAODatabase extends UserMapper implements UserRepository
 
     public function findUserById(string $id)
     {
-        $query = "select * from users u where u.id = :id";
+        $query = "select u.*, GROUP_CONCAT(distinct(uf.comedian_id)) as followingComedians from users u
+         left join user_follows uf on u.id = uf.user_id
+         where u.id = :id GROUP BY u.id";
         $params = ['id' => $id];
 
         $userData = $this->connection->query($query, $params);
@@ -69,5 +71,34 @@ class UserDAODatabase extends UserMapper implements UserRepository
         $data = $this->mapper($userData);
 
         return count($data) == 0 ? null : $data[0];
+    }
+
+    public function followComedian(User $user, Comedian $comedian, string $id)
+    {
+        $query = "INSERT INTO user_follows (id, comedian_id, user_id, created_at, updated_at)
+                  VALUES (:id, :comedian_id, :user_id, :created_at, :updated_at)";
+
+        $params = [
+            "id" => $id,
+            "user_id" => $user->id,
+            "comedian_id" => $comedian->id,
+            "created_at" => $this->time->format('Y-m-d H:i:s'),
+            "updated_at" => $this->time->format('Y-m-d H:i:s'),
+        ];
+
+        $this->connection->query($query, $params);
+        return true;
+    }
+
+    public function checkIfIsFollowAComedian(User $user, Comedian $comedian)
+    {
+        $query = "select c.* from user_follows uf
+            inner join comedians c on uf.comedian_id = c.id
+         where uf.user_id = :user_id and uf.comedian_id = :comedian_id";
+        $params = ['user_id' => $user->id, 'comedian_id' => $comedian->id];
+
+        $userData = $this->connection->query($query, $params);
+
+        return count($userData);
     }
 }

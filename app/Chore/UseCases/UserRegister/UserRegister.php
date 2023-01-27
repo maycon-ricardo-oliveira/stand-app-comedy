@@ -33,13 +33,12 @@ class UserRegister
         }
 
         $user = new User(
-            $this->uuid->id(),
+             $userData["id"] ?? $this->uuid->id(),
             $userData["name"],
             $userData["email"],
             $this->bcrypt->make($userData["password"]),
             $this->uuid->rememberToken(),
         );
-
 
         $this->userRepository->register($user, $date);
 

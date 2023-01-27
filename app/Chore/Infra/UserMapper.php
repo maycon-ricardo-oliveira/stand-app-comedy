@@ -27,12 +27,14 @@ class UserMapper extends ArrayIterator
         }
 
         return array_map(function ($item) {
+            $item = (object) $item;
             return new User(
-                $item['id'],
-                $item['name'],
-                $item['email'],
-                $item['password'],
-                $item['remember_token']
+                $item->id,
+                $item->name,
+                $item->email,
+                $item->password,
+                $item->remember_token,
+                $item->userFollows ?? []
             );
 
         }, $userData);

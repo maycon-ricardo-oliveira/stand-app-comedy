@@ -12,12 +12,9 @@ class AuthAdapter extends Auth implements IAuth
 
     public $auth;
 
-    public IJwt $jwt;
-
-    public function __construct(IJwt $jwt)
+    public function __construct()
     {
         $this->auth = auth();
-        $this->jwt = $jwt;
     }
     public function attempt(array $credentials = [], bool $remember = false): bool|string
     {

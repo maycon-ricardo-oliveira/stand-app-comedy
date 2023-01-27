@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attractions', function (Blueprint $table) {
+        Schema::create('user_follows', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('title');
-            $table->dateTime('date');
-            $table->string('duration');
 
             $table->foreignUuid('comedian_id')->constrained('comedians');
-            $table->foreignUuid('place_id')->constrained('places');
+            $table->foreignUuid('user_id')->constrained('users');
 
             $table->timestamps();
 
@@ -34,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attractions');
+        Schema::dropIfExists('user_follows');
     }
 };

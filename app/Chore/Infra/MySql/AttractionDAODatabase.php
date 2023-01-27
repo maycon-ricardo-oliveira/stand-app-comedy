@@ -91,7 +91,8 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
         $attractionsData = $this->connection->query($query, $params);
         return $this->mapper($this->time, $attractionsData);
 
-    }    public function getAttractionsByComedianId(string $comedianId)
+    }
+    public function getAttractionsByComedianId(string $comedianId)
     {
         $query = "select a.*, p.*, c.*,
                 p.name as placeName,

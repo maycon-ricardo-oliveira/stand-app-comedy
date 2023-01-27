@@ -10,6 +10,7 @@
 - [ ] Recover password
 - [ ] Follow a comedian
 - [ ] UnFollow a comedian
+- [ ] List follow comedians
 - [ ] Evaluate an Attraction with 5 stars
 - [ ] Integrate of YouTube and get Most watched videos
 - [ ] Integrate with GeoLocation Google Api

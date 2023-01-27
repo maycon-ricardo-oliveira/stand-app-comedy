@@ -2,8 +2,10 @@
 
 namespace App\Chore\Infra\MySql;
 
+use App\Chore\Domain\Comedian;
 use App\Chore\Domain\ComedianRepository;
 use App\Chore\Domain\IDateTime;
+use App\Chore\Domain\User;
 use App\Chore\Infra\ComedianMapper;
 
 class ComedianDAODatabase extends ComedianMapper implements ComedianRepository
@@ -31,8 +33,11 @@ class ComedianDAODatabase extends ComedianMapper implements ComedianRepository
             where c.id = :id";
         $params = ['id' => $id];
 
-        $response = $this->connection->query($query, $params);
-        return $this->mapper($this->time, $response);
+        $comedianData = $this->connection->query($query, $params);
 
+        $data = $this->mapper($comedianData);
+
+        return count($data) == 0 ? null : $data[0];
     }
+
 }
