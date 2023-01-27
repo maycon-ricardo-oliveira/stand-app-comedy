@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\EloquentAdapter;
-use App\Chore\Adapters\MySqlAdapter;
-use App\Chore\Infra\Eloquent\AttractionRepositoryEloquent;
+
 use App\Chore\Infra\MySql\AttractionDAODatabase;
-use App\Chore\UseCases\ListAttractions\ListAttractions;
+use App\Chore\UseCases\ListAttractionsByPlace\ListAttractionsByPlace;
 use App\Models\Attraction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ListAttractionsController extends Controller
+class ListAttractionsByPlaceController extends Controller
 {
     /**
      * @OA\Get(
      *   path="/api/v1/attractions/{place}",
      *   tags={"attractions"},
-     *   operationId="ListAttractionsController@handle",
+     *   operationId="ListAttractionsByPlaceController@handle",
      *   description="Returns all attractions available in a place.",
      *   security={ {"token": {} }},
      *   @OA\Parameter(
@@ -41,7 +38,7 @@ class ListAttractionsController extends Controller
     public function handle(Request $request)
     {
         $dao = new AttractionDAODatabase($this->dbConnection, $this->time);
-        $listAttractions = new ListAttractions($dao);
+        $listAttractions = new ListAttractionsByPlace($dao);
         $output = $listAttractions->handle($request->place);
 
         return $this->response->successResponse($output);
