@@ -111,4 +111,20 @@ class UserRepositoryMemory extends UserMapper implements UserRepository
     {
         // TODO: Implement getFollows() method.
     }
+
+    public function unFollowComedian(User $user, Comedian $comedian)
+    {
+        if (count($user->followingComedians) == 0) {
+            return $user;
+        }
+
+        foreach ($user->followingComedians as $key => $followingComedian) {
+                if ($followingComedian->id == $comedian->id) {
+                unset($user->followingComedians[$key]);
+                return $user;
+            }
+        }
+
+        return null;
+    }
 }

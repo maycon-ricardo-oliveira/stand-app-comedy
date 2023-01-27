@@ -47,4 +47,9 @@ class UserRepositoryEloquent extends UserMapper implements UserRepository
     {
         // TODO: Implement getFollows() method.
     }
+
+    public function unFollowComedian(User $user, Comedian $comedian)
+    {
+        // TODO: Implement unFollowComedian() method.
+    }
 }
