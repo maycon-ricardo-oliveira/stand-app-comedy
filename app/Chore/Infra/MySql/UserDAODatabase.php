@@ -89,6 +89,18 @@ class UserDAODatabase extends UserMapper implements UserRepository
         $this->connection->query($query, $params);
         return true;
     }
+    public function unFollowComedian(User $user, Comedian $comedian)
+    {
+        $query = "DELETE FROM user_follows WHERE comedian_id = :user_id and comedian_id = :comedian_id ";
+
+        $params = [
+            "user_id" => $user->id,
+            "comedian_id" => $comedian->id,
+        ];
+
+        $this->connection->query($query, $params);
+        return true;
+    }
 
     public function checkIfIsFollowAComedian(User $user, Comedian $comedian)
     {

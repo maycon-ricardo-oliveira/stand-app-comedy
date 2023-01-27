@@ -6,12 +6,13 @@ use App\Chore\Adapters\AuthAdapter;
 use App\Chore\Adapters\UniqIdAdapter;
 use App\Chore\Infra\MySql\ComedianDAODatabase;
 use App\Chore\Infra\MySql\UserDAODatabase;
-use App\Chore\UseCases\Follow\FollowComedian;
+use App\Chore\UseCases\UnFollow\UnFollowComedian;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class FollowComedianController extends Controller
+class UnFollowComedianController extends Controller
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -19,9 +20,9 @@ class FollowComedianController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/api/v1/user/follow",
+     *   path="/api/v1/user/unfollow",
      *   tags={"user"},
-     *   operationId="FollowComedianController@handle",
+     *   operationId="UnFollowComedianController@handle",
      *   security={ {"token": {} }},
      *   @OA\RequestBody(
      *     required=true,
@@ -47,12 +48,11 @@ class FollowComedianController extends Controller
      */
     public function handle(Request $request)
     {
-        $uuid = new UniqIdAdapter();
         $userRepo = new UserDAODatabase($this->dbConnection, $this->time);
         $comedianRepo = new ComedianDAODatabase($this->dbConnection, $this->time);
 
         $auth = new AuthAdapter();
-        $useCase = new FollowComedian($userRepo, $comedianRepo,$uuid);
+        $useCase = new UnFollowComedian($userRepo, $comedianRepo);
         $response = $useCase->handle($auth->auth->user()->getAuthIdentifier(), $request->comedianId);
 
         return $this->response->successResponse($response);

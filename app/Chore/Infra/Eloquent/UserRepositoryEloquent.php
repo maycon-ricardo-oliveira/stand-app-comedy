@@ -26,7 +26,6 @@ class UserRepositoryEloquent extends UserMapper implements UserRepository
     {
         $user = UserModel::with('userFollows.comedian')->where(['id' => $id])->first();
 
-        var_dump($user->userFollows);
         return $user instanceof UserModel ?
             new User(
                 $user->id,
@@ -46,5 +45,10 @@ class UserRepositoryEloquent extends UserMapper implements UserRepository
     public function checkIfIsFollowAComedian(User $user, Comedian $comedian)
     {
         // TODO: Implement getFollows() method.
+    }
+
+    public function unFollowComedian(User $user, Comedian $comedian)
+    {
+        // TODO: Implement unFollowComedian() method.
     }
 }

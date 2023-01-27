@@ -8,8 +8,9 @@
 - [x] Register
 - [ ] Forgot password
 - [ ] Recover password
-- [ ] Follow a comedian
-- [ ] UnFollow a comedian
+- [x] Follow a comedian
+- [x] UnFollow a comedian
+- [ ] Register an attraction
 - [ ] List follow comedians
 - [ ] Evaluate an Attraction with 5 stars
 - [ ] Integrate of YouTube and get Most watched videos
@@ -24,9 +25,10 @@
 
 ### Fix 
 - [ ] check when used null parameters on ListAttractionsByLocation
+- [ ] try catch on controllers to a beautiful exception
 
 ### Improvements
-- [] Turn login logout tests better, not need database connection
+- [ ] Turn login logout tests better, not need database connection
 
 
 ### Architecture Base:
