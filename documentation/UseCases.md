@@ -8,8 +8,9 @@
 - [x] Register
 - [ ] Forgot password
 - [ ] Recover password
-- [ ] Follow a comedian
+- [x] Follow a comedian
 - [ ] UnFollow a comedian
+- [ ] Register an attraction
 - [ ] List follow comedians
 - [ ] Evaluate an Attraction with 5 stars
 - [ ] Integrate of YouTube and get Most watched videos
