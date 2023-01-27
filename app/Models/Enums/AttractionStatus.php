@@ -8,5 +8,6 @@ class AttractionStatus
     const PUBLISHED = 'published';
     const FINISH = 'finish';
 
+    public static $status = [self::DRAFT, self::PUBLISHED, self::FINISH];
 }
 

@@ -2,6 +2,8 @@
 
 namespace App\Chore\Domain;
 
+use App\Chore\Adapters\DateTimeAdapter;
+
 interface AttractionRepository
 {
     public function getAttractionsInAPlace(string $place);
@@ -11,5 +13,7 @@ interface AttractionRepository
     public function getAttractionsByComedianName(string $comedianName);
 
     public function getAttractionsByComedianId(string $comedianId);
+
+    public function registerAttraction(Attraction $attractionData, IDateTime $date): bool;
 
 }

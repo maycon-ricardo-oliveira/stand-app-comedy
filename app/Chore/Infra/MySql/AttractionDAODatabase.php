@@ -2,6 +2,7 @@
 
 namespace App\Chore\Infra\MySql;
 
+use App\Chore\Domain\Attraction;
 use App\Chore\Domain\AttractionRepository;
 use App\Chore\Domain\IDateTime;
 use App\Chore\Infra\AttractionMapper;
@@ -116,4 +117,9 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
 
     }
 
+    public function registerAttraction(Attraction $attractionData, IDateTime $date): bool
+    {
+        return true;
+        // TODO: Implement registerAttraction() method.
+    }
 }

@@ -9,7 +9,6 @@ use App\Chore\Infra\AttractionMapper;
 
 class AttractionRepositoryMemory extends AttractionMapper implements AttractionRepository {
 
-
     /**
      * @var Attraction[]
      */
@@ -114,4 +113,9 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
         return $response;
     }
 
+    public function registerAttraction(Attraction $attractionData, IDateTime $date): bool
+    {
+        $this->attractions[] = $attractionData;
+        return true;
+    }
 }
