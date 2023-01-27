@@ -33,7 +33,7 @@ class PlaceMapper extends \ArrayIterator
                 $item->zipcode,
                 $item->lat,
                 $item->lng,
-                $item->distance
+                $item->distance ?? ''
             );
 
         }, $userData);

@@ -31,6 +31,7 @@ class RegisterAttractionTest extends UnitTestCase
             "date" => "2023-01-09 00:00:00",
             "status" => "any_status",
             "comedianId" => "any_id_1",
+            "duration" => '180',
             "placeId" => "any_id",
             "ownerId" => "any_id_3",
         ];

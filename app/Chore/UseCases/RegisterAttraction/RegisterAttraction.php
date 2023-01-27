@@ -33,6 +33,9 @@ class RegisterAttraction
         $this->uuid = $uuid;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function handle($attractionData, IDateTime $time)
     {
 
@@ -46,6 +49,7 @@ class RegisterAttraction
             $this->uuid->id(),
             $attractionData["title"],
             $date,
+            $attractionData["duration"],
             $comedian,
             $place,
             in_array($attractionData["status"], AttractionStatus::$status) ?? AttractionStatus::DRAFT,

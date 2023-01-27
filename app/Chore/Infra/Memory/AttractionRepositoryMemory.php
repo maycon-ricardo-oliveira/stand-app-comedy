@@ -76,6 +76,7 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "lng" => -46.579876,
             "distance" => 10,
             "status" => 'draft',
+            "duration" => '180',
             "owner" => '63d1c98e22ccb'
         ], [
             "id" => '63a277fc7b251',
@@ -84,6 +85,7 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "date" => "2023-01-09 00:00:00",
             "title" => "O Problema é meu",
             "miniBio" => "Mini bio do Rodrigo",
+            "duration" => '180',
             "seats" => 200,
             "place_id" => '63a277fc7358e',
             "placeName" => "Hillarius",
