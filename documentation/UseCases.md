@@ -9,7 +9,7 @@
 - [ ] Forgot password
 - [ ] Recover password
 - [x] Follow a comedian
-- [ ] UnFollow a comedian
+- [x] UnFollow a comedian
 - [ ] Register an attraction
 - [ ] List follow comedians
 - [ ] Evaluate an Attraction with 5 stars
