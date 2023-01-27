@@ -33,7 +33,11 @@ class UnFollowComedian
             throw new \Exception("Comedian does not exist");
         }
 
-        $this->userRepository->checkIfIsFollowAComedian($user, $comedian);
+        $follows = $this->userRepository->checkIfIsFollowAComedian($user, $comedian);
+
+        if ($follows != 0) {
+            throw new \Exception("This user already unfollowing this Comedian");
+        }
 
         $this->userRepository->unFollowComedian($user, $comedian);
 
