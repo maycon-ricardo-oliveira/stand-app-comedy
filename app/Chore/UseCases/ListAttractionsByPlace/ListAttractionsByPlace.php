@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Chore\UseCases\ListAttractions;
+namespace App\Chore\UseCases\ListAttractionsByPlace;
 
 use App\Chore\Domain\AttractionRepository;
 
-class ListAttractions
+class ListAttractionsByPlace
 {
 
     /**

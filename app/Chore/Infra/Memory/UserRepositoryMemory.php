@@ -30,7 +30,7 @@ class UserRepositoryMemory extends UserMapper implements UserRepository
         $this->time = $time;
         $this->generateUsers($users);
     }
-    public function register(User $userData, DateTimeAdapter $date): bool
+    public function register(User $userData, IDateTime $date): bool
     {
 
         $user = $this->findUserByEmail($userData->email);

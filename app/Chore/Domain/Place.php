@@ -22,7 +22,7 @@ class Place
      * @param string $lng
      * @param string $distance
      */
-    public function __construct(string $id, string $name, int $seats, string $address, string $zipcode, string $lat, string $lng, string $distance)
+    public function __construct(string $id, string $name, int $seats, string $address, string $zipcode, string $lat, string $lng, string $distance = '')
     {
         $this->id = $id;
         $this->name = $name;

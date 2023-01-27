@@ -2,15 +2,12 @@
 
 namespace App\Chore\Infra\Memory;
 
-use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Domain\Attraction;
 use App\Chore\Domain\AttractionRepository;
 use App\Chore\Domain\IDateTime;
-use App\Chore\Domain\Place;
 use App\Chore\Infra\AttractionMapper;
 
 class AttractionRepositoryMemory extends AttractionMapper implements AttractionRepository {
-
 
     /**
      * @var Attraction[]
@@ -77,7 +74,10 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "zipcode" => "03157-200",
             "lat" => -23.546185,
             "lng" => -46.579876,
-            "distance" => 10
+            "distance" => 10,
+            "status" => 'draft',
+            "duration" => '180',
+            "owner" => '63d1c98e22ccb'
         ], [
             "id" => '63a277fc7b251',
             "comedianName" => "Rodrigo Marques",
@@ -85,6 +85,7 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "date" => "2023-01-09 00:00:00",
             "title" => "O Problema é meu",
             "miniBio" => "Mini bio do Rodrigo",
+            "duration" => '180',
             "seats" => 200,
             "place_id" => '63a277fc7358e',
             "placeName" => "Hillarius",
@@ -92,7 +93,9 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "zipcode" => "03157-200",
             "lat" => -23.546185,
             "lng" => -46.579876,
-            "distance" => 20
+            "distance" => 20,
+            "status" => 'draft',
+            "owner" => '63d1c98e22ccb'
         ]];
     }
 
@@ -112,4 +115,9 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
         return $response;
     }
 
+    public function registerAttraction(Attraction $attractionData, IDateTime $date): bool
+    {
+        $this->attractions[] = $attractionData;
+        return true;
+    }
 }

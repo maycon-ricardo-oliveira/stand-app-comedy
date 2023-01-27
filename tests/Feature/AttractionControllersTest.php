@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Http\Controllers\ListAttractionsByComedianController;
 use App\Http\Controllers\ListAttractionsByComedianNameController;
 use App\Http\Controllers\ListAttractionsByLocationController;
-use App\Http\Controllers\ListAttractionsController;
+use App\Http\Controllers\ListAttractionsByPlaceController;
 use Illuminate\Http\Request;
 
 class AttractionControllersTest extends FeatureTestCase
@@ -16,7 +16,7 @@ class AttractionControllersTest extends FeatureTestCase
         $request = new Request();
         $request->place = 'Hillarius';
 
-        $controller = new ListAttractionsController();
+        $controller = new ListAttractionsByPlaceController();
         $response = $controller->handle($request);
 
         $this->assertSame(200, $response->getData()->status);

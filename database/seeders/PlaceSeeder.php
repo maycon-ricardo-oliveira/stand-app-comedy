@@ -25,7 +25,7 @@ class PlaceSeeder extends Seeder
 
     public function dataSet() {
         return [[
-            "id" => uniqid(),
+            "id" => '63d332d4be676',
             "name" => "Hillarius",
             "seats" => 200,
             "address" => "Av. Salim Farah Maluf, 1850 - Quarta Parada, SP",
@@ -33,7 +33,7 @@ class PlaceSeeder extends Seeder
             "lat" => -23.546185,
             "lng" => -46.579876,
         ], [
-            "id" => uniqid(),
+            "id" => '63d332d4be678',
             "name" => "Espaço Cultural Urca",
             "seats" => 300,
             "address" => "Av. Salim Farah Maluf, 1850 - Quarta Parada, SP",
@@ -42,4 +42,6 @@ class PlaceSeeder extends Seeder
             "lng" => -46.579876,
         ]];
     }
+
+
 }

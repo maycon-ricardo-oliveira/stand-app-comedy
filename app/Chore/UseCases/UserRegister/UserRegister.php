@@ -3,6 +3,7 @@
 namespace App\Chore\UseCases\UserRegister;
 
 use App\Chore\Adapters\DateTimeAdapter;
+use App\Chore\Domain\IDateTime;
 use App\Chore\Domain\IHash;
 use App\Chore\Domain\IUniqId;
 use App\Chore\Domain\User;
@@ -23,7 +24,7 @@ class UserRegister
         $this->uuid = $uuid;
     }
 
-    public function handle($userData, DateTimeAdapter $date)
+    public function handle($userData, IDateTime $date)
     {
 
         $user = $this->userRepository->findUserByEmail($userData['email']);

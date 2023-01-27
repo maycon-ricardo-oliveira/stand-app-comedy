@@ -15,6 +15,8 @@
 - [ ] Evaluate an Attraction with 5 stars
 - [ ] Integrate of YouTube and get Most watched videos
 - [ ] Integrate with GeoLocation Google Api
+- [ ] Different roles to users
+- [ ] Login with google using socialite lib
 
 ### Business Rules
 - [ ] Only Attractions in a future date can be returned

@@ -2,6 +2,7 @@
 
 namespace App\Chore\Infra\MySql;
 
+use App\Chore\Domain\Attraction;
 use App\Chore\Domain\AttractionRepository;
 use App\Chore\Domain\IDateTime;
 use App\Chore\Infra\AttractionMapper;
@@ -26,7 +27,9 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
         $query = "select a.*, p.*, c.*,
                 p.name as placeName,
                 c.name as comedianName,
-                c.mini_bio as miniBio
+                c.mini_bio as miniBio,
+                a.owner_id as owner,
+                a.duration as duration
             from attractions a
             inner join places p on p.id = a.place_id
             inner join comedians c on c.id = a.comedian_id
@@ -55,6 +58,7 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
                 p.name as placeName,
                 c.name as comedianName,
                 c.mini_bio as miniBio,
+                a.owner_id as owner,
                 :earthRadiusInKM * 2 * ASIN(SQRT( POWER(SIN((:lat -  lat)*pi()/180/2),2)
                     +COS(:lat*pi()/180) * COS(lat*pi()/180) * POWER(SIN((:lng-lng) * pi()/180/2),2))
                 ) as distance
@@ -80,7 +84,9 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
         $query = "select a.*, p.*, c.*,
                 p.name as placeName,
                 c.name as comedianName,
-                c.mini_bio as miniBio
+                c.mini_bio as miniBio,
+                a.owner_id as owner
+
             from attractions a
             inner join places p on p.id = a.place_id
             inner join comedians c on c.id = a.comedian_id
@@ -97,7 +103,9 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
         $query = "select a.*, p.*, c.*,
                 p.name as placeName,
                 c.name as comedianName,
-                c.mini_bio as miniBio
+                c.mini_bio as miniBio,
+                a.owner_id as owner
+
             from attractions a
             inner join places p on p.id = a.place_id
             inner join comedians c on c.id = a.comedian_id
@@ -110,4 +118,32 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
 
     }
 
+    public function registerAttraction(Attraction $attractionData, IDateTime $date): bool
+    {
+
+        $query = "INSERT INTO attractions (id,
+                         title, date,
+                         duration, status,
+                         comedian_id, place_id,
+                         owner_id,
+                         created_at, updated_at)
+                  VALUES ( :id, :title,:date,:duration,:status,:comedian_id,:place_id,:owner_id,:created_at,:updated_at)";
+
+        $params = [
+            "id" => $attractionData->id,
+            "title" => $attractionData->title,
+            "date" => $attractionData->date->format('Y-m-d H:i:s'),
+            "duration" => $attractionData->duration,
+            "status" => $attractionData->status,
+            "comedian_id" => $attractionData->comedian->id,
+            "place_id" => $attractionData->place->id,
+            "owner_id" => $attractionData->owner,
+            "created_at" => $date->format('Y-m-d H:i:s'),
+            "updated_at" => $date->format('Y-m-d H:i:s'),
+        ];
+
+        $this->connection->query($query, $params);
+        return true;
+
+    }
 }

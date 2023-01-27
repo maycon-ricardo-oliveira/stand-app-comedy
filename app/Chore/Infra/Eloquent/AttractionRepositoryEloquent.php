@@ -2,7 +2,9 @@
 
 namespace App\Chore\Infra\Eloquent;
 
+use App\Chore\Domain\Attraction;
 use App\Chore\Domain\AttractionRepository;
+use App\Chore\Domain\IDateTime;
 use App\Chore\Infra\MySql\DBConnection;
 
 class AttractionRepositoryEloquent extends EloquentBase implements AttractionRepository
@@ -34,5 +36,13 @@ class AttractionRepositoryEloquent extends EloquentBase implements AttractionRep
     public function getAttractionsByComedianId(string $comedianId)
     {
         return $this->getModel()->with('place')->where(['artist' => $comedianId])->get();
+    }
+
+
+    public function registerAttraction(Attraction $attractionData, IDateTime $date): bool
+    {
+
+        return true;
+        // TODO: Implement registerAttraction() method.
     }
 }
