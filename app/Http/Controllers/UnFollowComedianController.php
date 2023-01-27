@@ -29,7 +29,7 @@ class UnFollowComedianController extends Controller
      *     description="",
      *     @OA\JsonContent(
      *       required={"comedianId"},
-     *       @OA\Property(property="comedianId", type="string", format="", example=""),
+     *       @OA\Property(property="comedianId", type="string", format="", example="63d1c98de5cea"),
      *     ),
      *   ),
      *   @OA\Response(
@@ -48,12 +48,11 @@ class UnFollowComedianController extends Controller
      */
     public function handle(Request $request)
     {
-        $uuid = new UniqIdAdapter();
         $userRepo = new UserDAODatabase($this->dbConnection, $this->time);
         $comedianRepo = new ComedianDAODatabase($this->dbConnection, $this->time);
 
         $auth = new AuthAdapter();
-        $useCase = new UnFollowComedian($userRepo, $comedianRepo,$uuid);
+        $useCase = new UnFollowComedian($userRepo, $comedianRepo);
         $response = $useCase->handle($auth->auth->user()->getAuthIdentifier(), $request->comedianId);
 
         return $this->response->successResponse($response);

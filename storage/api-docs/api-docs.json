@@ -412,6 +412,58 @@
                     }
                 ]
             }
+        },
+        "/api/v1/user/unfollow": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "operationId": "UnFollowComedianController@handle",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "comedianId"
+                                ],
+                                "properties": {
+                                    "comedianId": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ComedianResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
         }
     },
     "components": {

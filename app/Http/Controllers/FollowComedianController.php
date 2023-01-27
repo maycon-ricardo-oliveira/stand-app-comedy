@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Chore\Adapters\AuthAdapter;
 use App\Chore\Adapters\UniqIdAdapter;
-use App\Chore\Infra\Eloquent\UserRepositoryEloquent;
 use App\Chore\Infra\MySql\ComedianDAODatabase;
 use App\Chore\Infra\MySql\UserDAODatabase;
-use App\Chore\UseCases\Auth\Auth;
 use App\Chore\UseCases\Follow\FollowComedian;
-use App\Chore\UseCases\GetComedianDetailsById\GetComedianDetailsById;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -31,7 +28,7 @@ class FollowComedianController extends Controller
      *     description="",
      *     @OA\JsonContent(
      *       required={"comedianId"},
-     *       @OA\Property(property="comedianId", type="string", format="", example=""),
+     *       @OA\Property(property="comedianId", type="string", format="", example="63d1c98de5cea"),
      *     ),
      *   ),
      *   @OA\Response(

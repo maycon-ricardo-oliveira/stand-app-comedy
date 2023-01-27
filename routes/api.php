@@ -8,6 +8,7 @@ use App\Http\Controllers\ListAttractionsByComedianNameController;
 use App\Http\Controllers\ListAttractionsController;
 use App\Http\Controllers\ListAttractionsByComedianController;
 use App\Http\Controllers\ListAttractionsByLocationController;
+use App\Http\Controllers\UnFollowComedianController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -20,12 +21,10 @@ Route::prefix('v1')->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);
 
         Route::post('/user/follow',  [FollowComedianController::class, 'handle']);
+        Route::post('/user/unfollow',  [UnFollowComedianController::class, 'handle']);
     });
 
-
-
     Route::get('/comedian/{comedianId}',  [GetComedianByIdController::class, 'handle']);
-
 
     Route::get('attractions/location',  [ListAttractionsByLocationController::class, 'handle']);
     Route::get('attractions/{place}',  [ListAttractionsController::class, 'handle']);
