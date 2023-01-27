@@ -9,22 +9,44 @@ use App\Chore\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Infra\Memory\ComedianRepositoryMemory;
 use App\Chore\Infra\Memory\PlaceRepositoryMemory;
 use App\Chore\Infra\Memory\UserRepositoryMemory;
-use App\Chore\UseCases\ListAttractionsByLocation\ListAttractionsByLocation;
 use App\Chore\UseCases\RegisterAttraction\RegisterAttraction;
 
 class RegisterAttractionTest extends UnitTestCase
 {
-    public function testMustReturnAListOfAttractions()
-    {
-        $hash = new HashAdapter();
-        $date = new DateTimeAdapter();
-        $attractionRepo = new AttractionRepositoryMemory($date);
-        $userRepo = new UserRepositoryMemory($date, $hash);
-        $placeRepo = new PlaceRepositoryMemory();
-        $comedianRepo = new ComedianRepositoryMemory();
-        $uuid = new UniqIdAdapter();
 
-        $useCase = new RegisterAttraction($attractionRepo, $comedianRepo, $placeRepo, $userRepo, $uuid);
+    private PlaceRepositoryMemory $placeRepo;
+    private AttractionRepositoryMemory $attractionRepo;
+    private UserRepositoryMemory $userRepo;
+    private ComedianRepositoryMemory $comedianRepo;
+    private UniqIdAdapter $uuid;
+
+    /**
+     * @throws \Exception
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $date = new DateTimeAdapter();
+        $hash = new HashAdapter();
+
+        $this->attractionRepo = new AttractionRepositoryMemory($date);
+        $this->userRepo = new UserRepositoryMemory($date, $hash);
+        $this->placeRepo = new PlaceRepositoryMemory();
+        $this->comedianRepo = new ComedianRepositoryMemory();
+        $this->uuid = new UniqIdAdapter();
+    }
+
+    public function testMustRegisterAttraction()
+    {
+        $date = new DateTimeAdapter();
+        $useCase = new RegisterAttraction(
+            $this->attractionRepo,
+            $this->comedianRepo,
+            $this->placeRepo,
+            $this->userRepo,
+            $this->uuid
+        );
 
         $attraction = [
             "title" => "any_title",
@@ -40,4 +62,84 @@ class RegisterAttractionTest extends UnitTestCase
 
         $this->assertSame($response->title, $attraction["title"]);
     }
+    public function testMustReturnExceptionToRegisterAttractionUsingANotExistentComedian()
+    {
+        $this->expectExceptionMessage("Comedian not found");
+
+        $date = new DateTimeAdapter();
+        $useCase = new RegisterAttraction(
+            $this->attractionRepo,
+            $this->comedianRepo,
+            $this->placeRepo,
+            $this->userRepo,
+            $this->uuid
+        );
+
+        $attraction = [
+            "title" => "any_title",
+            "date" => "2023-01-09 00:00:00",
+            "status" => "any_status",
+            "comedianId" => "not_existent_id",
+            "duration" => '180',
+            "placeId" => "any_id",
+            "ownerId" => "any_id_3",
+        ];
+
+        $useCase->handle($attraction, $date);
+
+    }
+
+    public function testMustReturnExceptionToRegisterAttractionUsingANotExistentPlace()
+    {
+        $this->expectExceptionMessage("Place not found");
+
+        $date = new DateTimeAdapter();
+        $useCase = new RegisterAttraction(
+            $this->attractionRepo,
+            $this->comedianRepo,
+            $this->placeRepo,
+            $this->userRepo,
+            $this->uuid
+        );
+
+        $attraction = [
+            "title" => "any_title",
+            "date" => "2023-01-09 00:00:00",
+            "status" => "any_status",
+            "comedianId" => "any_id_1",
+            "duration" => '180',
+            "placeId" => "not_existent_id",
+            "ownerId" => "any_id_3",
+        ];
+
+        $useCase->handle($attraction, $date);
+
+    }
+    public function testMustReturnExceptionToRegisterAttractionUsingANotExistentUser()
+    {
+        $this->expectExceptionMessage("User not found");
+
+        $date = new DateTimeAdapter();
+        $useCase = new RegisterAttraction(
+            $this->attractionRepo,
+            $this->comedianRepo,
+            $this->placeRepo,
+            $this->userRepo,
+            $this->uuid
+        );
+
+        $attraction = [
+            "title" => "any_title",
+            "date" => "2023-01-09 00:00:00",
+            "status" => "any_status",
+            "comedianId" => "any_id_1",
+            "duration" => '180',
+            "placeId" => "any_id",
+            "ownerId" => "not_existent_id",
+        ];
+
+        $useCase->handle($attraction, $date);
+
+    }
+
 }

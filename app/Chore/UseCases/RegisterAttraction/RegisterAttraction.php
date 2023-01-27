@@ -5,10 +5,13 @@ namespace App\Chore\UseCases\RegisterAttraction;
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Domain\Attraction;
 use App\Chore\Domain\AttractionRepository;
+use App\Chore\Domain\Comedian;
 use App\Chore\Domain\ComedianRepository;
 use App\Chore\Domain\IDateTime;
 use App\Chore\Domain\IUniqId;
+use App\Chore\Domain\Place;
 use App\Chore\Domain\PlaceRepository;
+use App\Chore\Domain\User;
 use App\Chore\Domain\UserRepository;
 use App\Models\Enums\AttractionStatus;
 
@@ -42,6 +45,16 @@ class RegisterAttraction
         $comedian = $this->comedianRepo->getComedianById($attractionData['comedianId']);
         $place = $this->placeRepo->getPlaceById($attractionData['placeId']);
         $owner = $this->userRepo->findUserById($attractionData['ownerId']);
+
+        if (!$comedian instanceof Comedian) {
+            throw new \Exception('Comedian not found');
+        }
+        if (!$place instanceof Place) {
+            throw new \Exception('Place not found');
+        }
+        if (!$owner instanceof User) {
+            throw new \Exception('User not found');
+        }
 
         $date = new DateTimeAdapter($attractionData["date"]);
 
