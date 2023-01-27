@@ -26,7 +26,6 @@ class UserRepositoryEloquent extends UserMapper implements UserRepository
     {
         $user = UserModel::with('userFollows.comedian')->where(['id' => $id])->first();
 
-        var_dump($user->userFollows);
         return $user instanceof UserModel ?
             new User(
                 $user->id,

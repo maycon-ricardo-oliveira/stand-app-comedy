@@ -117,7 +117,7 @@
                                     "comedianId": {
                                         "type": "string",
                                         "format": "",
-                                        "example": ""
+                                        "example": "63d1c98de5cea"
                                     }
                                 },
                                 "type": "object"
@@ -432,7 +432,7 @@
                                     "comedianId": {
                                         "type": "string",
                                         "format": "",
-                                        "example": ""
+                                        "example": "63d1c98de5cea"
                                     }
                                 },
                                 "type": "object"

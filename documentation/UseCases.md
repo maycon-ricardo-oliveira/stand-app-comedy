@@ -25,9 +25,10 @@
 
 ### Fix 
 - [ ] check when used null parameters on ListAttractionsByLocation
+- [ ] try catch on controllers to a beautiful exception
 
 ### Improvements
-- [] Turn login logout tests better, not need database connection
+- [ ] Turn login logout tests better, not need database connection
 
 
 ### Architecture Base:
