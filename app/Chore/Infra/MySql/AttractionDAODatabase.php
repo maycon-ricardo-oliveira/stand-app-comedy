@@ -26,7 +26,8 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
         $query = "select a.*, p.*, c.*,
                 p.name as placeName,
                 c.name as comedianName,
-                c.mini_bio as miniBio
+                c.mini_bio as miniBio,
+                a.owner_id as owner
             from attractions a
             inner join places p on p.id = a.place_id
             inner join comedians c on c.id = a.comedian_id
@@ -55,6 +56,7 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
                 p.name as placeName,
                 c.name as comedianName,
                 c.mini_bio as miniBio,
+                a.owner_id as owner,
                 :earthRadiusInKM * 2 * ASIN(SQRT( POWER(SIN((:lat -  lat)*pi()/180/2),2)
                     +COS(:lat*pi()/180) * COS(lat*pi()/180) * POWER(SIN((:lng-lng) * pi()/180/2),2))
                 ) as distance
@@ -80,7 +82,9 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
         $query = "select a.*, p.*, c.*,
                 p.name as placeName,
                 c.name as comedianName,
-                c.mini_bio as miniBio
+                c.mini_bio as miniBio,
+                a.owner_id as owner
+
             from attractions a
             inner join places p on p.id = a.place_id
             inner join comedians c on c.id = a.comedian_id
@@ -97,7 +101,9 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
         $query = "select a.*, p.*, c.*,
                 p.name as placeName,
                 c.name as comedianName,
-                c.mini_bio as miniBio
+                c.mini_bio as miniBio,
+                a.owner_id as owner
+
             from attractions a
             inner join places p on p.id = a.place_id
             inner join comedians c on c.id = a.comedian_id

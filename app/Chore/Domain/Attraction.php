@@ -3,6 +3,8 @@
 namespace App\Chore\Domain;
 
 
+use App\Models\Enums\AttractionStatus;
+
 class Attraction
 {
     public string $id;
@@ -11,23 +13,37 @@ class Attraction
     public Comedian $comedian;
     public false|string $timeToEvent;
     public Place $place;
+    public string $status;
+    public string $owner;
 
     /**
      * @param string $id
      * @param string $title
      * @param IDateTime $date
-     * @param IDateTime $time
      * @param Comedian $comedian
      * @param Place $place
+     * @param string $status
+     * @param string $owner
+     * @param IDateTime $time
      */
-    public function __construct(string $id, string $title, IDateTime $date, Comedian $comedian, Place $place, IDateTime $time)
+    public function __construct(
+        string $id,
+        string $title,
+        IDateTime $date,
+        Comedian $comedian,
+        Place $place,
+        string $status,
+        string $owner,
+        IDateTime $time)
     {
         $this->id = $id;
         $this->title = $title;
-        $this->comedian = $comedian;
         $this->date = $date;
-        $this->place = $place;
+        $this->comedian = $comedian;
         $this->timeToEvent = $this->getAmountTimeAtAttraction($time, $date);
+        $this->place = $place;
+        $this->status = $status;
+        $this->owner = $owner;
     }
 
     public function getAmountTimeAtAttraction(IDateTime $time, IDateTime $date): false|string

@@ -44,6 +44,8 @@ class AttractionMapper extends ArrayIterator {
                     $item['lng'],
                     $item['distance'] ?? 0,
                 ),
+                $item['status'],
+                $item['owner'],
                 $time
             );
 

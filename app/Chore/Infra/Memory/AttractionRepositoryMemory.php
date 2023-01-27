@@ -2,11 +2,9 @@
 
 namespace App\Chore\Infra\Memory;
 
-use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Domain\Attraction;
 use App\Chore\Domain\AttractionRepository;
 use App\Chore\Domain\IDateTime;
-use App\Chore\Domain\Place;
 use App\Chore\Infra\AttractionMapper;
 
 class AttractionRepositoryMemory extends AttractionMapper implements AttractionRepository {
@@ -77,7 +75,9 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "zipcode" => "03157-200",
             "lat" => -23.546185,
             "lng" => -46.579876,
-            "distance" => 10
+            "distance" => 10,
+            "status" => 'draft',
+            "owner" => '63d1c98e22ccb'
         ], [
             "id" => '63a277fc7b251',
             "comedianName" => "Rodrigo Marques",
@@ -92,7 +92,9 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "zipcode" => "03157-200",
             "lat" => -23.546185,
             "lng" => -46.579876,
-            "distance" => 20
+            "distance" => 20,
+            "status" => 'draft',
+            "owner" => '63d1c98e22ccb'
         ]];
     }
 
