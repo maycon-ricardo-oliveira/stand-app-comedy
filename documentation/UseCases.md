@@ -10,7 +10,7 @@
 - [ ] Recover password
 - [x] Follow a comedian
 - [x] UnFollow a comedian
-- [ ] Register an attraction
+- [x] Register an attraction
 - [ ] List follow comedians
 - [ ] Evaluate an Attraction with 5 stars
 - [ ] Integrate of YouTube and get Most watched videos

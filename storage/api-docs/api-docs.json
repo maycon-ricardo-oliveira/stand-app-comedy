@@ -377,7 +377,7 @@
                     "attractions"
                 ],
                 "description": "Returns all attractions available in a place.",
-                "operationId": "ListAttractionsController@handle",
+                "operationId": "ListAttractionsByPlaceController@handle",
                 "parameters": [
                     {
                         "name": "place",
@@ -388,6 +388,94 @@
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AttractionResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/attractions": {
+            "post": {
+                "tags": [
+                    "attractions"
+                ],
+                "description": "Register Attractions",
+                "operationId": "RegisterAttractionController@handle",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "date",
+                                    "comedianId",
+                                    "placeId",
+                                    "ownerId",
+                                    "duration"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "O Problema é meu"
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "2023-02-21 22:50:59"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "draft"
+                                    },
+                                    "comedianId": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "63d1dc4d4b52d"
+                                    },
+                                    "placeId": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "63d332d4be678"
+                                    },
+                                    "ownerId": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "63d1c98e22ccb"
+                                    },
+                                    "duration": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "180"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful Operation",

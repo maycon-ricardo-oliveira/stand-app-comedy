@@ -9,6 +9,8 @@ use App\Chore\Infra\MySql\ComedianDAODatabase;
 use App\Chore\Infra\MySql\PlaceDAODatabase;
 use App\Chore\Infra\MySql\UserDAODatabase;
 use App\Chore\UseCases\RegisterAttraction\RegisterAttraction;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class RegisterAttractionController extends Controller
@@ -19,6 +21,42 @@ class RegisterAttractionController extends Controller
         parent::__construct();
     }
 
+    /**
+     * @OA\Post(
+     *   path="/api/v1/attractions",
+     *   tags={"attractions"},
+     *   operationId="RegisterAttractionController@handle",
+     *   description="Register Attractions",
+     *   security={ {"token": {} }},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     description="",
+     *     @OA\JsonContent(
+     *       required={"title", "date", "comedianId", "placeId", "ownerId", "duration"},
+     *       @OA\Property(property="title", type="string", format="", example="O Problema é meu"),
+     *       @OA\Property(property="date", type="string", format="", example="2023-02-21 22:50:59"),
+     *       @OA\Property(property="status", type="string", format="", example="draft"),
+     *       @OA\Property(property="comedianId", type="string", format="", example="63d1dc4d4b52d"),
+     *       @OA\Property(property="placeId", type="string", format="", example="63d332d4be678"),
+     *       @OA\Property(property="ownerId", type="string", format="", example="63d1c98e22ccb"),
+     *       @OA\Property(property="duration", type="string", format="", example="180"),
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="Successful Operation",
+     *     @OA\JsonContent(
+     *       type="array",
+     *       @OA\Items(ref="#/components/schemas/AttractionResponse")
+     *     ),
+     *   ),
+     *   @OA\Response(response=404, description="Not found operation"),
+     * )
+     *
+     * @param Request $request
+     * @return JsonResponse
+     * @throws Exception
+     */
     public function handle(Request $request)
     {
         $date = new DateTimeAdapter();

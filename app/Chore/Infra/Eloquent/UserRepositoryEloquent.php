@@ -2,8 +2,8 @@
 
 namespace App\Chore\Infra\Eloquent;
 
-use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Domain\Comedian;
+use App\Chore\Domain\IDateTime;
 use App\Chore\Domain\User;
 use App\Chore\Domain\UserRepository;
 use App\Chore\Infra\UserMapper;
@@ -11,11 +11,6 @@ use App\Models\User as UserModel;
 
 class UserRepositoryEloquent extends UserMapper implements UserRepository
 {
-
-    public function register(User $user, DateTimeAdapter $date): bool
-    {
-        return true;
-    }
 
     public function findUserByEmail(string $email)
     {
@@ -50,5 +45,10 @@ class UserRepositoryEloquent extends UserMapper implements UserRepository
     public function unFollowComedian(User $user, Comedian $comedian)
     {
         // TODO: Implement unFollowComedian() method.
+    }
+
+    public function register(User $user, IDateTime $date): bool
+    {
+        return true;
     }
 }
