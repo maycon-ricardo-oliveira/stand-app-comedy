@@ -16,6 +16,7 @@ Route::prefix('v1')->group(function () {
     Route::get('health', [HealthController::class, 'healthCheck']);
 
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('/user/register',  [UnFollowComedianController::class, 'handle']);
 
     Route::middleware('jwt.verify')->group(function() {
         Route::post('refresh', [AuthController::class, 'refresh']);
