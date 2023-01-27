@@ -5,7 +5,7 @@ use App\Http\Controllers\FollowComedianController;
 use App\Http\Controllers\GetComedianByIdController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\ListAttractionsByComedianNameController;
-use App\Http\Controllers\ListAttractionsController;
+use App\Http\Controllers\ListAttractionsByPlaceController;
 use App\Http\Controllers\ListAttractionsByComedianController;
 use App\Http\Controllers\ListAttractionsByLocationController;
 use App\Http\Controllers\UnFollowComedianController;
@@ -27,7 +27,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/comedian/{comedianId}',  [GetComedianByIdController::class, 'handle']);
 
     Route::get('attractions/location',  [ListAttractionsByLocationController::class, 'handle']);
-    Route::get('attractions/{place}',  [ListAttractionsController::class, 'handle']);
+    Route::get('attractions/{place}',  [ListAttractionsByPlaceController::class, 'handle']);
     Route::get('attractions/comedian/{comedianId}',  [ListAttractionsByComedianController::class, 'handle']);
     Route::get('attractions/comedian/name/{comedianName}',  [ListAttractionsByComedianNameController::class, 'handle']);
 
