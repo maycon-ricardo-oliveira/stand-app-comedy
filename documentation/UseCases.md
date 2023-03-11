@@ -28,6 +28,7 @@
 ### Fix 
 - [ ] check when used null parameters on ListAttractionsByLocation
 - [ ] try catch on controllers to a beautiful exception
+- [ ] password can't show on api
 
 ### Improvements
 - [ ] Turn login logout tests better, not need database connection

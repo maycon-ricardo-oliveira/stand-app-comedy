@@ -113,4 +113,18 @@ class UserDAODatabase extends UserMapper implements UserRepository
 
         return count($userData);
     }
+
+    public function listFollowComedians(User $user)
+    {
+        $query = "select u.*, GROUP_CONCAT(distinct(uf.comedian_id)) as followingComedians from users u
+         left join user_follows uf on u.id = uf.user_id
+         where u.id = :id GROUP BY u.id";
+        $params = ['id' => $user->id];
+
+        $userData = $this->connection->query($query, $params);
+
+        $data = $this->mapper($userData);
+
+        return count($data) == 0 ? null : $data[0];
+    }
 }

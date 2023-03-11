@@ -19,7 +19,7 @@ class UserRepositoryEloquent extends UserMapper implements UserRepository
 
     public function findUserById(string $id)
     {
-        $user = UserModel::with('userFollows.comedian')->where(['id' => $id])->first();
+        $user = UserModel::with('followingComedians.comedian')->where(['id' => $id])->first();
 
         return $user instanceof UserModel ?
             new User(
@@ -28,7 +28,7 @@ class UserRepositoryEloquent extends UserMapper implements UserRepository
                 $user->email,
                 $user->password,
                 $user->remember_token,
-                (array) $user->userFollows ?? []
+                (array) $user->followingComedians ?? []
             ) : null;
     }
 
@@ -50,5 +50,10 @@ class UserRepositoryEloquent extends UserMapper implements UserRepository
     public function register(User $user, IDateTime $date): bool
     {
         return true;
+    }
+
+    public function listFollowComedians(User $user)
+    {
+        // TODO: Implement listFollowComedians() method.
     }
 }
