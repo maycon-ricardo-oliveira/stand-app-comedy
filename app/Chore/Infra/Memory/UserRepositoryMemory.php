@@ -103,7 +103,7 @@ class UserRepositoryMemory extends UserMapper implements UserRepository
             "email" => 'user.test63cb4a1551081@gmail.com',
             "password" => 'password',
             "remember_token" => 'remember_token',
-            "followingComedians" => []
+            "followingComedians" => ["63d1dc4d4b52d"]
         ]];
     }
 
@@ -126,5 +126,15 @@ class UserRepositoryMemory extends UserMapper implements UserRepository
         }
 
         return null;
+    }
+
+    public function listFollowComedians(User $user)
+    {
+        $response = array_values(array_filter($this->users, function ($item) use ($user) {
+            return $item->id == $user->id;
+        }));
+
+        return count($response) == 0 ? null : $response[0]->followingComedians;
+
     }
 }

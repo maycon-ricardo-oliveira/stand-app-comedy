@@ -57,7 +57,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
     }
 
-    public function userFollows(): HasMany
+    public function followingComedians(): HasMany
     {
         return $this->hasMany(UserFollows::class, 'user_id');
     }

@@ -19,11 +19,12 @@ class ListFollowComediansTest extends UnitTestCase
         $repository = new UserRepositoryMemory($date, $hash);
 
         $userId = 'any_id_3';
+        $comedianId = '63d1dc4d4b52d';
         $useCase = new ListFollowComedians($repository);
 
         $response = $useCase->handle($userId);
 
-        $this->assertSame($userId, $response->id);
+        $this->assertSame($comedianId, $response[0]);
     }
 
     public function testMustReturnExceptionToListFollowComediansUsingANotExistentUser()

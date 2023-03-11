@@ -15,6 +15,7 @@ class AttractionControllersTest extends FeatureTestCase
     {
         $request = new Request();
         $request->place = 'Hillarius';
+        $this->useLogin();
 
         $controller = new ListAttractionsByPlaceController();
         $response = $controller->handle($request);
