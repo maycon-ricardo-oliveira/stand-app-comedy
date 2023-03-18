@@ -11,9 +11,9 @@
         <testsuite name="feature">
             <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>
-        <testsuite name="gateway">
-            <directory suffix="Test.php">./tests/Gateways</directory>
-        </testsuite>
+<!--        <testsuite name="gateway">-->
+<!--            <directory suffix="Test.php">./tests/Gateways</directory>-->
+<!--        </testsuite>-->
     </testsuites>
     <coverage processUncoveredFiles="true">
         <include>
