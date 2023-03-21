@@ -40,4 +40,20 @@ class ComedianDAODatabase extends ComedianMapper implements ComedianRepository
         return count($data) == 0 ? null : $data[0];
     }
 
+
+    public function getListOfComedians(array $comedianIds)
+    {
+        $query = "SELECT  c.*,
+                c.name as comedianName,
+                c.mini_bio as miniBio FROM comedians c WHERE 1=0 ";
+        if (!empty($comedianIds)) {
+            $query .= "OR id IN (" . implode(",", array_fill(0, count($comedianIds), "?")) . ")";
+        }
+
+        $comedianData = $this->connection->query($query, $comedianIds);
+
+        $data = $this->mapper($comedianData);
+
+        return count($data) == 0 ? null : $data;
+    }
 }

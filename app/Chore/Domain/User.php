@@ -13,7 +13,11 @@ class User
     public string $email;
     public string $password;
     public string $rememberToken;
-    public $followingComedians;
+
+    /**
+     * @var Comedian[]
+     */
+    public mixed $followingComedians;
 
     /**
      * @param string $id
@@ -21,7 +25,7 @@ class User
      * @param string $email
      * @param string $password
      * @param string $rememberToken
-     * @param $followingComedians
+     * @param Comedian[] $followingComedians
      */
     public function __construct(
         string $id,
@@ -29,7 +33,7 @@ class User
         string $email,
         string $password,
         string $rememberToken,
-        $followingComedians = []
+        array $followingComedians = []
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -38,6 +42,5 @@ class User
         $this->rememberToken = $rememberToken;
         $this->followingComedians = $followingComedians;
     }
-
 
 }

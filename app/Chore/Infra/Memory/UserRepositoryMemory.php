@@ -96,14 +96,14 @@ class UserRepositoryMemory extends UserMapper implements UserRepository
             "email" => 'any_email_2@email.com',
             "password" => 'password',
             "remember_token" => 'remember_token',
-            "followingComedians" => []
+            "followingComedians" => "63d1dc4d4b52d,any_id_2"
         ],[
             "id" => 'any_id_3',
             "name" => 'any_name',
             "email" => 'user.test63cb4a1551081@gmail.com',
             "password" => 'password',
             "remember_token" => 'remember_token',
-            "followingComedians" => ["63d1dc4d4b52d"]
+            "followingComedians" => "63d1dc4d4b52d"
         ]];
     }
 
