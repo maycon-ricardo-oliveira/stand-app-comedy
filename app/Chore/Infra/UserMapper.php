@@ -34,7 +34,7 @@ class UserMapper extends ArrayIterator
                 $item->email,
                 $item->password,
                 $item->remember_token,
-                $item->followingComedians ?? []
+                $item->followingComedians ? explode(",", $item->followingComedians) : []
             );
 
         }, $userData);

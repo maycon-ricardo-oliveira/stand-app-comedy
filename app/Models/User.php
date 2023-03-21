@@ -12,6 +12,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/**
+ * @OA\Schema(
+ *   schema="UserResponse",
+ *   description="User",
+ *   title="User Schema",
+ *   @OA\Property(property="id", type="string", description="The place id"),
+ *   @OA\Property(property="name", type="string", description="The place id"),
+ *   @OA\Property(property="email", type="string", description="The place id"),
+ * )
+ */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 
 {

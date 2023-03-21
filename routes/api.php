@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FollowComedianController;
 use App\Http\Controllers\GetComedianByIdController;
+use App\Http\Controllers\GetUserProfileByIdController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\ListAttractionsByComedianNameController;
 use App\Http\Controllers\ListAttractionsByPlaceController;
@@ -24,6 +25,7 @@ Route::prefix('v1')->group(function () {
 
         Route::post('/user/follow',  [FollowComedianController::class, 'handle']);
         Route::post('/user/unfollow',  [UnFollowComedianController::class, 'handle']);
+        Route::get('/user/{userId}',  [GetUserProfileByIdController::class, 'handle']);
     });
 
     Route::get('/comedian/{comedianId}',  [GetComedianByIdController::class, 'handle']);
