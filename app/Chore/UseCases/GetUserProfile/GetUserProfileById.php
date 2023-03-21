@@ -21,7 +21,7 @@ class GetUserProfileById
         $this->repo = $repo;
     }
 
-    public function handle(string $userId)
+    public function handle(string $userId): UserResponse
     {
         $user = $this->repo->findUserById($userId);
 
@@ -31,11 +31,9 @@ class GetUserProfileById
 
         $comedians = $this->comedianRepo->getListOfComedians($user->followingComedians);
 
-        return [
-            "user" => $user,
-            "comedians" => $comedians
-        ];
-
+        return new UserResponse(
+            $user, $comedians
+        );
     }
 
 }

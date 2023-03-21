@@ -7,6 +7,7 @@ use App\Chore\Domain\Comedian;
 use App\Chore\Domain\IDateTime;
 use App\Chore\Domain\User;
 use App\Chore\Domain\UserRepository;
+use App\Chore\Infra\Dtos\UserResponse;
 use App\Chore\Infra\UserMapper;
 use Exception;
 
@@ -58,21 +59,6 @@ class UserDAODatabase extends UserMapper implements UserRepository
 
         return count($data) == 0 ? null : $data[0];
     }
-    public function oldFindUserById(string $id)
-    {
-        $query = "select u.*, CONCAT('[', GROUP_CONCAT(distinct(uf.comedian_id) SEPARATOR ',') ,']')  as followingComedians from users u
-         left join user_follows uf on u.id = uf.user_id
-         where u.id = :id GROUP BY u.id";
-        $params = ['id' => $id];
-
-        $userData = $this->connection->query($query, $params);
-
-        $data = $this->mapper($userData);
-
-        return count($data) == 0 ? null : $data[0];
-    }
-
-
     public function findUserById(string $id)
     {
         $query = "select u.*, GROUP_CONCAT(distinct(uf.comedian_id))  as followingComedians from users u

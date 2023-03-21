@@ -6,6 +6,7 @@ use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\HashAdapter;
 use App\Chore\Adapters\MySqlAdapter;
 use App\Chore\Adapters\UniqIdAdapter;
+use App\Chore\Infra\Memory\ComedianRepositoryMemory;
 use App\Chore\Infra\Memory\UserRepositoryMemory;
 use App\Chore\Infra\MySql\UserDAODatabase;
 use App\Chore\UseCases\GetUserProfile\GetUserProfileById;
@@ -54,7 +55,8 @@ class UserRegisterTest extends TestCase
         $hashAdapter = new HashAdapter();
         $uuidAdapter = new UniqIdAdapter();
         $register = new UserRegister($repository, $hashAdapter, $uuidAdapter);
-        $useCase = new GetUserProfileById($repository);
+        $comedianRepo = new ComedianRepositoryMemory();
+        $useCase = new GetUserProfileById($repository, $comedianRepo);
 
         $userData = [
             "name" => "User Teste 1",
@@ -68,7 +70,7 @@ class UserRegisterTest extends TestCase
         $this->assertSame($response[0]->name, $userData['name']);
         $this->assertNotEquals($response[0]->password, $userData['password']);
 
-        $this->assertSame($userProfile->id,$response[0]->id);
+        $this->assertSame($userProfile->user->id,$response[0]->id);
 
     }
 

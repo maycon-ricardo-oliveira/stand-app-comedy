@@ -64,4 +64,9 @@ class ComedianRepositoryMemory extends ComedianMapper implements ComedianReposit
         $this->comedians = $this->mapper($comedians);
     }
 
+    public function getListOfComedians(array $comedianIds)
+    {
+        if (empty($comedians)) $comedians = $this->dataSet();
+        $this->comedians = $this->mapper($comedians);
+    }
 }
