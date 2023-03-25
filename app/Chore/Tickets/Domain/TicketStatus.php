@@ -10,8 +10,8 @@ class TicketStatus
         $this->value = $value;
     }
 
-    public static function available(): self {
-        return new self('available');
+    public static function waiting(): self {
+        return new self('waiting');
     }
 
     public static function used(): self {
@@ -25,8 +25,8 @@ class TicketStatus
         return new self($value);
     }
 
-    public function isAvailable(): bool {
-        return $this->value === 'available';
+    public function isWaiting(): bool {
+        return $this->value === 'waiting';
     }
 
     public function isUsed(): bool {
