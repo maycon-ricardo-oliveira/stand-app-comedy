@@ -14,14 +14,17 @@ use Tests\TestCase;
 class FeatureTestCase extends TestCase
 {
 
+    public MySqlAdapter $mysql;
+    public UserDAODatabase $repo;
+
     public function setUp(): void
     {
         parent::setUp();
 
         $this->time = new DateTimeAdapter();
         $this->auth = new AuthAdapter();
-        $mysql = new MySqlAdapter();
-        $this->repo = new UserDAODatabase($mysql, $this->time);
+        $this->mysql = new MySqlAdapter();
+        $this->repo = new UserDAODatabase($this->mysql, $this->time);
 
     }
 

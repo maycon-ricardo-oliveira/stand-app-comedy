@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('owner_id')->constrained('comedians');
-            $table->foreignUuid('attraction_id')->constrained('comedians');
-            $table->dateTime('payed_at');
-            $table->dateTime('checkin_at');
+            $table->foreignUuid('owner_id')->constrained('users');
+            $table->foreignUuid('attraction_id')->constrained('attractions');
             $table->enum('status', ['waiting', 'paid', 'used']);
+            $table->dateTime('payed_at')->nullable();
+            $table->dateTime('checkin_at')->nullable();
             $table->timestamps();
         });
     }

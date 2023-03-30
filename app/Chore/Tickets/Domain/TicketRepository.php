@@ -4,7 +4,7 @@ namespace App\Chore\Tickets\Domain;
 
 interface TicketRepository
 {
-    public function save(Ticket $ticket): void;
+    public function save(Ticket $ticket): bool;
 
     public function findById(TicketId $id): ?Ticket;
 

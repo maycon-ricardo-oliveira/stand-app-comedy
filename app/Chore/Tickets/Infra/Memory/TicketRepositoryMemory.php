@@ -10,9 +10,10 @@ class TicketRepositoryMemory implements TicketRepository
 {
     private array $tickets = [];
     private ?TicketId $lastInsertedId = null;
-    public function save(Ticket $ticket): void {
+    public function save(Ticket $ticket): bool {
         $this->tickets[$ticket->id->toString()] = $ticket;
         $this->lastInsertedId = $ticket->id;
+        return true;
     }
 
     public function findById(TicketId $id): ?Ticket {

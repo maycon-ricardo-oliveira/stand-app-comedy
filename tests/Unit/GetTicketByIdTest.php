@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\RamseyUuidGenerator;
 use App\Chore\Tickets\Domain\Ticket;
 use App\Chore\Tickets\Domain\TicketId;
@@ -13,19 +14,26 @@ use DateTimeImmutable;
 class GetTicketByIdTest extends UnitTestCase
 {
 
-    public function testExecute(): void {
+    protected function setUp(): void {
+
+        $this->date = new DateTimeAdapter();
+
+    }
+
+    public function testHandle(): void {
         $ticketId = TicketId::generate(new RamseyUuidGenerator());
         $ownerId = 'user1';
         $attractionId = 'attraction1';
         $payedAt = new DateTimeImmutable();
-        $status = TicketStatus::available();
+        $status = TicketStatus::waiting();
         $checkinAt = null;
 
         $ticket = new Ticket(
+            $this->date,
             $ticketId,
             $ownerId,
             $attractionId,
-            $payedAt->format('Y-m-d HH:i:s'),
+            $payedAt,
             $status,
             $checkinAt
         );

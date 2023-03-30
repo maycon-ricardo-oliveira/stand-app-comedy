@@ -17,7 +17,7 @@ class UserRepositoryEloquent extends UserMapper implements UserRepository
         // TODO: Implement findUserByEmail() method.
     }
 
-    public function findUserById(string $id)
+    public function findUserById(string $id): ?User
     {
         $user = UserModel::with('followingComedians.comedian')->where(['id' => $id])->first();
 

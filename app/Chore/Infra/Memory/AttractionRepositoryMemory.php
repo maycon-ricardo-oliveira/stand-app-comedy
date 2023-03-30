@@ -120,4 +120,12 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
         $this->attractions[] = $attractionData;
         return true;
     }
+
+    public function findAttractionById(string $attractionId): ?Attraction
+    {
+        $response = array_filter($this->attractions, function ($attraction) use ($attractionId) {
+            return str_contains($attraction->id, $attractionId);
+        });
+        return count($response) == 0 ? null : $response[0];
+    }
 }

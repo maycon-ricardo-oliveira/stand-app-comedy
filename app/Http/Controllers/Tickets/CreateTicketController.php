@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Tickets;
 
-use App\Chore\Adapters\AuthAdapter;
-use App\Chore\Adapters\UniqIdAdapter;
-use App\Chore\Infra\MySql\ComedianDAODatabase;
+use App\Chore\Adapters\DateTimeAdapter;
+use App\Chore\Adapters\RamseyUuidGenerator;
+use App\Chore\Infra\MySql\AttractionDAODatabase;
 use App\Chore\Infra\MySql\UserDAODatabase;
+use App\Chore\Tickets\Infra\MySql\TicketDAODatabase;
 use App\Chore\Tickets\UseCases\CreateTicket\CreateTicket;
-use App\Chore\UseCases\Follow\FollowComedian;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,11 +15,29 @@ use Illuminate\Http\Request;
 class CreateTicketController extends Controller
 {
     private CreateTicket $createTicketUseCase;
+    private TicketDAODatabase $ticketRepository;
+    private AttractionDAODatabase $attractionRepository;
+    private UserDAODatabase $userRepository;
+    private RamseyUuidGenerator $uuidGenerator;
 
-    public function __construct(CreateTicket $createTicketUseCase)
+    public function __construct()
     {
+
         parent::__construct();
-        $this->createTicketUseCase = $createTicketUseCase;
+        $uuidGenerator = new RamseyUuidGenerator();
+
+        $this->ticketRepository = new TicketDAODatabase($this->dbConnection, $this->time, $uuidGenerator);
+        $this->attractionRepository = new AttractionDAODatabase($this->dbConnection, $this->time);
+        $this->userRepository = new UserDAODatabase($this->dbConnection, $this->time);
+        $this->uuidGenerator = new RamseyUuidGenerator();
+
+        $this->createTicketUseCase = new CreateTicket(
+            $this->ticketRepository,
+            new AttractionDAODatabase($this->dbConnection, $this->time),
+            $this->userRepository,
+            $this->uuidGenerator,
+            $this->time
+        );
     }
 
     public function create(Request $request): JsonResponse
@@ -27,9 +45,32 @@ class CreateTicketController extends Controller
 
         try {
 
-            $ticket = $this->createTicketUseCase->handle();
+//            $request->validate([
+//                'ownerId ' => 'required',
+//                'attractionId' => 'required',
+//            ]);
 
-            return $this->response->successResponse($ticket->getId());
+            $ticketData = [
+                'ownerId' => $request->ownerId,
+                'attractionId' => $request->attractionId,
+                'payedAt' => new DateTimeAdapter()
+            ];
+
+            $this->createTicketUseCase = new CreateTicket(
+                $this->ticketRepository,
+                $this->attractionRepository,
+                $this->userRepository,
+                $this->uuidGenerator,
+                $this->time
+            );
+
+            $response = $this->createTicketUseCase->handle(
+                $request->ownerId,
+                $request->attractionId,
+                new DateTimeAdapter()
+            );
+
+            return $this->response->successResponse($response);
 
         } catch(\Exception $exception) {
             return $this->response->badRequestResponse($exception->getMessage());
@@ -37,8 +78,4 @@ class CreateTicketController extends Controller
 
     }
 
-    public function getById(Request $request, Response $response, array $args): Response
-    {
-        // ...
-    }
 }
