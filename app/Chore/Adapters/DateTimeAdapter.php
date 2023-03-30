@@ -34,4 +34,9 @@ class DateTimeAdapter extends DateTimeImmutable implements IDateTime
         return parent::modify($modifier);
     }
 
+    public function format(string $format = 'Y-m-d H:i:s'): string
+    {
+        return parent::format($format);
+    }
+
 }

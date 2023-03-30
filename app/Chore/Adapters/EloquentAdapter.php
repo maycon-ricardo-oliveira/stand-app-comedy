@@ -18,7 +18,7 @@ class EloquentAdapter implements DBConnection
         $this->model = $model;
     }
 
-    public function query(string $statement, array $params)
+    public function query(string $statement, array $params = [])
     {
         return $this->model->query();
     }

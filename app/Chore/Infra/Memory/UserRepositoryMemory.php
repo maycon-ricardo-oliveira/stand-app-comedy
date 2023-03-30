@@ -51,7 +51,7 @@ class UserRepositoryMemory extends UserMapper implements UserRepository
         return $response;
     }
 
-    public function findUserById(string $id)
+    public function findUserById(string $id): ?User
     {
         $response = array_values(array_filter($this->users, function ($user) use ($id) {
             return $user->id == $id;

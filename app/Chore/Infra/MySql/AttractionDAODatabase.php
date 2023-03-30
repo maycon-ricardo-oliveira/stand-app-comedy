@@ -146,4 +146,26 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
         return true;
 
     }
+
+    public function findAttractionById(string $attractionId): ?Attraction
+    {
+        $query = "select a.*, p.*, c.*,
+                p.name as placeName,
+                c.name as comedianName,
+                c.mini_bio as miniBio,
+                a.owner_id as owner
+
+            from attractions a
+            inner join places p on p.id = a.place_id
+            inner join comedians c on c.id = a.comedian_id
+            where a.id = :id ";
+
+        $params = ['id' => $attractionId];
+
+        $attractionsData = $this->connection->query($query, $params);
+
+        $data = $this->mapper($this->time, $attractionsData);
+
+        return count($data) == 0 ? null : $data[0];
+    }
 }

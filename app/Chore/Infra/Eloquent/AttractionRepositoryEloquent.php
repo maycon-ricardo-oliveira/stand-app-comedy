@@ -45,4 +45,8 @@ class AttractionRepositoryEloquent extends EloquentBase implements AttractionRep
         return true;
         // TODO: Implement registerAttraction() method.
     }
+    public function findAttractionById(string $attractionId): ?Attraction
+    {
+        return $this->getModel()->with('place')->where(['id' => $attractionId])->first();
+    }
 }

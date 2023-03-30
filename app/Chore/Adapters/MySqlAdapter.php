@@ -18,7 +18,7 @@ class MySqlAdapter implements DBConnection
         $this->connection = new PDO("mysql:host={$host}:{$port};dbname={$database}", env('DB_USERNAME'), env('DB_PASSWORD'));
     }
 
-    public function query(string $statement, array $params)
+    public function query(string $statement, array $params = [])
     {
 
         $stmt = $this->connection->prepare($statement);
