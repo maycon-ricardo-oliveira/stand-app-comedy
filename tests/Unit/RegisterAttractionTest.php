@@ -2,14 +2,14 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\HashAdapter;
-use App\Chore\Adapters\UniqIdAdapter;
-use App\Chore\Infra\Memory\ComedianRepositoryMemory;
-use App\Chore\Infra\Memory\PlaceRepositoryMemory;
-use App\Chore\Infra\Memory\UserRepositoryMemory;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\HashAdapter\HashAdapter;
+use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
 use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Modules\Attractions\UseCases\RegisterAttraction\RegisterAttraction;
+use App\Chore\Modules\Comedians\Infra\Memory\ComedianRepositoryMemory;
+use App\Chore\Modules\Places\Infra\Memory\PlaceRepositoryMemory;
+use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
 
 class RegisterAttractionTest extends UnitTestCase
 {

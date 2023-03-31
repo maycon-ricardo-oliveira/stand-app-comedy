@@ -2,16 +2,15 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Adapters\AuthAdapter;
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\JwtAdapter;
-use App\Chore\Adapters\MySqlAdapter;
-use App\Chore\Domain\IAuth;
-use App\Chore\Domain\IDateTime;
-use App\Chore\Domain\IJwt;
-use App\Chore\Domain\UserRepository;
-use App\Chore\Infra\MySql\UserDAODatabase;
-use App\Chore\UseCases\Auth\Auth;
+use App\Chore\Modules\Adapters\AuthAdapter\AuthAdapter;
+use App\Chore\Modules\Adapters\AuthAdapter\IAuth;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
+use App\Chore\Modules\Adapters\JwtAdapter\IJwt;
+use App\Chore\Modules\Adapters\MySqlAdapter\MySqlAdapter;
+use App\Chore\Modules\User\Entities\UserRepository;
+use App\Chore\Modules\User\Infra\MySql\UserDAODatabase;
+use App\Chore\Modules\User\UseCases\Auth\Auth;
 use Exception;
 
 class AuthTest extends UnitTestCase

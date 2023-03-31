@@ -2,17 +2,17 @@
 
 namespace App\Chore\Modules\Attractions\UseCases\RegisterAttraction;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Domain\Comedian;
-use App\Chore\Domain\ComedianRepository;
-use App\Chore\Domain\IDateTime;
-use App\Chore\Domain\IUniqId;
-use App\Chore\Domain\Place;
-use App\Chore\Domain\PlaceRepository;
-use App\Chore\Domain\User;
-use App\Chore\Domain\UserRepository;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
+use App\Chore\Modules\Adapters\UuidAdapter\IUniqId;
 use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Entities\AttractionRepository;
+use App\Chore\Modules\Comedians\Entities\Comedian;
+use App\Chore\Modules\Comedians\Entities\ComedianRepository;
+use App\Chore\Modules\Places\Entities\Place;
+use App\Chore\Modules\Places\Entities\PlaceRepository;
+use App\Chore\Modules\User\Entities\User;
+use App\Chore\Modules\User\Entities\UserRepository;
 use App\Models\Enums\AttractionStatus;
 
 class RegisterAttraction

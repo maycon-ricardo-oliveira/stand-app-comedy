@@ -2,7 +2,7 @@
 
 namespace App\Chore\Modules\Attractions\Infra\Memory;
 
-use App\Chore\Domain\IDateTime;
+use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Entities\AttractionRepository;
 use App\Chore\Modules\Attractions\Infra\AttractionMapper;

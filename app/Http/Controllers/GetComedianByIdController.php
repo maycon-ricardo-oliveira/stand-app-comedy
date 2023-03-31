@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\MySqlAdapter;
-use App\Chore\Infra\MySql\ComedianDAODatabase;
-use App\Chore\UseCases\GetComedianDetailsById\GetComedianDetailsById;
+use App\Chore\Modules\Comedians\Infra\MySql\ComedianDAODatabase;
+use App\Chore\Modules\Comedians\UseCases\GetComedianDetailsById\GetComedianDetailsById;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

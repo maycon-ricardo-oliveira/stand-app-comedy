@@ -2,18 +2,18 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\HashAdapter;
-use App\Chore\Adapters\RamseyUuidGenerator;
-use App\Chore\Adapters\ValidateTime;
-use App\Chore\Domain\Session;
-use App\Chore\Domain\SessionCode;
-use App\Chore\Infra\Memory\SessionRepositoryMemory;
-use App\Chore\Infra\Memory\UserRepositoryMemory;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\HashAdapter\HashAdapter;
+use App\Chore\Modules\Adapters\UuidAdapter\RamseyUuidGenerator;
 use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
+use App\Chore\Modules\Sessions\Entities\Session;
+use App\Chore\Modules\Sessions\Entities\SessionCode;
+use App\Chore\Modules\Sessions\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Modules\Tickets\Entities\TicketRepository;
 use App\Chore\Modules\Tickets\Infra\Memory\TicketRepositoryMemory;
 use App\Chore\Modules\Tickets\UseCases\CreateTicket\CreateTicket;
+use App\Chore\Modules\Types\Time\ValidateTime;
+use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
 use Ramsey\Uuid\Uuid;
 
 class CreateTicketTest extends UnitTestCase

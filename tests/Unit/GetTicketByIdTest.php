@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\RamseyUuidGenerator;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\UuidAdapter\RamseyUuidGenerator;
 use App\Chore\Modules\Tickets\Entities\Ticket;
 use App\Chore\Modules\Tickets\Entities\TicketId;
 use App\Chore\Modules\Tickets\Entities\TicketStatus;

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Chore\Adapters\AuthAdapter;
-use App\Chore\Adapters\UniqIdAdapter;
-use App\Chore\Infra\MySql\ComedianDAODatabase;
-use App\Chore\Infra\MySql\UserDAODatabase;
-use App\Chore\UseCases\Follow\FollowComedian;
+use App\Chore\Modules\Adapters\AuthAdapter\AuthAdapter;
+use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
+use App\Chore\Modules\Comedians\Infra\MySql\ComedianDAODatabase;
+use App\Chore\Modules\User\Infra\MySql\UserDAODatabase;
+use App\Chore\Modules\User\UseCases\Follow\FollowComedian;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

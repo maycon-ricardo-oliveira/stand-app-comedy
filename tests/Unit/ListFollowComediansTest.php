@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\HashAdapter;
-use App\Chore\Infra\Memory\UserRepositoryMemory;
-use App\Chore\UseCases\ListFollowComedians\ListFollowComedians;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\HashAdapter\HashAdapter;
+use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
+use App\Chore\Modules\User\UseCases\ListFollowComedians\ListFollowComedians;
 
 class ListFollowComediansTest extends UnitTestCase
 {

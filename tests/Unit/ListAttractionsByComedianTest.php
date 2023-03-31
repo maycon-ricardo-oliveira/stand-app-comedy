@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Adapters\DateTimeAdapter;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
 use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Modules\Attractions\UseCases\ListAttractionsByComedianId\ListAttractionsByComedianId;
 use App\Chore\Modules\Attractions\UseCases\ListAttractionsByComedianName\ListAttractionsByComedianName;

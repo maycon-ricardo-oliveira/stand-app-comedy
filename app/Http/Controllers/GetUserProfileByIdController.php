@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Chore\Adapters\MySqlAdapter;
-use App\Chore\Infra\MySql\ComedianDAODatabase;
-use App\Chore\Infra\MySql\UserDAODatabase;
-use App\Chore\UseCases\GetUserProfile\GetUserProfileById;
+use App\Chore\Modules\Adapters\MySqlAdapter\MySqlAdapter;
+use App\Chore\Modules\Comedians\Infra\MySql\ComedianDAODatabase;
+use App\Chore\Modules\User\Infra\MySql\UserDAODatabase;
+use App\Chore\Modules\User\UseCases\GetUserProfile\GetUserProfileById;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

@@ -3,9 +3,9 @@
 namespace App\Chore\Modules\Attractions\Entities;
 
 
-use App\Chore\Domain\Comedian;
-use App\Chore\Domain\IDateTime;
-use App\Chore\Domain\Place;
+use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
+use App\Chore\Modules\Comedians\Entities\Comedian;
+use App\Chore\Modules\Places\Entities\Place;
 
 class Attraction
 {

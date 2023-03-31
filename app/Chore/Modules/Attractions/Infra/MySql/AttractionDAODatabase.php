@@ -2,8 +2,8 @@
 
 namespace App\Chore\Modules\Attractions\Infra\MySql;
 
-use App\Chore\Domain\IDateTime;
-use App\Chore\Infra\MySql\DBConnection;
+use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
+use App\Chore\Modules\Adapters\MySqlAdapter\DBConnection;
 use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Entities\AttractionRepository;
 use App\Chore\Modules\Attractions\Infra\AttractionMapper;

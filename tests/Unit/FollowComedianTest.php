@@ -2,13 +2,12 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\HashAdapter;
-use App\Chore\Adapters\UniqIdAdapter;
-use App\Chore\Infra\Memory\ComedianRepositoryMemory;
-use App\Chore\Infra\Memory\UserRepositoryMemory;
-use App\Chore\UseCases\Follow\FollowComedian;
-use App\Chore\UseCases\UnFollow\UnFollowComedian;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\HashAdapter\HashAdapter;
+use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
+use App\Chore\Modules\Comedians\Infra\Memory\ComedianRepositoryMemory;
+use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
+use App\Chore\Modules\User\UseCases\Follow\FollowComedian;
 
 class FollowComedianTest extends UnitTestCase
 {

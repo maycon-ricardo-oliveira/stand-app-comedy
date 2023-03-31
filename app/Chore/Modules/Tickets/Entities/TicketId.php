@@ -2,7 +2,7 @@
 
 namespace App\Chore\Modules\Tickets\Entities;
 
-use App\Chore\Domain\UuidGenerator;
+use App\Chore\Modules\Adapters\UuidAdapter\UuidGenerator;
 
 class TicketId {
     private string $id;

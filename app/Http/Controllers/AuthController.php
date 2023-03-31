@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Chore\Adapters\AuthAdapter;
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\JwtAdapter;
-use App\Chore\Adapters\MySqlAdapter;
-use App\Chore\Infra\MySql\UserDAODatabase;
-use App\Chore\UseCases\Auth\Auth;
+use App\Chore\Modules\Adapters\AuthAdapter\AuthAdapter;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\MySqlAdapter\MySqlAdapter;
+use App\Chore\Modules\User\Infra\MySql\UserDAODatabase;
+use App\Chore\Modules\User\UseCases\Auth\Auth;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

@@ -21,3 +21,6 @@ Tickets
 - [ ] Must ensure validate ticket on session status validating
 - [ ] Must ensure validate ticket on session finish_at time
 
+
+Places 
+- [ ] Need a use case using mysql implementation

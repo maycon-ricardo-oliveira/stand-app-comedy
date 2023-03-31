@@ -2,7 +2,7 @@
 
 namespace App\Chore\Modules\Attractions\Entities;
 
-use App\Chore\Domain\IDateTime;
+use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 
 interface AttractionRepository
 {
