@@ -51,7 +51,8 @@ class ListAttractionsByComedianTest extends UnitTestCase
         $repo = new AttractionRepositoryMemory($date);
         $useCase = new ListAttractionsByComedianId($repo);
 
-        $response = $useCase->handle('63a277fc7b250');
+        $response = $useCase->handle('63d1c98de5cea');
+
 
         $this->assertSame('63a277fc7b250', $response[0]->id);
         $this->assertSame(1, count($response));

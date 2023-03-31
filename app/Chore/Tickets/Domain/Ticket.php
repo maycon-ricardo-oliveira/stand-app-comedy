@@ -10,15 +10,17 @@ class Ticket {
     public TicketId $id;
     public string $ownerId;
     public string $attractionId;
+    public string $sessionId;
     public DateTimeImmutable $payedAt;
     public TicketStatus $status;
     public DateTimeImmutable|null $checkinAt;
 
-    public function __construct(DateTimeImmutable $time, TicketId $id, string $ownerId, string $attractionId, DateTimeImmutable $payedAt, TicketStatus $status, DateTimeImmutable|null $checkinAt) {
+    public function __construct(DateTimeImmutable $time, TicketId $id, string $ownerId, string $attractionId, string $sessionId, DateTimeImmutable $payedAt, TicketStatus $status, DateTimeImmutable|null $checkinAt) {
 
         $this->id = $id;
         $this->ownerId = $ownerId;
         $this->attractionId = $attractionId;
+        $this->sessionId = $sessionId;
         $this->payedAt = $payedAt;
         $this->status = $status;
         $this->checkinAt = $checkinAt;
