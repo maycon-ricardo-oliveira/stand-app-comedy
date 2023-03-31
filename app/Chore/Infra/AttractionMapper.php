@@ -24,19 +24,19 @@ class AttractionMapper extends ArrayIterator {
     {
         return $attractionsData == [] ? $attractionsData : array_map(function ($item) use ($time) {
             return new Attraction(
-                $item['id'],
+                $item['attractionId'],
                 $item['title'],
                 new DateTimeAdapter($item['date']),
                 $item["duration"],
                 new Comedian(
-                    $item['id'],
+                    $item['comedianId'],
                     $item['comedianName'],
                     $item['miniBio'],
                     $item['socialMedias'] ?? [],
                     $item['attractions'] ?? [],
                 ),
                 new Place(
-                    $item['place_id'],
+                    $item['placeId'],
                     $item['placeName'],
                     $item['seats'],
                     $item['address'],

@@ -35,8 +35,10 @@ class TicketDAODatabase implements TicketRepository
                      checkin_at,
                      status,
                      created_at,
-                     updated_at)
-                  VALUES (:id, :owner_id, :attraction_id, :payed_at, :checkin_at, :status, :created_at,  :updated_at)";
+                     updated_at,
+                     session_id
+                     )
+                  VALUES (:id, :owner_id, :attraction_id, :payed_at, :checkin_at, :status, :created_at,  :updated_at, :session_id)";
 
         $params = [
             "id" => $ticket->id->toString(),
@@ -44,9 +46,10 @@ class TicketDAODatabase implements TicketRepository
             "attraction_id" => $ticket->attractionId,
             "payed_at" => $ticket->payedAt->format('Y-m-d H:i:s'),
             "checkin_at" => $ticket->payedAt?->format('Y-m-d H:i:s'),
-            "status" => $ticket->status,
+            "status" => $ticket->status->toString(),
             "created_at" => $this->time->format('Y-m-d H:i:s'),
             "updated_at" => $this->time->format('Y-m-d H:i:s'),
+            "session_id" => $ticket->sessionId
         ];
 
         $this->connection->query($query, $params);
@@ -66,6 +69,7 @@ class TicketDAODatabase implements TicketRepository
             $data[0]->id,
             $data[0]->owner_id,
             $data[0]->attraction_id,
+            $data[0]->session_id,
             new DateTimeAdapter($data[0]->payed_at),
             $data[0]->status,
             $data[0]->checkin_at ? new DateTimeAdapter($data[0]->checkin_at) : null,
@@ -79,6 +83,7 @@ class TicketDAODatabase implements TicketRepository
 
         $data = $this->connection->query($query);
 
+        if (count($data) == 0) return null;
         return TicketId::fromString($data[0]['id'], $this->uuidGenerator);
     }
 }

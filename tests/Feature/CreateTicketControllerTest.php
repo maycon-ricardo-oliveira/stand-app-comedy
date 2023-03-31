@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\RamseyUuidGenerator;
 use App\Chore\Infra\MySql\AttractionDAODatabase;
+use App\Chore\Infra\MySql\SessionDAODatabase;
 use App\Chore\Tickets\Domain\TicketRepository;
 use App\Chore\Tickets\Infra\MySql\TicketDAODatabase;
 use App\Chore\Tickets\UseCases\CreateTicket\CreateTicket;
@@ -17,7 +18,6 @@ class CreateTicketControllerTest extends FeatureTestCase
 {
 
     use DatabaseTransactions;
-
     private TicketRepository $ticketRepository;
     private CreateTicket $createTicket;
     private RamseyUuidGenerator $uuidGenerator;
@@ -37,6 +37,7 @@ class CreateTicketControllerTest extends FeatureTestCase
         $this->createTicket = new CreateTicket(
             $this->ticketRepository,
             new AttractionDAODatabase($this->mysql, $this->date),
+            new SessionDAODatabase($this->mysql, $this->date),
             $this->repo,
             $this->uuidGenerator,
             $this->date
@@ -53,6 +54,7 @@ class CreateTicketControllerTest extends FeatureTestCase
         $request = new Request();
         $request->ownerId = $loginResponse["user"]["id"];
         $request->attractionId = '63d332d50ff63';
+        $request->sessionId = '642660f112d9a';
         $request->payedAt =new DateTimeAdapter();
 
         $controller = new CreateTicketController();

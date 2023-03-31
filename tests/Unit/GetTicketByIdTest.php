@@ -24,6 +24,7 @@ class GetTicketByIdTest extends UnitTestCase
         $ticketId = TicketId::generate(new RamseyUuidGenerator());
         $ownerId = 'user1';
         $attractionId = 'attraction1';
+        $sessionId = 'session1';
         $payedAt = new DateTimeImmutable();
         $status = TicketStatus::waiting();
         $checkinAt = null;
@@ -33,6 +34,7 @@ class GetTicketByIdTest extends UnitTestCase
             $ticketId,
             $ownerId,
             $attractionId,
+            $sessionId,
             $payedAt,
             $status,
             $checkinAt

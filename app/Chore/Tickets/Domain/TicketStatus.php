@@ -32,8 +32,11 @@ class TicketStatus
     public function isUsed(): bool {
         return $this->value === 'used';
     }
+    public function isPaid(): bool {
+        return $this->value === 'paid';
+    }
 
-    public function __toString(): string {
+    public function toString(): string {
         return $this->value;
     }
 }

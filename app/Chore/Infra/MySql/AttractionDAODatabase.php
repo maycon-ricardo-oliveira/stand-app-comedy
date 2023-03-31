@@ -25,11 +25,14 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
     public function getAttractionsInAPlace(string $place)
     {
         $query = "select a.*, p.*, c.*,
+                a.id as attractionId,
                 p.name as placeName,
                 c.name as comedianName,
                 c.mini_bio as miniBio,
                 a.owner_id as owner,
-                a.duration as duration
+                a.duration as duration,
+                c.id as comedianId,
+                p.id as placeId
             from attractions a
             inner join places p on p.id = a.place_id
             inner join comedians c on c.id = a.comedian_id
@@ -55,10 +58,13 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
         ];
 
         $query = "select a.*, p.*, c.*,
+                a.id as attractionId,
                 p.name as placeName,
                 c.name as comedianName,
                 c.mini_bio as miniBio,
                 a.owner_id as owner,
+                c.id as comedianId,
+                p.id as placeId,
                 :earthRadiusInKM * 2 * ASIN(SQRT( POWER(SIN((:lat -  lat)*pi()/180/2),2)
                     +COS(:lat*pi()/180) * COS(lat*pi()/180) * POWER(SIN((:lng-lng) * pi()/180/2),2))
                 ) as distance
@@ -82,10 +88,13 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
         $comedian = '%' . $comedianName . '%';
 
         $query = "select a.*, p.*, c.*,
+                a.id as attractionId,
                 p.name as placeName,
+                c.id as comedianId,
                 c.name as comedianName,
                 c.mini_bio as miniBio,
-                a.owner_id as owner
+                a.owner_id as owner,
+                p.id as placeId
 
             from attractions a
             inner join places p on p.id = a.place_id
@@ -101,10 +110,12 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
     public function getAttractionsByComedianId(string $comedianId)
     {
         $query = "select a.*, p.*, c.*,
-                p.name as placeName,
-                c.name as comedianName,
+                a.id as attractionId,
+                c.id as comedianId,
                 c.mini_bio as miniBio,
-                a.owner_id as owner
+                a.owner_id as owner,
+                p.id as placeId,
+                p.name as placeName
 
             from attractions a
             inner join places p on p.id = a.place_id
@@ -149,12 +160,15 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
 
     public function findAttractionById(string $attractionId): ?Attraction
     {
-        $query = "select a.*, p.*, c.*,
+        $query = "select
+                a.id as attractionId,
                 p.name as placeName,
                 c.name as comedianName,
+                c.id as comedianId,
                 c.mini_bio as miniBio,
-                a.owner_id as owner
-
+                a.owner_id as owner,
+                p.id as placeId,
+                a.*, p.*, c.*
             from attractions a
             inner join places p on p.id = a.place_id
             inner join comedians c on c.id = a.comedian_id

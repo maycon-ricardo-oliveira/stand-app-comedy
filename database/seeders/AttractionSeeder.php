@@ -31,15 +31,17 @@ class AttractionSeeder extends Seeder
         }
     }
 
+
+
     public function dataSet() {
         return [[
-            "id" => uniqid(),
+            "id" => '63d332d50ff63',
             "title" => "Espalhando a Palavra",
             "date" => "2023-02-21 22:50:59",
             "duration" => '01:30',
             "owner_id" => '63d1c98e22ccb',
         ], [
-            "id" => uniqid(),
+            "id" => '63d332d50ff65',
             "title" => "O Problema é meu",
             "date" => "2023-02-21 22:50:59",
             "duration" => '01:30',

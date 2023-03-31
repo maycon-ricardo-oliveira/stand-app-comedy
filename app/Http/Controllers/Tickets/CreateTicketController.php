@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Tickets;
 
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\RamseyUuidGenerator;
+use App\Chore\Domain\SessionRepository;
 use App\Chore\Infra\MySql\AttractionDAODatabase;
+use App\Chore\Infra\MySql\SessionDAODatabase;
 use App\Chore\Infra\MySql\UserDAODatabase;
 use App\Chore\Tickets\Infra\MySql\TicketDAODatabase;
 use App\Chore\Tickets\UseCases\CreateTicket\CreateTicket;
@@ -19,6 +21,7 @@ class CreateTicketController extends Controller
     private AttractionDAODatabase $attractionRepository;
     private UserDAODatabase $userRepository;
     private RamseyUuidGenerator $uuidGenerator;
+    private SessionRepository $sessionRepository;
 
     public function __construct()
     {
@@ -30,10 +33,12 @@ class CreateTicketController extends Controller
         $this->attractionRepository = new AttractionDAODatabase($this->dbConnection, $this->time);
         $this->userRepository = new UserDAODatabase($this->dbConnection, $this->time);
         $this->uuidGenerator = new RamseyUuidGenerator();
+        $this->sessionRepository = new SessionDAODatabase($this->dbConnection, $this->time);
 
         $this->createTicketUseCase = new CreateTicket(
             $this->ticketRepository,
-            new AttractionDAODatabase($this->dbConnection, $this->time),
+            $this->attractionRepository,
+            $this->sessionRepository,
             $this->userRepository,
             $this->uuidGenerator,
             $this->time
@@ -56,17 +61,10 @@ class CreateTicketController extends Controller
                 'payedAt' => new DateTimeAdapter()
             ];
 
-            $this->createTicketUseCase = new CreateTicket(
-                $this->ticketRepository,
-                $this->attractionRepository,
-                $this->userRepository,
-                $this->uuidGenerator,
-                $this->time
-            );
-
             $response = $this->createTicketUseCase->handle(
                 $request->ownerId,
                 $request->attractionId,
+                $request->sessionId,
                 new DateTimeAdapter()
             );
 

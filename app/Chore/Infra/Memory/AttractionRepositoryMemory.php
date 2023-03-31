@@ -62,8 +62,10 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
 
     public function dataSet() {
         return [[
-            "id" => '63a277fc7b250',
+            "attractionId" => '63a277fc7b250',
             "comedianName" => "Afonso",
+            "comedianId" => "63d1c98de5cea",
+            "placeId" => "63d332d4be676",
             "date" => "2023-01-10 00:00:00",
             "seats" => 200,
             "title" => "Espalhando a Palavra",
@@ -79,7 +81,8 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "duration" => '180',
             "owner" => '63d1c98e22ccb'
         ], [
-            "id" => '63a277fc7b251',
+            "attractionId" => '63a277fc7b251',
+            "comedianId" => '63d1dc4d4b52d',
             "comedianName" => "Rodrigo Marques",
             "place" => "Espaço Cultural Urca",
             "date" => "2023-01-09 00:00:00",
@@ -89,6 +92,7 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "seats" => 200,
             "place_id" => '63a277fc7358e',
             "placeName" => "Hillarius",
+            "placeId" => "63d332d4be676",
             "address" => "Av. Salim Farah Maluf, 1850 - Quarta Parada, SP",
             "zipcode" => "03157-200",
             "lat" => -23.546185,
