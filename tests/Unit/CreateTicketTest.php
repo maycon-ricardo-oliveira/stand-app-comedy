@@ -11,9 +11,9 @@ use App\Chore\Domain\SessionCode;
 use App\Chore\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Infra\Memory\UserRepositoryMemory;
-use App\Chore\Tickets\Domain\TicketRepository;
-use App\Chore\Tickets\Infra\Memory\TicketRepositoryMemory;
-use App\Chore\Tickets\UseCases\CreateTicket\CreateTicket;
+use App\Chore\Modules\Tickets\Domain\TicketRepository;
+use App\Chore\Modules\Tickets\Infra\Memory\TicketRepositoryMemory;
+use App\Chore\Modules\Tickets\UseCases\CreateTicket\CreateTicket;
 use Ramsey\Uuid\Uuid;
 
 class CreateTicketTest extends UnitTestCase

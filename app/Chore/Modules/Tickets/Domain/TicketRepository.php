@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Chore\Tickets\Domain;
+namespace App\Chore\Modules\Tickets\Domain;
 
 interface TicketRepository
 {

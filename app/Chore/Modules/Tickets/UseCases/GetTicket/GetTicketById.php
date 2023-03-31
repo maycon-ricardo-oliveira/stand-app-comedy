@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Chore\Tickets\UseCases\GetTicket;
+namespace App\Chore\Modules\Tickets\UseCases\GetTicket;
 
-use App\Chore\Tickets\Domain\Ticket;
-use App\Chore\Tickets\Domain\TicketId;
-use App\Chore\Tickets\Domain\TicketRepository;
-use Ramsey\Uuid\Uuid;
+use App\Chore\Modules\Tickets\Domain\Ticket;
+use App\Chore\Modules\Tickets\Domain\TicketId;
+use App\Chore\Modules\Tickets\Domain\TicketRepository;
 
 class GetTicketById
 {

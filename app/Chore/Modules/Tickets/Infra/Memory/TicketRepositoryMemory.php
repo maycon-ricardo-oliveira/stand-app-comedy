@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Chore\Tickets\Infra\Memory;
+namespace App\Chore\Modules\Tickets\Infra\Memory;
 
-use App\Chore\Tickets\Domain\Ticket;
-use App\Chore\Tickets\Domain\TicketId;
-use App\Chore\Tickets\Domain\TicketRepository;
+use App\Chore\Modules\Tickets\Domain\Ticket;
+use App\Chore\Modules\Tickets\Domain\TicketId;
+use App\Chore\Modules\Tickets\Domain\TicketRepository;
 
 class TicketRepositoryMemory implements TicketRepository
 {

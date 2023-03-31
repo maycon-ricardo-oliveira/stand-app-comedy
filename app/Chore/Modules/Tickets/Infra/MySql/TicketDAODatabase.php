@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Chore\Tickets\Infra\MySql;
+namespace App\Chore\Modules\Tickets\Infra\MySql;
 
 
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Domain\IDateTime;
 use App\Chore\Domain\UuidGenerator;
 use App\Chore\Infra\MySql\DBConnection;
-use App\Chore\Tickets\Domain\Ticket;
-use App\Chore\Tickets\Domain\TicketId;
-use App\Chore\Tickets\Domain\TicketRepository;
+use App\Chore\Modules\Tickets\Domain\Ticket;
+use App\Chore\Modules\Tickets\Domain\TicketId;
+use App\Chore\Modules\Tickets\Domain\TicketRepository;
 
 class TicketDAODatabase implements TicketRepository
 {

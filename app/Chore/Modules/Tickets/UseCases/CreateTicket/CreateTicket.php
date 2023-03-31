@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Chore\Tickets\UseCases\CreateTicket;
+namespace App\Chore\Modules\Tickets\UseCases\CreateTicket;
 
 use App\Chore\Domain\Attraction;
 use App\Chore\Domain\AttractionRepository;
@@ -10,12 +10,12 @@ use App\Chore\Domain\User;
 use App\Chore\Domain\UserRepository;
 use App\Chore\Domain\UuidGenerator;
 use App\Chore\Exceptions\AttractionNotFoundException;
-use App\Chore\Exceptions\UserNotFoundException;
 use App\Chore\Exceptions\SessionNotFoundException;
-use App\Chore\Tickets\Domain\TicketId;
-use App\Chore\Tickets\Domain\TicketStatus;
-use App\Chore\Tickets\Domain\Ticket;
-use App\Chore\Tickets\Domain\TicketRepository;
+use App\Chore\Exceptions\UserNotFoundException;
+use App\Chore\Modules\Tickets\Domain\Ticket;
+use App\Chore\Modules\Tickets\Domain\TicketId;
+use App\Chore\Modules\Tickets\Domain\TicketRepository;
+use App\Chore\Modules\Tickets\Domain\TicketStatus;
 use DateTimeImmutable;
 
 class CreateTicket

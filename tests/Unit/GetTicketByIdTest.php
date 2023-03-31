@@ -4,11 +4,11 @@ namespace Tests\Unit;
 
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\RamseyUuidGenerator;
-use App\Chore\Tickets\Domain\Ticket;
-use App\Chore\Tickets\Domain\TicketId;
-use App\Chore\Tickets\Domain\TicketStatus;
-use App\Chore\Tickets\Infra\Memory\TicketRepositoryMemory;
-use App\Chore\Tickets\UseCases\GetTicket\GetTicketById;
+use App\Chore\Modules\Tickets\Domain\Ticket;
+use App\Chore\Modules\Tickets\Domain\TicketId;
+use App\Chore\Modules\Tickets\Domain\TicketStatus;
+use App\Chore\Modules\Tickets\Infra\Memory\TicketRepositoryMemory;
+use App\Chore\Modules\Tickets\UseCases\GetTicket\GetTicketById;
 use DateTimeImmutable;
 
 class GetTicketByIdTest extends UnitTestCase
