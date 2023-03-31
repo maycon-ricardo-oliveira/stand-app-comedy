@@ -11,7 +11,7 @@ use App\Chore\Domain\SessionCode;
 use App\Chore\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Infra\Memory\UserRepositoryMemory;
-use App\Chore\Modules\Tickets\Domain\TicketRepository;
+use App\Chore\Modules\Tickets\Entities\TicketRepository;
 use App\Chore\Modules\Tickets\Infra\Memory\TicketRepositoryMemory;
 use App\Chore\Modules\Tickets\UseCases\CreateTicket\CreateTicket;
 use Ramsey\Uuid\Uuid;

@@ -2,9 +2,9 @@
 
 namespace App\Chore\Modules\Tickets\Infra\Memory;
 
-use App\Chore\Modules\Tickets\Domain\Ticket;
-use App\Chore\Modules\Tickets\Domain\TicketId;
-use App\Chore\Modules\Tickets\Domain\TicketRepository;
+use App\Chore\Modules\Tickets\Entities\Ticket;
+use App\Chore\Modules\Tickets\Entities\TicketId;
+use App\Chore\Modules\Tickets\Entities\TicketRepository;
 
 class TicketRepositoryMemory implements TicketRepository
 {

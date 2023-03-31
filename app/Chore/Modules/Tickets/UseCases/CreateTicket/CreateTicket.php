@@ -12,10 +12,10 @@ use App\Chore\Domain\UuidGenerator;
 use App\Chore\Exceptions\AttractionNotFoundException;
 use App\Chore\Exceptions\SessionNotFoundException;
 use App\Chore\Exceptions\UserNotFoundException;
-use App\Chore\Modules\Tickets\Domain\Ticket;
-use App\Chore\Modules\Tickets\Domain\TicketId;
-use App\Chore\Modules\Tickets\Domain\TicketRepository;
-use App\Chore\Modules\Tickets\Domain\TicketStatus;
+use App\Chore\Modules\Tickets\Entities\Ticket;
+use App\Chore\Modules\Tickets\Entities\TicketId;
+use App\Chore\Modules\Tickets\Entities\TicketRepository;
+use App\Chore\Modules\Tickets\Entities\TicketStatus;
 use DateTimeImmutable;
 
 class CreateTicket

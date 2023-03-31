@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Chore\Modules\Tickets\Domain;
+namespace App\Chore\Modules\Tickets\Entities;
 
 use DateTimeImmutable;
 use Exception;
