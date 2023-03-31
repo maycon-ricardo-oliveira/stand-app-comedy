@@ -145,14 +145,14 @@ class UpdateAttractionStatusTest extends UnitTestCase
         $useCase->handle($attraction->id, $status);
     }
 
-    public function testCanPublishAttraction()
+    public function testCannotPublishAttractionWhenAlreadyPublished()
     {
         $status = 'published';
 
         $attractionMockData = [
             "title" => "any_title",
             "date" => "2023-01-09 00:00:00",
-            "status" => "draft",
+            "status" => "published",
             "comedianId" => "any_id_1",
             "duration" => '180',
             "placeId" => "any_id",
@@ -166,38 +166,6 @@ class UpdateAttractionStatusTest extends UnitTestCase
         $useCase->handle($attraction->id, $status);
     }
 
-/*
-
-
-    public function testCannotPublishAttractionWhenAlreadyPublished()
-    {
-        $attractionId = "abc123";
-        $status = "published";
-        $attractionData = [
-            "id" => $attractionId,
-            "title" => "Test Attraction",
-            "date" => "2022-04-15",
-            "duration" => "120",
-            "comedian" => new Comedian("John Doe"),
-            "timeToEvent" => "2 hours",
-            "place" => new Place("Test Venue"),
-            "status" => "published",
-            "owner" => "ownerId"
-        ];
-
-        $attraction = Attraction::fromArray($attractionData);
-
-        $this->attractionRepository->expects($this->once())
-            ->method('findAttractionById')
-            ->with($attractionId)
-            ->willReturn($attraction);
-
-        $this->expectException(AttractionStatusException::class);
-
-        $this->attractionPublish->handle($attractionId, $status);
-    }
-
-*/
     /**
      * @throws Exception
      */
