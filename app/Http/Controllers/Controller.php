@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\MySqlAdapter;
-use App\Chore\Domain\IDateTime;
-use App\Chore\Infra\MySql\DBConnection;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
+use App\Chore\Modules\Adapters\MySqlAdapter\DBConnection;
+use App\Chore\Modules\Adapters\MySqlAdapter\MySqlAdapter;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;

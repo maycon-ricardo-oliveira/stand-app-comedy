@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Tickets;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\RamseyUuidGenerator;
-use App\Chore\Domain\SessionRepository;
-use App\Chore\Infra\MySql\AttractionDAODatabase;
-use App\Chore\Infra\MySql\SessionDAODatabase;
-use App\Chore\Infra\MySql\UserDAODatabase;
-use App\Chore\Tickets\Infra\MySql\TicketDAODatabase;
-use App\Chore\Tickets\UseCases\CreateTicket\CreateTicket;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\UuidAdapter\RamseyUuidGenerator;
+use App\Chore\Modules\Attractions\Infra\MySql\AttractionDAODatabase;
+use App\Chore\Modules\Sessions\Entities\SessionRepository;
+use App\Chore\Modules\Sessions\Infra\MySql\SessionDAODatabase;
+use App\Chore\Modules\Tickets\Infra\MySql\TicketDAODatabase;
+use App\Chore\Modules\Tickets\UseCases\CreateTicket\CreateTicket;
+use App\Chore\Modules\User\Infra\MySql\UserDAODatabase;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

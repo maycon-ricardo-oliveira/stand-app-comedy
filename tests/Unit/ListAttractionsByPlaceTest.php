@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Domain\Attraction;
-use App\Chore\Infra\Memory\AttractionRepositoryMemory;
-use App\Chore\UseCases\ListAttractionsByPlace\ListAttractionsByPlace;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Attractions\Entities\Attraction;
+use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
+use App\Chore\Modules\Attractions\UseCases\ListAttractionsByPlace\ListAttractionsByPlace;
 
 
 class ListAttractionsByPlaceTest extends UnitTestCase

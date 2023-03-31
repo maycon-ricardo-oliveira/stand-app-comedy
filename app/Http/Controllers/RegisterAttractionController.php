@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\UniqIdAdapter;
-use App\Chore\Infra\MySql\AttractionDAODatabase;
-use App\Chore\Infra\MySql\ComedianDAODatabase;
-use App\Chore\Infra\MySql\PlaceDAODatabase;
-use App\Chore\Infra\MySql\UserDAODatabase;
-use App\Chore\UseCases\RegisterAttraction\RegisterAttraction;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
+use App\Chore\Modules\Attractions\Infra\MySql\AttractionDAODatabase;
+use App\Chore\Modules\Attractions\UseCases\RegisterAttraction\RegisterAttraction;
+use App\Chore\Modules\Comedians\Infra\MySql\ComedianDAODatabase;
+use App\Chore\Modules\Places\Infra\MySql\PlaceDAODatabase;
+use App\Chore\Modules\User\Infra\MySql\UserDAODatabase;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

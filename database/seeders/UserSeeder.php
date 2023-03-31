@@ -2,15 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\HashAdapter;
-use App\Chore\Adapters\MySqlAdapter;
-use App\Chore\Adapters\UniqIdAdapter;
-use App\Chore\Infra\Memory\UserRepositoryMemory;
-use App\Chore\Infra\MySql\UserDAODatabase;
-use App\Chore\UseCases\UserRegister\UserRegister;
-use App\Models\Comedian;
-use App\Models\User;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\HashAdapter\HashAdapter;
+use App\Chore\Modules\Adapters\MySqlAdapter\MySqlAdapter;
+use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
+use App\Chore\Modules\User\Infra\MySql\UserDAODatabase;
+use App\Chore\Modules\User\UseCases\UserRegister\UserRegister;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder

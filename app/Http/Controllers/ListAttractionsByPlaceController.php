@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Chore\Infra\MySql\AttractionDAODatabase;
-use App\Chore\UseCases\ListAttractionsByPlace\ListAttractionsByPlace;
-use App\Models\Attraction;
+use App\Chore\Modules\Attractions\Infra\MySql\AttractionDAODatabase;
+use App\Chore\Modules\Attractions\UseCases\ListAttractionsByPlace\ListAttractionsByPlace;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

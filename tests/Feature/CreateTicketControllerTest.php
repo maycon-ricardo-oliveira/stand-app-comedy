@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\RamseyUuidGenerator;
-use App\Chore\Infra\MySql\AttractionDAODatabase;
-use App\Chore\Infra\MySql\SessionDAODatabase;
-use App\Chore\Tickets\Domain\TicketRepository;
-use App\Chore\Tickets\Infra\MySql\TicketDAODatabase;
-use App\Chore\Tickets\UseCases\CreateTicket\CreateTicket;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\UuidAdapter\RamseyUuidGenerator;
+use App\Chore\Modules\Attractions\Infra\MySql\AttractionDAODatabase;
+use App\Chore\Modules\Sessions\Infra\MySql\SessionDAODatabase;
+use App\Chore\Modules\Tickets\Entities\TicketRepository;
+use App\Chore\Modules\Tickets\Infra\MySql\TicketDAODatabase;
+use App\Chore\Modules\Tickets\UseCases\CreateTicket\CreateTicket;
 use App\Http\Controllers\Tickets\CreateTicketController;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Request;
