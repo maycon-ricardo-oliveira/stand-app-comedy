@@ -51,7 +51,7 @@ class RegisterAttractionTest extends UnitTestCase
         $attraction = [
             "title" => "any_title",
             "date" => "2023-01-09 00:00:00",
-            "status" => "any_status",
+            "status" => "draft",
             "comedianId" => "any_id_1",
             "duration" => '180',
             "placeId" => "any_id",
@@ -78,7 +78,7 @@ class RegisterAttractionTest extends UnitTestCase
         $attraction = [
             "title" => "any_title",
             "date" => "2023-01-09 00:00:00",
-            "status" => "any_status",
+            "status" => "draft",
             "comedianId" => "not_existent_id",
             "duration" => '180',
             "placeId" => "any_id",
@@ -105,7 +105,7 @@ class RegisterAttractionTest extends UnitTestCase
         $attraction = [
             "title" => "any_title",
             "date" => "2023-01-09 00:00:00",
-            "status" => "any_status",
+            "status" => "draft",
             "comedianId" => "any_id_1",
             "duration" => '180',
             "placeId" => "not_existent_id",
@@ -131,7 +131,7 @@ class RegisterAttractionTest extends UnitTestCase
         $attraction = [
             "title" => "any_title",
             "date" => "2023-01-09 00:00:00",
-            "status" => "any_status",
+            "status" => "draft",
             "comedianId" => "any_id_1",
             "duration" => '180',
             "placeId" => "any_id",

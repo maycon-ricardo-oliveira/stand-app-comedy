@@ -183,4 +183,9 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
 
         return count($data) == 0 ? null : $data[0];
     }
+
+    public function updateAttraction(Attraction $attractionData): bool
+    {
+        // TODO: Implement updateAttraction() method.
+    }
 }

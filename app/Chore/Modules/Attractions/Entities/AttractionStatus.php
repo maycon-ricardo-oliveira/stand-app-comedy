@@ -2,17 +2,41 @@
 
 namespace App\Chore\Modules\Attractions\Entities;
 
+use App\Chore\Exceptions\InvalidAttractionStatusException;
+
 class AttractionStatus
 {
-    private const DRAFT = 'draft';
-    private const PUBLISHED = 'published';
-    private const FINISH = 'finish';
+    const DRAFT = 'draft';
+    const PUBLISHED = 'published';
+    const FINISH = 'finish';
 
-    private $status;
+    private string $status;
 
+    /**
+     * @throws InvalidAttractionStatusException
+     */
     public function __construct(string $status)
     {
+        if (!self::isValidStatus($status)) {
+            throw new InvalidAttractionStatusException();
+        }
+
         $this->status = $status;
+    }
+
+    /**
+     * @param AttractionStatus $status
+     * @return bool
+     * @throws InvalidAttractionStatusException
+     */
+    public function canTransitionTo(AttractionStatus $status): bool
+    {
+        return match ($this->status) {
+            self::DRAFT => $status->status === self::PUBLISHED,
+            self::PUBLISHED => $status->status === self::DRAFT || $status->status === self::FINISH,
+            self::FINISH => false,
+            default => throw new InvalidAttractionStatusException(),
+        };
     }
 
     public function getStatus(): string
@@ -20,46 +44,8 @@ class AttractionStatus
         return $this->status;
     }
 
-    public function canPublish(): bool
+    private static function isValidStatus(string $status): bool
     {
-        return $this->status === self::DRAFT;
+        return in_array($status, [self::DRAFT, self::PUBLISHED, self::FINISH]);
     }
-
-    public function publish(): void
-    {
-        if (!$this->canPublish()) {
-            throw new \LogicException('Cannot publish attraction in current status');
-        }
-
-        $this->status = self::PUBLISHED;
-    }
-
-    public function canFinish(): bool
-    {
-        return $this->status === self::PUBLISHED;
-    }
-
-    public function finish(): void
-    {
-        if (!$this->canFinish()) {
-            throw new \LogicException('Cannot finish attraction in current status');
-        }
-
-        $this->status = self::FINISH;
-    }
-
-    public function canReturnToDraft(): bool
-    {
-        return $this->status === self::PUBLISHED;
-    }
-
-    public function returnToDraft(): void
-    {
-        if (!$this->canReturnToDraft()) {
-            throw new \LogicException('Cannot return attraction to draft in current status');
-        }
-
-        $this->status = self::DRAFT;
-    }
-
 }

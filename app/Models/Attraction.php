@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Enums\AttractionStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,20 +32,12 @@ class Attraction extends Model
     protected $table = 'attractions';
 
     protected $connection = 'mysql';
-    protected $casts = [
-        'status' => AttractionStatus::class
-    ];
 
     /**
      * @var array
      */
     protected $fillable = ['id', 'title', 'date', 'place', 'duration', 'place_id', 'comedian_id', 'created_at', 'updated_at'];
 
-    protected array $status = [
-        AttractionStatus::DRAFT,
-        AttractionStatus::PUBLISHED,
-        AttractionStatus::FINISH,
-    ];
     public function place(): BelongsTo
     {
         return $this->belongsTo(Place::class, 'place_id', 'id');
