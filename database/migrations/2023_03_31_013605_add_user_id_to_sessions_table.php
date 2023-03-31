@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('tickets', function (Blueprint $table) {
-            $table->foreignUuid('session_id')->constrained('sessions')->after('attraction_id')->nullable();
+        Schema::table('sessions', function (Blueprint $table) {
+            $table->foreignUuid('created_by')->constrained('users')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('tickets', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('session_id');
+        Schema::table('sessions', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('created_by');
         });
     }
 };
