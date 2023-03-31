@@ -99,87 +99,75 @@ class UpdateAttractionStatusTest extends UnitTestCase
 
         $result = $useCase->handle($attraction->id, $status);
         $this->assertEquals($result->status, $status);
-
+        $this->assertInstanceOf(Attraction::class, $result);
     }
 
-    /*
     public function testHandlePublishedToFinish()
     {
-        $attractionId = '123';
         $status = 'finish';
 
-        $repositoryMock = $this->getMockBuilder(AttractionRepository::class)
-            ->getMock();
-        $repositoryMock->expects($this->once())
-            ->method('findAttractionById')
-            ->with($this->equalTo($attractionId))
-            ->willReturn(new Attraction($attractionId, 'test', 'published'));
+        $attractionMockData = [
+            "title" => "any_title",
+            "date" => "2023-01-09 00:00:00",
+            "status" => "published",
+            "comedianId" => "any_id_1",
+            "duration" => '180',
+            "placeId" => "any_id",
+            "ownerId" => "any_id_3",
+        ];
 
-        $repositoryMock->expects($this->once())
-            ->method('updateAttractionStatus')
-            ->with($this->equalTo($attractionId), $this->equalTo($status))
-            ->willReturn(true);
+        $attraction = $this->mockAttraction($attractionMockData);
+        $useCase = new UpdateAttractionStatus($this->attractionRepo);
 
-        $useCase = new UpdateAttractionStatus($repositoryMock);
-        $result = $useCase->handle($attractionId, $status);
-
-        $this->assertInstanceOf(Attraction::class, $result);
+        $result = $useCase->handle($attraction->id, $status);
         $this->assertEquals($result->status, $status);
+        $this->assertInstanceOf(Attraction::class, $result);
     }
 
     public function testHandleDraftToFinish()
     {
-        $attractionId = '123';
         $status = 'finish';
 
-        $repositoryMock = $this->getMockBuilder(AttractionRepository::class)
-            ->getMock();
-        $repositoryMock->expects($this->once())
-            ->method('findAttractionById')
-            ->with($this->equalTo($attractionId))
-            ->willReturn(new Attraction($attractionId, 'test', 'draft'));
-
-        $useCase = new UpdateAttractionStatus($repositoryMock);
-
-        $this->expectException(InvalidAttractionStatusException::class);
-        $useCase->handle($attractionId, $status);
-    }
-    public function testCanPublishAttraction()
-    {
-        $attractionId = "abc123";
-        $status = "published";
-        $attractionData = [
-            "id" => $attractionId,
-            "title" => "Test Attraction",
-            "date" => "2022-04-15",
-            "duration" => "120",
-            "comedian" => new Comedian("John Doe"),
-            "timeToEvent" => "2 hours",
-            "place" => new Place("Test Venue"),
+        $attractionMockData = [
+            "title" => "any_title",
+            "date" => "2023-01-09 00:00:00",
             "status" => "draft",
-            "owner" => "ownerId"
+            "comedianId" => "any_id_1",
+            "duration" => '180',
+            "placeId" => "any_id",
+            "ownerId" => "any_id_3",
         ];
 
-        $attraction = Attraction::fromArray($attractionData);
+        $attraction = $this->mockAttraction($attractionMockData);
+        $useCase = new UpdateAttractionStatus($this->attractionRepo);
 
-        $this->attractionRepository->expects($this->once())
-            ->method('findAttractionById')
-            ->with($attractionId)
-            ->willReturn($attraction);
-
-        $this->attractionRepository->expects($this->once())
-            ->method('updateAttraction')
-            ->with($attraction);
-
-        $this->dateTime->expects($this->once())
-            ->method('now')
-            ->willReturn(new DateTime('2022-04-15 00:00:00'));
-
-        $result = $this->attractionPublish->handle($attractionId, $status);
-
-        $this->assertInstanceOf(Attraction::class, $result);
-        $this->assertEquals($status, $result->status);
+        $this->expectException(InvalidAttractionStatusTransitionException::class);
+        $useCase->handle($attraction->id, $status);
     }
+
+    public function testCanPublishAttraction()
+    {
+        $status = 'published';
+
+        $attractionMockData = [
+            "title" => "any_title",
+            "date" => "2023-01-09 00:00:00",
+            "status" => "draft",
+            "comedianId" => "any_id_1",
+            "duration" => '180',
+            "placeId" => "any_id",
+            "ownerId" => "any_id_3",
+        ];
+
+        $attraction = $this->mockAttraction($attractionMockData);
+        $useCase = new UpdateAttractionStatus($this->attractionRepo);
+
+        $this->expectException(InvalidAttractionStatusTransitionException::class);
+        $useCase->handle($attraction->id, $status);
+    }
+
+/*
+
 
     public function testCannotPublishAttractionWhenAlreadyPublished()
     {
@@ -209,8 +197,7 @@ class UpdateAttractionStatusTest extends UnitTestCase
         $this->attractionPublish->handle($attractionId, $status);
     }
 
-    */
-
+*/
     /**
      * @throws Exception
      */

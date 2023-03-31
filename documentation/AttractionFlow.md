@@ -1,8 +1,10 @@
 
 - [ ] Attraction
 - [ ] Must ensure change status 
-  - [ ] draft to published
-  - [ ] published to finish
+  - [x] draft to published
+  - [x] published to finish
+  - [x] published to draft
+
   - [ ] on change status draft to published update all sessions to
 
 - [ ] Session
