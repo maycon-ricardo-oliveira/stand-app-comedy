@@ -2,10 +2,10 @@
 
 namespace App\Chore\Infra\Eloquent;
 
-use App\Chore\Domain\Attraction;
-use App\Chore\Domain\AttractionRepository;
 use App\Chore\Domain\IDateTime;
 use App\Chore\Infra\MySql\DBConnection;
+use App\Chore\Modules\Attractions\Entities\Attraction;
+use App\Chore\Modules\Attractions\Entities\AttractionRepository;
 
 class AttractionRepositoryEloquent extends EloquentBase implements AttractionRepository
 {

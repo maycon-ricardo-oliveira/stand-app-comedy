@@ -5,11 +5,11 @@ namespace Tests\Unit;
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\HashAdapter;
 use App\Chore\Adapters\UniqIdAdapter;
-use App\Chore\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Infra\Memory\ComedianRepositoryMemory;
 use App\Chore\Infra\Memory\PlaceRepositoryMemory;
 use App\Chore\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Infra\Memory\UserRepositoryMemory;
+use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\UseCases\RegisterSession\RegisterSession;
 
 class RegisterSessionTest  extends UnitTestCase

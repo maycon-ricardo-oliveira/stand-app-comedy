@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Chore\Infra\Memory;
+namespace App\Chore\Modules\Attractions\Infra\Memory;
 
-use App\Chore\Domain\Attraction;
-use App\Chore\Domain\AttractionRepository;
 use App\Chore\Domain\IDateTime;
-use App\Chore\Infra\AttractionMapper;
+use App\Chore\Modules\Attractions\Entities\Attraction;
+use App\Chore\Modules\Attractions\Entities\AttractionRepository;
+use App\Chore\Modules\Attractions\Infra\AttractionMapper;
 
 class AttractionRepositoryMemory extends AttractionMapper implements AttractionRepository {
 

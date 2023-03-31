@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Chore\Infra;
+namespace App\Chore\Modules\Attractions\Infra;
 
 use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Domain\Attraction;
 use App\Chore\Domain\Comedian;
 use App\Chore\Domain\IDateTime;
 use App\Chore\Domain\Place;
+use App\Chore\Modules\Attractions\Entities\Attraction;
 use ArrayIterator;
 use Exception;
 

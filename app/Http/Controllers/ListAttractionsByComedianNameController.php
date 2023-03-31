@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\MySqlAdapter;
-use App\Chore\Infra\MySql\AttractionDAODatabase;
-use App\Chore\UseCases\ListAttractionsByComedianId\ListAttractionsByComedianId;
-use App\Chore\UseCases\ListAttractionsByComedianName\ListAttractionsByComedianName;
+use App\Chore\Modules\Attractions\Infra\MySql\AttractionDAODatabase;
+use App\Chore\Modules\Attractions\UseCases\ListAttractionsByComedianName\ListAttractionsByComedianName;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

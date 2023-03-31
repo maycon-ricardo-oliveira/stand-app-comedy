@@ -2,11 +2,8 @@
 
 namespace App\Chore\UseCases\RegisterSession;
 
-use App\Chore\Adapters\Time;
 use App\Chore\Adapters\UniqIdAdapter;
 use App\Chore\Adapters\ValidateTime;
-use App\Chore\Domain\Attraction;
-use App\Chore\Domain\AttractionRepository;
 use App\Chore\Domain\IDateTime;
 use App\Chore\Domain\IUniqId;
 use App\Chore\Domain\Session;
@@ -17,6 +14,8 @@ use App\Chore\Domain\UserRepository;
 use App\Chore\Exceptions\AttractionNotFoundException;
 use App\Chore\Exceptions\UserNotFoundException;
 use App\Chore\Infra\Memory\UserRepositoryMemory;
+use App\Chore\Modules\Attractions\Entities\Attraction;
+use App\Chore\Modules\Attractions\Entities\AttractionRepository;
 
 class RegisterSession
 {

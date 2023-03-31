@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Chore\Adapters\MySqlAdapter;
 use App\Chore\Adapters\UniqIdAdapter;
-use App\Chore\Domain\AttractionRepository;
 use App\Chore\Domain\SessionRepository;
 use App\Chore\Domain\UserRepository;
-use App\Chore\Infra\MySql\AttractionDAODatabase;
 use App\Chore\Infra\MySql\SessionDAODatabase;
 use App\Chore\Infra\MySql\UserDAODatabase;
+use App\Chore\Modules\Attractions\Entities\AttractionRepository;
+use App\Chore\Modules\Attractions\Infra\MySql\AttractionDAODatabase;
 use App\Chore\UseCases\RegisterSession\RegisterSession;
 use Exception;
 use Illuminate\Http\JsonResponse;

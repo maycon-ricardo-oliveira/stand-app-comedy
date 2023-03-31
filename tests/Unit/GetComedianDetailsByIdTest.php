@@ -2,11 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Infra\Memory\ComedianRepositoryMemory;
 use App\Chore\UseCases\GetComedianDetailsById\GetComedianDetailsById;
-use App\Chore\UseCases\ListAttractionsByLocation\ListAttractionsByLocation;
 
 class GetComedianDetailsByIdTest extends UnitTestCase
 {

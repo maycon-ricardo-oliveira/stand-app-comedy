@@ -4,8 +4,8 @@ namespace Tests\Feature;
 
 use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\RamseyUuidGenerator;
-use App\Chore\Infra\MySql\AttractionDAODatabase;
 use App\Chore\Infra\MySql\SessionDAODatabase;
+use App\Chore\Modules\Attractions\Infra\MySql\AttractionDAODatabase;
 use App\Chore\Modules\Tickets\Entities\TicketRepository;
 use App\Chore\Modules\Tickets\Infra\MySql\TicketDAODatabase;
 use App\Chore\Modules\Tickets\UseCases\CreateTicket\CreateTicket;

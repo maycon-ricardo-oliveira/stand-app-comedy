@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Chore\Domain;
+namespace App\Chore\Modules\Attractions\Entities;
 
-use App\Chore\Adapters\DateTimeAdapter;
+use App\Chore\Domain\IDateTime;
 
 interface AttractionRepository
 {

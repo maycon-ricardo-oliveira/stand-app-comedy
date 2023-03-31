@@ -2,7 +2,6 @@
 
 namespace App\Chore\UseCases\ListFollowComedians;
 
-use App\Chore\Domain\AttractionRepository;
 use App\Chore\Domain\User;
 use App\Chore\Domain\UserRepository;
 

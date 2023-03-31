@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Chore\Domain;
+namespace App\Chore\Modules\Attractions\Entities;
 
 
-use App\Models\Enums\AttractionStatus;
+use App\Chore\Domain\Comedian;
+use App\Chore\Domain\IDateTime;
+use App\Chore\Domain\Place;
 
 class Attraction
 {

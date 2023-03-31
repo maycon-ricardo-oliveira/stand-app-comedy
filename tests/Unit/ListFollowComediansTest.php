@@ -6,8 +6,6 @@ use App\Chore\Adapters\DateTimeAdapter;
 use App\Chore\Adapters\HashAdapter;
 use App\Chore\Infra\Memory\UserRepositoryMemory;
 use App\Chore\UseCases\ListFollowComedians\ListFollowComedians;
-use App\Chore\UseCases\RegisterAttraction\RegisterAttraction;
-use Illuminate\Hashing\BcryptHasher;
 
 class ListFollowComediansTest extends UnitTestCase
 {

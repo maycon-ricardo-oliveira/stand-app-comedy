@@ -3,10 +3,8 @@
 namespace Tests\Unit;
 
 use App\Chore\Adapters\DateTimeAdapter;
-use App\Chore\Adapters\MySqlAdapter;
-use App\Chore\Infra\Memory\AttractionRepositoryMemory;
-use App\Chore\Infra\MySql\AttractionDAODatabase;
-use App\Chore\UseCases\ListAttractionsByLocation\ListAttractionsByLocation;
+use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
+use App\Chore\Modules\Attractions\UseCases\ListAttractionsByLocation\ListAttractionsByLocation;
 
 
 class ListAttractionsByLocationTest extends UnitTestCase

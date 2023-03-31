@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Chore\UseCases\ListAttractionsByComedianName;
+namespace App\Chore\Modules\Attractions\UseCases\ListAttractionsByComedianName;
 
-use App\Chore\Domain\AttractionRepository;
+use App\Chore\Modules\Attractions\Entities\AttractionRepository;
 
 class ListAttractionsByComedianName
 {

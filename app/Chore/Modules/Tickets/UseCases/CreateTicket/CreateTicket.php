@@ -2,8 +2,6 @@
 
 namespace App\Chore\Modules\Tickets\UseCases\CreateTicket;
 
-use App\Chore\Domain\Attraction;
-use App\Chore\Domain\AttractionRepository;
 use App\Chore\Domain\Session;
 use App\Chore\Domain\SessionRepository;
 use App\Chore\Domain\User;
@@ -12,6 +10,8 @@ use App\Chore\Domain\UuidGenerator;
 use App\Chore\Exceptions\AttractionNotFoundException;
 use App\Chore\Exceptions\SessionNotFoundException;
 use App\Chore\Exceptions\UserNotFoundException;
+use App\Chore\Modules\Attractions\Entities\Attraction;
+use App\Chore\Modules\Attractions\Entities\AttractionRepository;
 use App\Chore\Modules\Tickets\Entities\Ticket;
 use App\Chore\Modules\Tickets\Entities\TicketId;
 use App\Chore\Modules\Tickets\Entities\TicketRepository;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Chore\UseCases\ListAttractionsByPlace;
+namespace App\Chore\Modules\Attractions\UseCases\ListAttractionsByPlace;
 
-use App\Chore\Domain\AttractionRepository;
+use App\Chore\Modules\Attractions\Entities\AttractionRepository;
 
 class ListAttractionsByPlace
 {
