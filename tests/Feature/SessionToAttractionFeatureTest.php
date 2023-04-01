@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use App\Chore\Exceptions\InvalidTimeException;
 use App\Chore\Exceptions\UserNotFoundException;
@@ -10,7 +10,6 @@ use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
 use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Exceptions\AttractionNotFoundException;
 use App\Chore\Modules\Attractions\Exceptions\CantPossibleCreateSessionException;
-use App\Chore\Modules\Attractions\Exceptions\InvalidAttractionStatusTransitionException;
 use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Modules\Attractions\UseCases\RegisterAttraction\RegisterAttraction;
 use App\Chore\Modules\Comedians\Infra\Memory\ComedianRepositoryMemory;
@@ -21,8 +20,9 @@ use App\Chore\Modules\Sessions\UseCases\RegisterSession\RegisterSession;
 use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
 use Exception;
 
-class RegisterSessionTest  extends UnitTestCase
+class SessionToAttractionFeatureTest extends FeatureTestCase
 {
+
     private SessionRepositoryMemory $sessionRepo;
     private AttractionRepositoryMemory $attractionRepo;
     private UserRepositoryMemory $userRepo;
@@ -31,11 +31,10 @@ class RegisterSessionTest  extends UnitTestCase
     private DateTimeAdapter $date;
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function setUp(): void
     {
-        parent::setUp();
 
         $this->date = new DateTimeAdapter();
         $hash = new HashAdapter();
@@ -106,28 +105,15 @@ class RegisterSessionTest  extends UnitTestCase
         return $useCase->handle($attractionData, $this->date);
     }
 
-    public function testMustRegisterSession()
+    /**
+     * @throws UserNotFoundException
+     * @throws InvalidTimeException
+     * @throws CantPossibleCreateSessionException
+     * @throws AttractionNotFoundException
+     * @throws Exception
+     */
+    public function testMustRegisterSessionOnAFinishAttraction()
     {
-        $date = new DateTimeAdapter();
-        $useCase = new RegisterSession(
-            $this->sessionRepo,
-            $this->attractionRepo,
-            $this->userRepo,
-            $this->uuid
-        );
-
-        $session = $this->baseSessionData();
-
-        $response = $useCase->handle($session, $date);
-
-        $this->assertSame($response->attractionId, $session["attractionId"]);
-        $this->assertSame($response->createdBy, $session["userId"]);
-    }
-
-
-    public function testMustRegisterSessionUsingInvalidAttractionId()
-    {
-        $this->expectExceptionMessage('Attraction not found');
 
         $date = new DateTimeAdapter();
         $useCase = new RegisterSession(
@@ -137,18 +123,26 @@ class RegisterSessionTest  extends UnitTestCase
             $this->uuid
         );
 
-        $session = $this->baseSessionData();
-        $session["attractionId"] = "invalid_attraction_id";
+        $sessionData = $this->baseSessionData();
+        $attractionData = $this->baseAttractionData();
+        $attractionData['status'] = 'finish';
+        $attraction = $this->mockAttraction($attractionData);
+        $sessionData['attractionId'] = $attraction->id;
 
-        $response = $useCase->handle($session, $date);
-
-        $this->assertSame($response->attractionId, $session["attractionId"]);
-        $this->assertSame($response->createdBy, $session["userId"]);
+        $this->expectException(CantPossibleCreateSessionException::class);
+        $useCase->handle($sessionData, $date);
     }
 
-    public function testMustRegisterSessionUsingInvalidUserId()
+
+    /**
+     * @throws UserNotFoundException
+     * @throws InvalidTimeException
+     * @throws CantPossibleCreateSessionException
+     * @throws AttractionNotFoundException
+     * @throws Exception
+     */
+    public function testCantMustUpdateSessionOnAFinishAttraction()
     {
-        $this->expectExceptionMessage('User not found');
 
         $date = new DateTimeAdapter();
         $useCase = new RegisterSession(
@@ -158,33 +152,13 @@ class RegisterSessionTest  extends UnitTestCase
             $this->uuid
         );
 
-        $session = $this->baseSessionData();
-        $session["userId"] = "invalid_user_id";
+        $sessionData = $this->baseSessionData();
+        $attractionData = $this->baseAttractionData();
+        $attractionData['status'] = 'finish';
+        $attraction = $this->mockAttraction($attractionData);
+        $sessionData['attractionId'] = $attraction->id;
 
-        $response = $useCase->handle($session, $date);
-
-        $this->assertSame($response->attractionId, $session["attractionId"]);
-        $this->assertSame($response->createdBy, $session["userId"]);
+        $this->expectException(CantPossibleCreateSessionException::class);
+        $useCase->handle($sessionData, $date);
     }
-
-    public function testMustRegisterSessionUsingInvalidTime()
-    {
-        $this->expectExceptionMessage('Invalid time format');
-
-        $date = new DateTimeAdapter();
-        $useCase = new RegisterSession(
-            $this->sessionRepo,
-            $this->attractionRepo,
-            $this->userRepo,
-            $this->uuid
-        );
-        $session = $this->baseSessionData();
-        $session["startAt"] = "20:0";
-
-        $response = $useCase->handle($session, $date);
-
-        $this->assertSame($response->attractionId, $session["attractionId"]);
-        $this->assertSame($response->createdBy, $session["userId"]);
-    }
-
 }

@@ -4,8 +4,10 @@ namespace App\Chore\Modules\Attractions\Entities;
 
 
 use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
+use App\Chore\Modules\Attractions\Exceptions\CantPossibleCreateSessionException;
 use App\Chore\Modules\Comedians\Entities\Comedian;
 use App\Chore\Modules\Places\Entities\Place;
+use App\Chore\Modules\Sessions\Entities\SessionStatus;
 
 class Attraction
 {
@@ -56,6 +58,17 @@ class Attraction
     {
         if ($date <= $time) return false;
         return $date->diff($time, true)->format('%a days and %h:%i hours');
+    }
+
+    /**
+     * @throws CantPossibleCreateSessionException
+     */
+    public function canCreateSession(): bool
+    {
+        if (!in_array($this->status, [AttractionStatus::DRAFT, AttractionStatus::PUBLISHED])) {
+            throw new CantPossibleCreateSessionException();
+        }
+        return true;
     }
 
 }

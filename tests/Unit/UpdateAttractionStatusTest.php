@@ -43,6 +43,34 @@ class UpdateAttractionStatusTest extends UnitTestCase
         $this->uuid = new UniqIdAdapter();
     }
 
+    public function baseAttractionData(): array
+    {
+        return [
+            "title" => "any_title",
+            "date" => "2023-01-09 00:00:00",
+            "status" => "draft",
+            "comedianId" => "any_id_1",
+            "duration" => '180',
+            "placeId" => "any_id",
+            "ownerId" => "any_id_3",
+        ];
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function mockAttraction($attractionData): Attraction
+    {
+        $useCase = new RegisterAttraction(
+            $this->attractionRepo,
+            $this->comedianRepo,
+            $this->placeRepo,
+            $this->userRepo,
+            $this->uuid
+        );
+
+        return $useCase->handle($attractionData, $this->date);
+    }
 
     /**
      * @throws InvalidAttractionStatusTransitionException
@@ -52,16 +80,7 @@ class UpdateAttractionStatusTest extends UnitTestCase
     {
         $status = 'published';
 
-        $attractionMockData = [
-            "title" => "any_title",
-            "date" => "2023-01-09 00:00:00",
-            "status" => "draft",
-            "comedianId" => "any_id_1",
-            "duration" => '180',
-            "placeId" => "any_id",
-            "ownerId" => "any_id_3",
-        ];
-
+        $attractionMockData = $this->baseAttractionData();
         $attraction = $this->mockAttraction($attractionMockData);
 
         $useCase = new UpdateAttractionStatus($this->attractionRepo);
@@ -78,16 +97,8 @@ class UpdateAttractionStatusTest extends UnitTestCase
     public function testHandlePublishedToDraft()
     {
         $status = 'draft';
-
-        $attractionMockData = [
-            "title" => "any_title",
-            "date" => "2023-01-09 00:00:00",
-            "status" => "published",
-            "comedianId" => "any_id_1",
-            "duration" => '180',
-            "placeId" => "any_id",
-            "ownerId" => "any_id_3",
-        ];
+        $attractionMockData = $this->baseAttractionData();
+        $attractionMockData['status'] = "published";
 
         $attraction = $this->mockAttraction($attractionMockData);
         $useCase = new UpdateAttractionStatus($this->attractionRepo);
@@ -105,15 +116,8 @@ class UpdateAttractionStatusTest extends UnitTestCase
     {
         $status = 'finish';
 
-        $attractionMockData = [
-            "title" => "any_title",
-            "date" => "2023-01-09 00:00:00",
-            "status" => "published",
-            "comedianId" => "any_id_1",
-            "duration" => '180',
-            "placeId" => "any_id",
-            "ownerId" => "any_id_3",
-        ];
+        $attractionMockData = $this->baseAttractionData();
+        $attractionMockData['status'] = "published";
 
         $attraction = $this->mockAttraction($attractionMockData);
         $useCase = new UpdateAttractionStatus($this->attractionRepo);
@@ -132,15 +136,7 @@ class UpdateAttractionStatusTest extends UnitTestCase
     {
         $status = 'finish';
 
-        $attractionMockData = [
-            "title" => "any_title",
-            "date" => "2023-01-09 00:00:00",
-            "status" => "draft",
-            "comedianId" => "any_id_1",
-            "duration" => '180',
-            "placeId" => "any_id",
-            "ownerId" => "any_id_3",
-        ];
+        $attractionMockData = $this->baseAttractionData();
 
         $attraction = $this->mockAttraction($attractionMockData);
         $useCase = new UpdateAttractionStatus($this->attractionRepo);
@@ -158,15 +154,8 @@ class UpdateAttractionStatusTest extends UnitTestCase
     {
         $status = 'published';
 
-        $attractionMockData = [
-            "title" => "any_title",
-            "date" => "2023-01-09 00:00:00",
-            "status" => "published",
-            "comedianId" => "any_id_1",
-            "duration" => '180',
-            "placeId" => "any_id",
-            "ownerId" => "any_id_3",
-        ];
+        $attractionMockData = $this->baseAttractionData();
+        $attractionMockData['status'] = "published";
 
         $attraction = $this->mockAttraction($attractionMockData);
         $useCase = new UpdateAttractionStatus($this->attractionRepo);
@@ -175,19 +164,4 @@ class UpdateAttractionStatusTest extends UnitTestCase
         $useCase->handle($attraction->id, $status);
     }
 
-    /**
-     * @throws Exception
-     */
-    public function mockAttraction($attractionData): Attraction
-    {
-        $useCase = new RegisterAttraction(
-            $this->attractionRepo,
-            $this->comedianRepo,
-            $this->placeRepo,
-            $this->userRepo,
-            $this->uuid
-        );
-
-        return $useCase->handle($attractionData, $this->date);
-    }
 }

@@ -63,7 +63,6 @@ class CreateTicketControllerTest extends FeatureTestCase
             $this->date
         );
     }
-
     public function baseSessionData(): array
     {
         return [
