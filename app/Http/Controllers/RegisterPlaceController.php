@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
 use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
-use App\Chore\Modules\Attractions\Infra\MySql\AttractionDAODatabase;
-use App\Chore\Modules\Attractions\UseCases\RegisterAttraction\RegisterAttraction;
-use App\Chore\Modules\Comedians\Infra\MySql\ComedianDAODatabase;
 use App\Chore\Modules\Places\Infra\MySql\PlaceDAODatabase;
 use App\Chore\Modules\Places\UseCases\RegisterPlace;
-use App\Chore\Modules\User\Infra\MySql\UserDAODatabase;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -31,23 +26,23 @@ class RegisterPlaceController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/api/v1/attractions",
-     *   tags={"attractions"},
-     *   operationId="RegisterAttractionController@handle",
-     *   description="Register Attractions",
+     *   path="/api/v1/places",
+     *   tags={"places"},
+     *   operationId="RegisterPlaceController@handle",
+     *   description="Register Places",
      *   security={ {"token": {} }},
      *   @OA\RequestBody(
      *     required=true,
      *     description="",
      *     @OA\JsonContent(
-     *       required={"title", "date", "comedianId", "placeId", "ownerId", "duration"},
-     *       @OA\Property(property="title", type="string", format="", example="O Problema é meu"),
-     *       @OA\Property(property="date", type="string", format="", example="2023-02-21 22:50:59"),
-     *       @OA\Property(property="status", type="string", format="", example="draft"),
-     *       @OA\Property(property="comedianId", type="string", format="", example="63d1dc4d4b52d"),
-     *       @OA\Property(property="placeId", type="string", format="", example="63d332d4be678"),
-     *       @OA\Property(property="ownerId", type="string", format="", example="63d1c98e22ccb"),
-     *       @OA\Property(property="duration", type="string", format="", example="180"),
+     *       required={"name","seats","address","zipcode","image","lat","lng"},
+     *       @OA\Property(property="name", type="string", format="", example="Hillarius"),
+     *       @OA\Property(property="seats", type="string", format="", example="200"),
+     *       @OA\Property(property="address", type="string", format="", example="Av. Salim Farah Maluf, 1850 - Quarta Parada, SP"),
+     *       @OA\Property(property="zipcode", type="string", format="", example="03157-200"),
+     *       @OA\Property(property="image", type="string", format="", example="https://image.com/image.jpg"),
+     *       @OA\Property(property="lat", type="string", format="", example="-23.546185"),
+     *       @OA\Property(property="lng", type="string", format="", example="-46.579876"),
      *     )
      *   ),
      *   @OA\Response(
@@ -55,7 +50,7 @@ class RegisterPlaceController extends Controller
      *     description="Successful Operation",
      *     @OA\JsonContent(
      *       type="array",
-     *       @OA\Items(ref="#/components/schemas/AttractionResponse")
+     *       @OA\Items(ref="#/components/schemas/PlaceResponse")
      *     ),
      *   ),
      *   @OA\Response(response=404, description="Not found operation"),

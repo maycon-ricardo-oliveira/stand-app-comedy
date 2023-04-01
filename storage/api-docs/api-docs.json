@@ -544,6 +544,95 @@
                 ]
             }
         },
+        "/api/v1/places": {
+            "post": {
+                "tags": [
+                    "places"
+                ],
+                "description": "Register Places",
+                "operationId": "RegisterPlaceController@handle",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "seats",
+                                    "address",
+                                    "zipcode",
+                                    "image",
+                                    "lat",
+                                    "lng"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "Hillarius"
+                                    },
+                                    "seats": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "200"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "Av. Salim Farah Maluf, 1850 - Quarta Parada, SP"
+                                    },
+                                    "zipcode": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "03157-200"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "https://image.com/image.jpg"
+                                    },
+                                    "lat": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "-23.546185"
+                                    },
+                                    "lng": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "-46.579876"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PlaceResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
         "/api/v1/sessions": {
             "post": {
                 "tags": [
