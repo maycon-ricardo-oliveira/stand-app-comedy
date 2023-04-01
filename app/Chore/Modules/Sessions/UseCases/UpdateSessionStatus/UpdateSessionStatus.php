@@ -17,12 +17,12 @@ use function Symfony\Component\Translation\t;
 class UpdateSessionStatus
 {
     private SessionRepository $repository;
-    private AttractionRepository|null $attractionRepository;
+    private AttractionRepository $attractionRepository;
 
     /**
      * @param SessionRepository $repository
      */
-    public function __construct(SessionRepository $repository, AttractionRepository $attractionRepository = null)
+    public function __construct(SessionRepository $repository, AttractionRepository $attractionRepository )
     {
         $this->repository = $repository;
         $this->attractionRepository = $attractionRepository;
@@ -43,13 +43,13 @@ class UpdateSessionStatus
             throw new SessionNotFoundException();
         }
 
-        if ($this->attractionRepository instanceof AttractionRepository) {
-            $attraction = $this->attractionRepository->findAttractionById($session->attractionId);
-            if (!$attraction instanceof Attraction) {
-                throw new AttractionNotFoundException();
-            }
-            $attraction->canUpdateSessionStatus();
+        $attraction = $this->attractionRepository->findAttractionById($session->attractionId);
+
+        if (!$attraction instanceof Attraction) {
+            throw new AttractionNotFoundException();
         }
+
+        $attraction->canUpdateSessionStatus();
 
         $sessionActualStatus = new SessionStatus($session->status);
         $sessionStatus = new SessionStatus($status);

@@ -77,7 +77,7 @@ class Attraction
      */
     public function canUpdateSessionStatus(): bool
     {
-        if (in_array($this->status, [AttractionStatus::PUBLISHED, AttractionStatus::DRAFT])) {
+        if (!in_array($this->status, [AttractionStatus::PUBLISHED])) {
             throw new CantPossibleUpdateSessionException();
         }
         return true;

@@ -77,7 +77,7 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "lat" => -23.546185,
             "lng" => -46.579876,
             "distance" => 10,
-            "status" => 'draft',
+            "status" => 'published',
             "duration" => '180',
             "owner" => '63d1c98e22ccb'
         ], [
@@ -98,7 +98,7 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "lat" => -23.546185,
             "lng" => -46.579876,
             "distance" => 20,
-            "status" => 'draft',
+            "status" => 'published',
             "owner" => '63d1c98e22ccb'
         ]];
     }

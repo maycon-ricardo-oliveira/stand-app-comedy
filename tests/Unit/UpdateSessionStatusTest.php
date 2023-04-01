@@ -30,6 +30,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     private UniqIdAdapter $uuid;
     private IDateTime $date;
 
+    private UpdateSessionStatus $useCase;
+
     /**
      * @throws Exception
      */
@@ -44,6 +46,8 @@ class UpdateSessionStatusTest extends UnitTestCase
         $this->sessionRepo = new SessionRepositoryMemory();
         $this->userRepo = new UserRepositoryMemory($this->date, $hash);
         $this->uuid = new UniqIdAdapter();
+
+        $this->useCase = new UpdateSessionStatus($this->sessionRepo, $this->attractionRepo);
     }
 
     public function baseSessionData(): array
@@ -87,8 +91,7 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
-        $result = $useCase->handle($session->id, $status);
+        $result = $this->useCase->handle($session->id, $status);
 
         $this->assertInstanceOf(Session::class, $result);
         $this->assertEquals($result->status, $status);
@@ -109,8 +112,7 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
-        $result = $useCase->handle($session->id, $status);
+        $result = $this->useCase->handle($session->id, $status);
 
         $this->assertInstanceOf(Session::class, $result);
         $this->assertEquals($result->status, $status);
@@ -131,8 +133,7 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
-        $result = $useCase->handle($session->id, $status);
+        $result = $this->useCase->handle($session->id, $status);
 
         $this->assertInstanceOf(Session::class, $result);
         $this->assertEquals($result->status, $status);
@@ -153,8 +154,7 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
-        $result = $useCase->handle($session->id, $status);
+        $result = $this->useCase->handle($session->id, $status);
 
         $this->assertInstanceOf(Session::class, $result);
         $this->assertEquals($result->status, $status);
@@ -172,7 +172,7 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
+        $useCase = new UpdateSessionStatus($this->sessionRepo, $this->attractionRepo);
         $this->expectException(InvalidSessionStatusTransitionException::class);
         $useCase->handle($session->id, $status);
     }
@@ -191,7 +191,7 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
+        $useCase = new UpdateSessionStatus($this->sessionRepo, $this->attractionRepo);
         $this->expectException(InvalidSessionStatusTransitionException::class);
         $useCase->handle($session->id, $status);
     }
@@ -210,9 +210,8 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
         $this->expectException(InvalidSessionStatusTransitionException::class);
-        $useCase->handle($session->id, $status);
+        $this->useCase->handle($session->id, $status);
     }
 
     /**
@@ -229,9 +228,8 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
         $this->expectException(InvalidSessionStatusTransitionException::class);
-        $useCase->handle($session->id, $status);
+        $this->useCase->handle($session->id, $status);
     }
 
     /**
@@ -248,9 +246,8 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
         $this->expectException(InvalidSessionStatusTransitionException::class);
-        $useCase->handle($session->id, $status);
+        $this->useCase->handle($session->id, $status);
     }
 
     /**
@@ -267,8 +264,7 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
-        $result = $useCase->handle($session->id, $status);
+        $result = $this->useCase->handle($session->id, $status);
         $this->assertInstanceOf(Session::class, $result);
         $this->assertEquals($result->status, $status);
     }
@@ -287,9 +283,8 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
         $this->expectException(InvalidSessionStatusTransitionException::class);
-        $useCase->handle($session->id, $status);
+        $this->useCase->handle($session->id, $status);
     }
 
     /**
@@ -306,9 +301,8 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
         $this->expectException(InvalidSessionStatusTransitionException::class);
-        $useCase->handle($session->id, $status);
+        $this->useCase->handle($session->id, $status);
     }
 
     /**
@@ -325,8 +319,7 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
-        $result = $useCase->handle($session->id, $status);
+        $result = $this->useCase->handle($session->id, $status);
         $this->assertInstanceOf(Session::class, $result);
         $this->assertEquals($result->status, $status);
     }
@@ -345,9 +338,8 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
         $this->expectException(InvalidSessionStatusTransitionException::class);
-        $useCase->handle($session->id, $status);
+        $this->useCase->handle($session->id, $status);
     }
 
     /**
@@ -364,9 +356,8 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
         $this->expectException(InvalidSessionStatusTransitionException::class);
-        $useCase->handle($session->id, $status);
+        $this->useCase->handle($session->id, $status);
     }
 
     /**
@@ -383,9 +374,8 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
         $this->expectException(InvalidSessionStatusTransitionException::class);
-        $useCase->handle($session->id, $status);
+        $this->useCase->handle($session->id, $status);
     }
 
     /**
@@ -402,9 +392,8 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
         $this->expectException(InvalidSessionStatusTransitionException::class);
-        $useCase->handle($session->id, $status);
+        $this->useCase->handle($session->id, $status);
     }
 
     /**
@@ -421,9 +410,8 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
         $this->expectException(InvalidSessionStatusTransitionException::class);
-        $useCase->handle($session->id, $status);
+        $this->useCase->handle($session->id, $status);
     }
 
     /**
@@ -440,9 +428,8 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
         $this->expectException(InvalidSessionStatusTransitionException::class);
-        $useCase->handle($session->id, $status);
+        $this->useCase->handle($session->id, $status);
     }
 
     /**
@@ -459,9 +446,8 @@ class UpdateSessionStatusTest extends UnitTestCase
 
         $session = $this->mockSession($sessionMockData);
 
-        $useCase = new UpdateSessionStatus($this->sessionRepo);
         $this->expectException(InvalidSessionStatusTransitionException::class);
-        $useCase->handle($session->id, $status);
+        $this->useCase->handle($session->id, $status);
     }
 
 }

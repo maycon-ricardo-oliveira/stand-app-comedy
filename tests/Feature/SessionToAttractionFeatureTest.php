@@ -141,21 +141,29 @@ class SessionToAttractionFeatureTest extends FeatureTestCase
      * @throws AttractionNotFoundException
      * @throws Exception
      */
-    public function testCantMustUpdateSessionOnADraftAttraction()
+    public function testCantUpdateSessionStatusOnADraftAttraction()
     {
         $useCase = new UpdateSessionStatus(
             $this->sessionRepo,
             $this->attractionRepo
         );
 
+        $attractionUseCase = new UpdateAttractionStatus(
+            $this->attractionRepo,
+        );
+
         $newStatusSession = 'published';
+        $newStatusAttraction = 'draft';
 
         $attractionData = $this->baseAttractionData();
+        $attractionData['status'] = 'published';
         $attraction = $this->mockAttraction($attractionData);
 
         $sessionData = $this->baseSessionData();
         $sessionData['attractionId'] = $attraction->id;
         $session = $this->mockSession($sessionData);
+
+        $attractionUseCase->handle($attraction->id, $newStatusAttraction);
 
         $this->expectException(CantPossibleUpdateSessionException::class);
         $useCase->handle($session->id, $newStatusSession);
@@ -179,9 +187,10 @@ class SessionToAttractionFeatureTest extends FeatureTestCase
         );
 
         $newStatusSession = 'validating';
-        $newStatusAttraction = 'published';
+        $newStatusAttraction = 'finish';
 
         $attractionData = $this->baseAttractionData();
+        $attractionData['status'] = 'published';
         $attraction = $this->mockAttraction($attractionData);
 
         $sessionData = $this->baseSessionData();
