@@ -42,6 +42,19 @@ class UpdateSessionStatusTest extends UnitTestCase
         $this->uuid = new UniqIdAdapter();
     }
 
+    public function baseSessionData() {
+        return [
+            "attractionId" => "63a277fc7b250",
+            "userId" => "any_id_1",
+            "tickets" => 10,
+            "ticketsSold" => 0,
+            "ticketsValidated" => 0,
+            "startAt" => "20:00:00",
+            "finishAt" => "21:00:00",
+            "status" => "finish",
+        ];
+    }
+
     /**
      * @throws Exception
      */
@@ -498,4 +511,78 @@ class UpdateSessionStatusTest extends UnitTestCase
         $useCase->handle($session->id, $status);
     }
 
+    /**
+     * @throws InvalidSessionStatusException
+     * @throws SessionNotFoundException
+     * @throws Exception
+     */
+    public function testHandleFinishToDraft()
+    {
+        $status = 'draft';
+
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'finish';
+
+        $session = $this->mockSession($sessionMockData);
+
+        $useCase = new UpdateSessionStatus($this->sessionRepo);
+        $this->expectException(InvalidSessionStatusTransitionException::class);
+        $useCase->handle($session->id, $status);
+    }
+
+    /**
+     * @throws InvalidSessionStatusException
+     * @throws SessionNotFoundException
+     * @throws Exception
+     */
+    public function testHandleFinishToPublished()
+    {
+        $status = 'published';
+
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'finish';
+
+        $session = $this->mockSession($sessionMockData);
+
+        $useCase = new UpdateSessionStatus($this->sessionRepo);
+        $this->expectException(InvalidSessionStatusTransitionException::class);
+        $useCase->handle($session->id, $status);
+    }
+
+    /**
+     * @throws InvalidSessionStatusException
+     * @throws SessionNotFoundException
+     * @throws Exception
+     */
+    public function testHandleFinishToValidating()
+    {
+        $status = 'validating';
+
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'finish';
+
+        $session = $this->mockSession($sessionMockData);
+
+        $useCase = new UpdateSessionStatus($this->sessionRepo);
+        $this->expectException(InvalidSessionStatusTransitionException::class);
+        $useCase->handle($session->id, $status);
+    }
+    /**
+     * @throws InvalidSessionStatusException
+     * @throws SessionNotFoundException
+     * @throws Exception
+     */
+    public function testHandleFinishToProgress()
+    {
+        $status = 'in_progress';
+
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'finish';
+
+        $session = $this->mockSession($sessionMockData);
+
+        $useCase = new UpdateSessionStatus($this->sessionRepo);
+        $this->expectException(InvalidSessionStatusTransitionException::class);
+        $useCase->handle($session->id, $status);
+    }
 }
