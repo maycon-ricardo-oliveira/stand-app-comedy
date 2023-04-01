@@ -27,14 +27,4 @@ class FeatureTestCase extends TestCase
 
     }
 
-    public function useLogin()
-    {
-        $email = 'user.test63cb4a1551081@gmail.com';
-        $pass  = 'password';
-
-        $useCase = new Auth($this->repo, $this->auth);
-        return $useCase->login($email,$pass);
-
-    }
-
 }
