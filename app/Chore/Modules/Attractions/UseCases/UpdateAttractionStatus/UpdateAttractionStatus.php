@@ -8,6 +8,7 @@ use App\Chore\Modules\Attractions\Entities\AttractionStatus;
 use App\Chore\Modules\Attractions\Exceptions\AttractionNotFoundException;
 use App\Chore\Modules\Attractions\Exceptions\InvalidAttractionStatusException;
 use App\Chore\Modules\Attractions\Exceptions\InvalidAttractionStatusTransitionException;
+use App\Chore\Modules\Sessions\UseCases\UpdateSessionStatus\UpdateSessionStatus;
 
 class UpdateAttractionStatus
 {
@@ -24,7 +25,7 @@ class UpdateAttractionStatus
      * @throws AttractionNotFoundException
      * @throws InvalidAttractionStatusTransitionException|InvalidAttractionStatusException
      */
-    public function handle(string $attractionId, string $status): ?Attraction
+    public function handle(string $attractionId, string $status, bool $updateSessions = false): ?Attraction
     {
 
         $attraction = $this->repository->findAttractionById($attractionId);
