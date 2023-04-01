@@ -7,9 +7,8 @@ use App\Http\Controllers\ListAttractionsByComedianNameController;
 use App\Http\Controllers\ListAttractionsByLocationController;
 use App\Http\Controllers\ListAttractionsByPlaceController;
 use Illuminate\Http\Request;
-use Tests\Feature\FeatureTestCase;
 
-class AttractionControllersTest extends FeatureTestCase
+class AttractionControllersTest extends ApiTestCase
 {
 
     public function testMustBeReturn200OnListAttractionsController()

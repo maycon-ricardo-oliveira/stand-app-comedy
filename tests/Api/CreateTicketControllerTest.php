@@ -21,9 +21,8 @@ use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Tests\Feature\FeatureTestCase;
 
-class CreateTicketControllerTest extends FeatureTestCase
+class CreateTicketControllerTest extends ApiTestCase
 {
 
     use DatabaseTransactions;

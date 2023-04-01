@@ -5,9 +5,8 @@ namespace Tests\Api;
 use App\Http\Controllers\FollowComedianController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Tests\Feature\FeatureTestCase;
 
-class FollowComedianControllerTest extends FeatureTestCase
+class FollowComedianControllerTest extends ApiTestCase
 {
     public function testMustBeReturn200OnFollowComedianController()
     {

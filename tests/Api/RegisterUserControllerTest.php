@@ -5,9 +5,8 @@ namespace Tests\Api;
 use App\Http\Controllers\RegisterUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Tests\Feature\FeatureTestCase;
 
-class RegisterUserControllerTest extends FeatureTestCase
+class RegisterUserControllerTest extends ApiTestCase
 {
     public function testMustBeReturn200OnListAttractionsByComedianController()
     {
