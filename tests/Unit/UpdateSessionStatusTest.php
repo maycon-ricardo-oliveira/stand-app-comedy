@@ -335,4 +335,86 @@ class UpdateSessionStatusTest extends UnitTestCase
         $this->assertEquals($result->status, $status);
     }
 
+    /**
+     * @throws InvalidSessionStatusException
+     * @throws SessionNotFoundException
+     * @throws Exception
+     */
+    public function testHandleValidatingToDraft()
+    {
+        $status = 'draft';
+
+        $sessionMockData = [
+            "attractionId" => "63a277fc7b250",
+            "userId" => "any_id_1",
+            "tickets" => 10,
+            "ticketsSold" => 0,
+            "ticketsValidated" => 0,
+            "startAt" => "20:00:00",
+            "finishAt" => "21:00:00",
+            "status" => "validating",
+        ];
+
+        $session = $this->mockSession($sessionMockData);
+
+        $useCase = new UpdateSessionStatus($this->sessionRepo);
+        $this->expectException(InvalidSessionStatusTransitionException::class);
+        $useCase->handle($session->id, $status);
+    }
+
+    /**
+     * @throws InvalidSessionStatusException
+     * @throws SessionNotFoundException
+     * @throws Exception
+     */
+    public function testHandleValidatingToFinish()
+    {
+        $status = 'finish';
+
+        $sessionMockData = [
+            "attractionId" => "63a277fc7b250",
+            "userId" => "any_id_1",
+            "tickets" => 10,
+            "ticketsSold" => 0,
+            "ticketsValidated" => 0,
+            "startAt" => "20:00:00",
+            "finishAt" => "21:00:00",
+            "status" => "validating",
+        ];
+
+        $session = $this->mockSession($sessionMockData);
+
+        $useCase = new UpdateSessionStatus($this->sessionRepo);
+        $this->expectException(InvalidSessionStatusTransitionException::class);
+        $useCase->handle($session->id, $status);
+    }
+
+    /**
+     * @throws InvalidSessionStatusException
+     * @throws SessionNotFoundException
+     * @throws Exception
+     */
+    public function testHandleValidatingToPublished()
+    {
+        $status = 'published';
+
+        $sessionMockData = [
+            "attractionId" => "63a277fc7b250",
+            "userId" => "any_id_1",
+            "tickets" => 10,
+            "ticketsSold" => 0,
+            "ticketsValidated" => 0,
+            "startAt" => "20:00:00",
+            "finishAt" => "21:00:00",
+            "status" => "validating",
+        ];
+
+        $session = $this->mockSession($sessionMockData);
+
+        $useCase = new UpdateSessionStatus($this->sessionRepo);
+        $result = $useCase->handle($session->id, $status);
+        $this->assertInstanceOf(Session::class, $result);
+        $this->assertEquals($result->status, $status);
+    }
+
 }
