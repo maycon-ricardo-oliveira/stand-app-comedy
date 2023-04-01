@@ -1,0 +1,187 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Chore\Exceptions\InvalidTimeException;
+use App\Chore\Exceptions\SessionNotFoundException;
+use App\Chore\Exceptions\UserNotFoundException;
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\HashAdapter\HashAdapter;
+use App\Chore\Modules\Adapters\UuidAdapter\RamseyUuidGenerator;
+use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
+use App\Chore\Modules\Attractions\Exceptions\AttractionNotFoundException;
+use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
+use App\Chore\Modules\Sessions\Entities\Session;
+use App\Chore\Modules\Sessions\Entities\SessionCode;
+use App\Chore\Modules\Sessions\Entities\SessionRepository;
+use App\Chore\Modules\Sessions\Exceptions\MaxTicketsEmittedException;
+use App\Chore\Modules\Sessions\Infra\Memory\SessionRepositoryMemory;
+use App\Chore\Modules\Sessions\UseCases\RegisterSession\RegisterSession;
+use App\Chore\Modules\Tickets\Entities\TicketRepository;
+use App\Chore\Modules\Tickets\Infra\Memory\TicketRepositoryMemory;
+use App\Chore\Modules\Tickets\UseCases\CreateTicket\CreateTicket;
+use App\Chore\Modules\Types\Time\ValidateTime;
+use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
+use DateTimeImmutable;
+use Exception;
+use Ramsey\Uuid\Uuid;
+
+class CreateAValidTicketFeatureTest extends FeatureTestCase
+{
+
+    private TicketRepository $ticketRepository;
+
+    private SessionRepository $sessionRepo;
+    private CreateTicket $createTicket;
+    private RamseyUuidGenerator $uuidGenerator;
+    private DateTimeAdapter $date;
+
+    /**
+     * @throws Exception|InvalidTimeException
+     */
+    public function setUp(): void
+    {
+        $hash = new HashAdapter();
+        $this->date = new DateTimeAdapter();
+        $this->ticketRepository = new TicketRepositoryMemory();
+        $this->uuidGenerator = new RamseyUuidGenerator();
+        $this->sessionRepo = new SessionRepositoryMemory();
+        $this->attractionRepo = new AttractionRepositoryMemory($this->date);
+        $this->userRepo = new UserRepositoryMemory($this->date, $hash);
+        $this->uuid = new UniqIdAdapter();
+
+        $this->createTicket = new CreateTicket(
+            $this->ticketRepository,
+            new AttractionRepositoryMemory($this->date),
+            $this->sessionRepo,
+            new UserRepositoryMemory($this->date, $hash),
+            $this->uuidGenerator,
+            $this->date
+        );
+    }
+
+    public function baseSessionData(): array
+    {
+        return [
+            "id" => '642660f112d9a',
+            "attractionId" => "63a277fc7b250",
+            "userId" => "any_id_1",
+            "tickets" => 10,
+            "ticketsSold" => 0,
+            "ticketsValidated" => 0,
+            "startAt" => "20:00:00",
+            "finishAt" => "21:00:00",
+            "status" => "draft",
+        ];
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function mockSession($sessionData): Session
+    {
+        $useCase = new RegisterSession(
+            $this->sessionRepo,
+            $this->attractionRepo,
+            $this->userRepo,
+            $this->uuid
+        );
+
+        return $useCase->handle($sessionData, $this->date);
+    }
+
+    /**
+     * @throws SessionNotFoundException
+     * @throws UserNotFoundException
+     * @throws MaxTicketsEmittedException
+     * @throws AttractionNotFoundException
+     * @throws Exception
+     */
+    public function testCreateValidTicket(): void
+    {
+        $ownerId = "any_id_1";
+        $attractionId = "63a277fc7b250";
+        $payedAt = new DateTimeAdapter();
+        $status = "paid";
+
+        $sessionMockData = $this->baseSessionData();
+        $session = $this->mockSession($sessionMockData);
+
+        $this->createTicket->handle($ownerId, $attractionId, $session->id, $payedAt);
+
+        $ticketId = $this->ticketRepository->getLastInsertedId();
+        $ticket = $this->ticketRepository->findById($ticketId);
+
+        $this->assertTrue(Uuid::isValid($ticket->id->toString()));
+        $this->assertEquals($ownerId, $ticket->ownerId);
+        $this->assertEquals($attractionId, $ticket->attractionId);
+        $this->assertEquals($payedAt->format(), $ticket->payedAt->format('Y-m-d H:i:s'));
+        $this->assertEquals($status, $ticket->status->toString());
+    }
+
+    /**
+     * @throws SessionNotFoundException
+     * @throws UserNotFoundException
+     * @throws AttractionNotFoundException
+     * @throws MaxTicketsEmittedException
+     * @throws Exception
+     */
+    public function testMustIncreaseTicketsSoldWhenCreateValidTicket(): void
+    {
+        $ownerId = "any_id_1";
+        $attractionId = "63a277fc7b250";
+        $payedAt = new DateTimeAdapter();
+
+        $sessionMockData = $this->baseSessionData();
+        $session = $this->mockSession($sessionMockData);
+
+        $oldTicketsSold = $session->ticketsSold;
+
+        $this->createTicket->handle($ownerId, $attractionId, $session->id, $payedAt);
+
+        $ticketId = $this->ticketRepository->getLastInsertedId();
+        $ticket = $this->ticketRepository->findById($ticketId);
+
+        $afterCreateTicketSession = $this->sessionRepo->findSessionById($ticket->sessionId);
+
+        $this->assertTrue(Uuid::isValid($ticket->id->toString()));
+        $this->assertEquals($ownerId, $ticket->ownerId);
+        $this->assertEquals($attractionId, $ticket->attractionId);
+
+        $this->assertEquals($oldTicketsSold + 1, $afterCreateTicketSession->ticketsSold);
+        $this->assertEquals($session->id, $afterCreateTicketSession->id);
+    }
+
+    /**
+     * @throws SessionNotFoundException
+     * @throws UserNotFoundException
+     * @throws AttractionNotFoundException
+     * @throws MaxTicketsEmittedException
+     * @throws Exception
+     */
+    public function testTicketsSoldOutToSession(): void
+    {
+        $ownerId = "any_id_1";
+        $attractionId = "63a277fc7b250";
+        $payedAt = new DateTimeAdapter();
+
+        $sessionMockData = $this->baseSessionData();
+        $session = $this->mockSession($sessionMockData);
+        $oldTicketsSold = $session->ticketsSold;
+
+        $this->createTicket->handle($ownerId, $attractionId, $session->id, $payedAt);
+
+        $ticketId = $this->ticketRepository->getLastInsertedId();
+        $ticket = $this->ticketRepository->findById($ticketId);
+
+        $afterCreateTicketSession = $this->sessionRepo->findSessionById($ticket->sessionId);
+
+        $this->assertTrue(Uuid::isValid($ticket->id->toString()));
+        $this->assertEquals($ownerId, $ticket->ownerId);
+        $this->assertEquals($attractionId, $ticket->attractionId);
+
+        $this->assertEquals($oldTicketsSold + 1, $afterCreateTicketSession->ticketsSold);
+        $this->assertEquals($session->id, $afterCreateTicketSession->id);
+    }
+
+}

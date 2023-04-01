@@ -2,6 +2,7 @@
 
 namespace App\Chore\Modules\Sessions\Entities;
 
+use App\Chore\Modules\Sessions\Exceptions\MaxTicketsEmittedException;
 use App\Chore\Modules\Types\Time\Time;
 use DateTimeImmutable;
 
@@ -36,4 +37,40 @@ class Session
         $this->updatedAt = $updatedAt;
     }
 
+    /**
+     * @throws MaxTicketsEmittedException
+     */
+    public function increaseTicketSold(int $amount = 1): void
+    {
+        if ($this->ticketsSold + $amount > $this->tickets) {
+            throw new MaxTicketsEmittedException();
+        }
+
+        if ($this->canSoldTicketStatus()) {
+            throw new MaxTicketsEmittedException();
+        }
+
+        $this->ticketsSold += $amount;
+    }
+
+    /**
+     * @throws MaxTicketsEmittedException
+     */
+    public function increaseTicketValidated(): void
+    {
+        if ($this->ticketsSold++ > $this->tickets) {
+            throw new MaxTicketsEmittedException();
+        }
+        $this->ticketsSold++;
+    }
+
+    private function canSoldTicketStatus(): bool
+    {
+        return in_array($this->status, [SessionStatus::PUBLISHED, SessionStatus::VALIDATING, SessionStatus::IN_PROGRESS]);
+    }
+
+    private function canValidatingTicketStatus($status)
+    {
+        return in_array($status, [SessionStatus::VALIDATING, SessionStatus::IN_PROGRESS]);
+    }
 }

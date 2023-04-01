@@ -10,6 +10,7 @@ use App\Chore\Modules\Attractions\Entities\AttractionRepository;
 use App\Chore\Modules\Attractions\Exceptions\AttractionNotFoundException;
 use App\Chore\Modules\Sessions\Entities\Session;
 use App\Chore\Modules\Sessions\Entities\SessionRepository;
+use App\Chore\Modules\Sessions\Exceptions\MaxTicketsEmittedException;
 use App\Chore\Modules\Tickets\Entities\Ticket;
 use App\Chore\Modules\Tickets\Entities\TicketId;
 use App\Chore\Modules\Tickets\Entities\TicketRepository;
@@ -41,6 +42,7 @@ class CreateTicket
      * @throws UserNotFoundException
      * @throws AttractionNotFoundException
      * @throws SessionNotFoundException
+     * @throws MaxTicketsEmittedException
      */
     public function handle(string $ownerId, string $attractionId, string $sessionId, DateTimeImmutable $payedAt, DateTimeImmutable|null $checkinAt = null): TicketId
     {
@@ -72,7 +74,11 @@ class CreateTicket
             $checkinAt
         );
 
+        $session->increaseTicketSold();
+
         $this->ticketRepository->save($ticket);
+        $this->sessionRepository->update($session);
+
         return $this->ticketRepository->getLastInsertedId();
     }
 

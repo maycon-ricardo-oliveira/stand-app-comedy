@@ -36,7 +36,16 @@ class SessionRepositoryMemory implements SessionRepository
     {
         foreach ($this->sessions as $item) {
             if ($item->id == $session->id) {
+                $item->attractionId = $session->attractionId;
+                $item->sessionCode = $session->sessionCode;
+                $item->tickets = $session->tickets;
+                $item->ticketsSold = $session->ticketsSold;
+                $item->ticketsValidated = $session->ticketsValidated;
+                $item->startAt = $session->startAt;
+                $item->finishAt = $session->finishAt;
                 $item->status = $session->status;
+                $item->createdBy = $session->createdBy;
+                $item->updatedAt = $session->updatedAt;
                 return true;
             }
         }

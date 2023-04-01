@@ -130,10 +130,12 @@ class SessionDAODatabase extends BaseDAODatabase implements SessionRepository
                     finish_at = :finish_at,
                     status = :status,
                     updated_at = :updated_at,
+                    created_at = :created_at,
                     created_by = :created_by
               where id = :id";
 
         $params = [
+            "id" => $session->id,
             "attraction_id" => $session->attractionId,
             "session_code" => $session->sessionCode->toString(),
             "tickets" => $session->tickets,
@@ -142,7 +144,8 @@ class SessionDAODatabase extends BaseDAODatabase implements SessionRepository
             "start_at" => $session->startAt->getTime(),
             "finish_at" => $session->finishAt->getTime(),
             "status" => $session->status,
-            "updated_at" => $session->updatedAt->format('Y-m-d H:i:s'),
+            "created_at" => $session->createdAt->format('Y-m-d H:i:s'),
+            "updated_at" => $this->time->format('Y-m-d H:i:s'),
             "created_by" => $session->createdBy
         ];
 
