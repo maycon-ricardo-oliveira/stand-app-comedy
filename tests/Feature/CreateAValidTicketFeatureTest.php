@@ -14,6 +14,7 @@ use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Modules\Sessions\Entities\Session;
 use App\Chore\Modules\Sessions\Entities\SessionCode;
 use App\Chore\Modules\Sessions\Entities\SessionRepository;
+use App\Chore\Modules\Sessions\Exceptions\CantEmitTicketsForThisSessionStatusException;
 use App\Chore\Modules\Sessions\Exceptions\MaxTicketsEmittedException;
 use App\Chore\Modules\Sessions\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Modules\Sessions\UseCases\RegisterSession\RegisterSession;
@@ -71,7 +72,7 @@ class CreateAValidTicketFeatureTest extends FeatureTestCase
             "ticketsValidated" => 0,
             "startAt" => "20:00:00",
             "finishAt" => "21:00:00",
-            "status" => "draft",
+            "status" => "published",
         ];
     }
 
@@ -150,6 +151,48 @@ class CreateAValidTicketFeatureTest extends FeatureTestCase
 
         $this->assertEquals($oldTicketsSold + 1, $afterCreateTicketSession->ticketsSold);
         $this->assertEquals($session->id, $afterCreateTicketSession->id);
+    }
+
+    /**
+     * @throws SessionNotFoundException
+     * @throws UserNotFoundException
+     * @throws AttractionNotFoundException
+     * @throws MaxTicketsEmittedException
+     * @throws Exception
+     */
+    public function testMustThrowMaxTicketsEmittedException(): void
+    {
+        $ownerId = "any_id_1";
+        $attractionId = "63a277fc7b250";
+        $payedAt = new DateTimeAdapter();
+
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['ticketsSold'] = 10;
+        $session = $this->mockSession($sessionMockData);
+
+        $this->expectException(MaxTicketsEmittedException::class);
+        $this->createTicket->handle($ownerId, $attractionId, $session->id, $payedAt);
+    }
+
+    /**
+     * @throws SessionNotFoundException
+     * @throws UserNotFoundException
+     * @throws AttractionNotFoundException
+     * @throws MaxTicketsEmittedException
+     * @throws Exception
+     */
+    public function testMustThrowCantEmitTicketsForThisSessionStatusException(): void
+    {
+        $ownerId = "any_id_1";
+        $attractionId = "63a277fc7b250";
+        $payedAt = new DateTimeAdapter();
+
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 10;
+        $session = $this->mockSession($sessionMockData);
+
+        $this->expectException(CantEmitTicketsForThisSessionStatusException::class);
+        $this->createTicket->handle($ownerId, $attractionId, $session->id, $payedAt);
     }
 
     /**

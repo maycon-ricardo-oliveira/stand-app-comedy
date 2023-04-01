@@ -44,7 +44,7 @@ class CreateTicketTest extends UnitTestCase
             0,
             ValidateTime::validate("21:00:00"),
             ValidateTime::validate("22:00:00"),
-            "draft",
+            "published",
             'any_owner',
             new DateTimeImmutable(),
             new DateTimeImmutable(),
