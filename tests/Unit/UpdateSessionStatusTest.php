@@ -2,19 +2,15 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Exceptions\InvalidTimeException;
-use App\Chore\Exceptions\UserNotFoundException;
 use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
 use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 use App\Chore\Modules\Adapters\HashAdapter\HashAdapter;
 use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
-use App\Chore\Modules\Attractions\Exceptions\AttractionNotFoundException;
-use App\Chore\Modules\Attractions\Exceptions\CantPossibleCreateSessionException;
 use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
-use App\Chore\Modules\Session\Exceptions\SessionNotFoundException;
 use App\Chore\Modules\Sessions\Entities\Session;
 use App\Chore\Modules\Sessions\Exceptions\InvalidSessionStatusException;
 use App\Chore\Modules\Sessions\Exceptions\InvalidSessionStatusTransitionException;
+use App\Chore\Modules\Sessions\Exceptions\SessionNotFoundException;
 use App\Chore\Modules\Sessions\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Modules\Sessions\UseCases\RegisterSession\RegisterSession;
 use App\Chore\Modules\Sessions\UseCases\UpdateSessionStatus\UpdateSessionStatus;

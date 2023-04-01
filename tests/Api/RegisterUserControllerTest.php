@@ -1,13 +1,12 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Api;
 
-use App\Http\Controllers\RegisterAttractionController;
 use App\Http\Controllers\RegisterUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class RegisterUserControllerTest extends FeatureTestCase
+class RegisterUserControllerTest extends ApiTestCase
 {
     public function testMustBeReturn200OnListAttractionsByComedianController()
     {

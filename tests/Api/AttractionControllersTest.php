@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Api;
 
 use App\Http\Controllers\ListAttractionsByComedianController;
 use App\Http\Controllers\ListAttractionsByComedianNameController;
@@ -8,7 +8,7 @@ use App\Http\Controllers\ListAttractionsByLocationController;
 use App\Http\Controllers\ListAttractionsByPlaceController;
 use Illuminate\Http\Request;
 
-class AttractionControllersTest extends FeatureTestCase
+class AttractionControllersTest extends ApiTestCase
 {
 
     public function testMustBeReturn200OnListAttractionsController()

@@ -1,25 +1,20 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Api;
 
 use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
-use App\Chore\Modules\Adapters\HashAdapter\HashAdapter;
 use App\Chore\Modules\Adapters\UuidAdapter\RamseyUuidGenerator;
 use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
 use App\Chore\Modules\Attractions\Entities\AttractionRepository;
-use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Modules\Attractions\Infra\MySql\AttractionDAODatabase;
 use App\Chore\Modules\Sessions\Entities\Session;
 use App\Chore\Modules\Sessions\Entities\SessionRepository;
-use App\Chore\Modules\Sessions\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Modules\Sessions\Infra\MySql\SessionDAODatabase;
 use App\Chore\Modules\Sessions\UseCases\RegisterSession\RegisterSession;
 use App\Chore\Modules\Tickets\Entities\TicketRepository;
-use App\Chore\Modules\Tickets\Infra\Memory\TicketRepositoryMemory;
 use App\Chore\Modules\Tickets\Infra\MySql\TicketDAODatabase;
 use App\Chore\Modules\Tickets\UseCases\CreateTicket\CreateTicket;
 use App\Chore\Modules\User\Entities\UserRepository;
-use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
 use App\Chore\Modules\User\Infra\MySql\UserDAODatabase;
 use App\Http\Controllers\Tickets\CreateTicketController;
 use Exception;
@@ -27,7 +22,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CreateTicketControllerTest extends FeatureTestCase
+class CreateTicketControllerTest extends ApiTestCase
 {
 
     use DatabaseTransactions;

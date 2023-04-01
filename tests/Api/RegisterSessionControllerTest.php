@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Api;
 
 
 use App\Http\Controllers\RegisterSessionController;
 use Illuminate\Http\Request;
 
-class RegisterSessionControllerTest extends FeatureTestCase
+class RegisterSessionControllerTest extends ApiTestCase
 {
 
-    public function testMustBeReturn200OnListAttractionsByComedianController()
+    public function testMustBeReturn200OnRegisterSessionController()
     {
 
         $request = new Request();

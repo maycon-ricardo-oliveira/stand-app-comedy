@@ -3,7 +3,6 @@
 namespace App\Chore\Modules\Sessions\UseCases\RegisterSession;
 
 use App\Chore\Exceptions\InvalidTimeException;
-use App\Chore\Exceptions\UserNotFoundException;
 use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 use App\Chore\Modules\Adapters\UuidAdapter\IUniqId;
 use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
@@ -17,6 +16,7 @@ use App\Chore\Modules\Sessions\Entities\SessionRepository;
 use App\Chore\Modules\Types\Time\ValidateTime;
 use App\Chore\Modules\User\Entities\User;
 use App\Chore\Modules\User\Entities\UserRepository;
+use App\Chore\Modules\User\Exceptions\UserNotFoundException;
 use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
 
 class RegisterSession

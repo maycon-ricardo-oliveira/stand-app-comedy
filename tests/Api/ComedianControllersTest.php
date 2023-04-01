@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Api;
 
 use App\Http\Controllers\GetComedianByIdController;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Request;
 
-class ComedianControllersTest extends FeatureTestCase
+class ComedianControllersTest extends ApiTestCase
 {
 
     use DatabaseTransactions;

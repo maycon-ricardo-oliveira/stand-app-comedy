@@ -193,6 +193,49 @@
                 ]
             }
         },
+        "/api/v1/user/{userId}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Returns details by user id",
+                "operationId": "GetUserProfileByIdController@handle",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "User id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "63d1c98e22ccb"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
         "/api/v1/health": {
             "get": {
                 "tags": [
@@ -501,6 +544,260 @@
                 ]
             }
         },
+        "/api/v1/places": {
+            "post": {
+                "tags": [
+                    "places"
+                ],
+                "description": "Register Places",
+                "operationId": "RegisterPlaceController@handle",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "seats",
+                                    "address",
+                                    "zipcode",
+                                    "image",
+                                    "lat",
+                                    "lng"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "Hillarius"
+                                    },
+                                    "seats": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "200"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "Av. Salim Farah Maluf, 1850 - Quarta Parada, SP"
+                                    },
+                                    "zipcode": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "03157-200"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "https://image.com/image.jpg"
+                                    },
+                                    "lat": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "-23.546185"
+                                    },
+                                    "lng": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "-46.579876"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PlaceResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/sessions": {
+            "post": {
+                "tags": [
+                    "sessions"
+                ],
+                "description": "Register Session",
+                "operationId": "RegisterSessionController@handle",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "attractionId",
+                                    "userId",
+                                    "tickets",
+                                    "ticketsSold",
+                                    "ticketsValidated",
+                                    "startAt",
+                                    "finishAt",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "attractionId": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "63d332d50ff63"
+                                    },
+                                    "userId": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "63d1c98e22ccb"
+                                    },
+                                    "tickets": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": 10
+                                    },
+                                    "ticketsSold": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": 0
+                                    },
+                                    "ticketsValidated": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": 0
+                                    },
+                                    "startAt": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "21:00:00"
+                                    },
+                                    "finishAt": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "22:00:00"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/register": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Register",
+                "operationId": "AuthController@handle",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "User Test"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "user.test63cb4a1551081@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "description": "The access token",
+                                            "type": "string"
+                                        },
+                                        "token_type": {
+                                            "description": "The token_type",
+                                            "type": "string"
+                                        },
+                                        "expires_in": {
+                                            "description": "The expires_in",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
         "/api/v1/user/unfollow": {
             "post": {
                 "tags": [
@@ -663,6 +960,76 @@
                         "type": "string"
                     },
                     "distance": {
+                        "description": "The place id",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "SessionResponse": {
+                "title": "Session Schema",
+                "description": "Session",
+                "properties": {
+                    "id": {
+                        "description": "The id name",
+                        "type": "string"
+                    },
+                    "attraction_id": {
+                        "description": "The attraction_id name",
+                        "type": "string"
+                    },
+                    "session_code": {
+                        "description": "The session_code name",
+                        "type": "string"
+                    },
+                    "tickets": {
+                        "description": "The tickets name",
+                        "type": "string"
+                    },
+                    "tickets_sold": {
+                        "description": "The tickets_sold name",
+                        "type": "string"
+                    },
+                    "tickets_validated": {
+                        "description": "The tickets_validated name",
+                        "type": "string"
+                    },
+                    "start_at": {
+                        "description": "The start_at name",
+                        "type": "string"
+                    },
+                    "finish_at": {
+                        "description": "The finish_at name",
+                        "type": "string"
+                    },
+                    "status": {
+                        "description": "The status name",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "The created_at name",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "description": "The updated_at name",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UserResponse": {
+                "title": "User Schema",
+                "description": "User",
+                "properties": {
+                    "id": {
+                        "description": "The place id",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The place id",
+                        "type": "string"
+                    },
+                    "email": {
                         "description": "The place id",
                         "type": "string"
                     }

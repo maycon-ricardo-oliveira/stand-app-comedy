@@ -41,6 +41,7 @@ class PlaceRepositoryMemory extends PlaceMapper implements PlaceRepository
             "seats" => 200,
             "address" => "Av. Salim Farah Maluf, 1850 - Quarta Parada, SP",
             "zipcode" => "03157-200",
+            "image" => "https://image.com/image.jpg",
             "lat" => -23.546185,
             "lng" => -46.579876,
             "distance" => 10,
@@ -50,6 +51,7 @@ class PlaceRepositoryMemory extends PlaceMapper implements PlaceRepository
             "seats" => 200,
             "address" => "Av. Salim Farah Maluf, 1850 - Quarta Parada, SP",
             "zipcode" => "03157-200",
+            "image" => "https://image.com/image.jpg",
             "lat" => -23.546185,
             "lng" => -46.579876,
             "distance" => 20,
@@ -65,5 +67,10 @@ class PlaceRepositoryMemory extends PlaceMapper implements PlaceRepository
         }));
         return count($response) == 0 ? null : $response[0];
 
+    }
+    public function register(Place $place): bool
+    {
+        $this->places[] = $place;
+        return true;
     }
 }

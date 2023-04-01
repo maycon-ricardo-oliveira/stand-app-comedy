@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Chore\Exceptions\InvalidTimeException;
-use App\Chore\Exceptions\UserNotFoundException;
 use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
 use App\Chore\Modules\Adapters\HashAdapter\HashAdapter;
 use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
@@ -20,6 +19,7 @@ use App\Chore\Modules\Sessions\Entities\Session;
 use App\Chore\Modules\Sessions\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Modules\Sessions\UseCases\RegisterSession\RegisterSession;
 use App\Chore\Modules\Sessions\UseCases\UpdateSessionStatus\UpdateSessionStatus;
+use App\Chore\Modules\User\Exceptions\UserNotFoundException;
 use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
 use Exception;
 

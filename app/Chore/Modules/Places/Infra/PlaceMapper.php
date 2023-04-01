@@ -3,6 +3,7 @@
 namespace App\Chore\Modules\Places\Infra;
 
 use App\Chore\Modules\Places\Entities\Place;
+use App\Chore\Modules\Types\Url\Url;
 use Exception;
 
 class PlaceMapper extends \ArrayIterator
@@ -31,6 +32,7 @@ class PlaceMapper extends \ArrayIterator
                 $item->seats,
                 $item->address,
                 $item->zipcode,
+                new Url($item->image),
                 $item->lat,
                 $item->lng,
                 $item->distance ?? ''

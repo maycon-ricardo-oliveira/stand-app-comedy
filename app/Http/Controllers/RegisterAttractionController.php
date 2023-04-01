@@ -62,7 +62,7 @@ class RegisterAttractionController extends Controller
         $date = new DateTimeAdapter();
         $attractionRepo = new AttractionDAODatabase($this->dbConnection, $date);
         $userRepo = new UserDAODatabase($this->dbConnection, $date);
-        $placeRepo = new PlaceDAODatabase($this->dbConnection);
+        $placeRepo = new PlaceDAODatabase($this->dbConnection, $this->time);
         $comedianRepo = new ComedianDAODatabase($this->dbConnection, $date);
         $uuid = new UniqIdAdapter();
 

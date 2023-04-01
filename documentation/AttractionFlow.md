@@ -29,11 +29,15 @@ Checkin
 - [ ] Can update tickets_validated only session status are validating
 
 Places 
-- [ ] Need a use case using mysql implementation
+- [x] Need a use case using mysql implementation
+
+Comedians 
+- [ ] Register Comedian
+
 
 Infra 
 - [ ] tests need a transaction insert in a database
-- [ ] test suite for controllers
+- [x] test suite for controllers
   - command  ```php artisan test --testsuite="unit,feature"```
 
 

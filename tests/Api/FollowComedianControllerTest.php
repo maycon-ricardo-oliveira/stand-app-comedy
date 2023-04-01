@@ -1,13 +1,12 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Api;
 
 use App\Http\Controllers\FollowComedianController;
-use App\Http\Controllers\GetComedianByIdController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class FollowComedianControllerTest extends FeatureTestCase
+class FollowComedianControllerTest extends ApiTestCase
 {
     public function testMustBeReturn200OnFollowComedianController()
     {
