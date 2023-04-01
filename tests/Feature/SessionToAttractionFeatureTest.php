@@ -10,13 +10,16 @@ use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
 use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Exceptions\AttractionNotFoundException;
 use App\Chore\Modules\Attractions\Exceptions\CantPossibleCreateSessionException;
+use App\Chore\Modules\Attractions\Exceptions\CantPossibleUpdateSessionException;
 use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Modules\Attractions\UseCases\RegisterAttraction\RegisterAttraction;
+use App\Chore\Modules\Attractions\UseCases\UpdateAttractionStatus\UpdateAttractionStatus;
 use App\Chore\Modules\Comedians\Infra\Memory\ComedianRepositoryMemory;
 use App\Chore\Modules\Places\Infra\Memory\PlaceRepositoryMemory;
 use App\Chore\Modules\Sessions\Entities\Session;
 use App\Chore\Modules\Sessions\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Modules\Sessions\UseCases\RegisterSession\RegisterSession;
+use App\Chore\Modules\Sessions\UseCases\UpdateSessionStatus\UpdateSessionStatus;
 use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
 use Exception;
 
@@ -133,32 +136,62 @@ class SessionToAttractionFeatureTest extends FeatureTestCase
         $useCase->handle($sessionData, $date);
     }
 
+    /**
+     * @throws CantPossibleUpdateSessionException
+     * @throws AttractionNotFoundException
+     * @throws Exception
+     */
+    public function testCantMustUpdateSessionOnADraftAttraction()
+    {
+        $useCase = new UpdateSessionStatus(
+            $this->sessionRepo,
+            $this->attractionRepo
+        );
+
+        $newStatusSession = 'published';
+
+        $attractionData = $this->baseAttractionData();
+        $attraction = $this->mockAttraction($attractionData);
+
+        $sessionData = $this->baseSessionData();
+        $sessionData['attractionId'] = $attraction->id;
+        $session = $this->mockSession($sessionData);
+
+        $this->expectException(CantPossibleUpdateSessionException::class);
+        $useCase->handle($session->id, $newStatusSession);
+    }
 
     /**
-     * @throws UserNotFoundException
-     * @throws InvalidTimeException
-     * @throws CantPossibleCreateSessionException
+     * @throws CantPossibleUpdateSessionException
      * @throws AttractionNotFoundException
      * @throws Exception
      */
     public function testCantMustUpdateSessionOnAFinishAttraction()
     {
 
-        $date = new DateTimeAdapter();
-        $useCase = new RegisterSession(
+        $useCase = new UpdateSessionStatus(
             $this->sessionRepo,
-            $this->attractionRepo,
-            $this->userRepo,
-            $this->uuid
+            $this->attractionRepo
         );
 
-        $sessionData = $this->baseSessionData();
-        $attractionData = $this->baseAttractionData();
-        $attractionData['status'] = 'finish';
-        $attraction = $this->mockAttraction($attractionData);
-        $sessionData['attractionId'] = $attraction->id;
+        $attractionUseCase = new UpdateAttractionStatus(
+            $this->attractionRepo,
+        );
 
-        $this->expectException(CantPossibleCreateSessionException::class);
-        $useCase->handle($sessionData, $date);
+        $newStatusSession = 'validating';
+        $newStatusAttraction = 'published';
+
+        $attractionData = $this->baseAttractionData();
+        $attraction = $this->mockAttraction($attractionData);
+
+        $sessionData = $this->baseSessionData();
+        $sessionData['attractionId'] = $attraction->id;
+        $session = $this->mockSession($sessionData);
+
+        $attractionUseCase->handle($attraction->id, $newStatusAttraction);
+
+        $this->expectException(CantPossibleUpdateSessionException::class);
+        $useCase->handle($session->id, $newStatusSession);
     }
+
 }
