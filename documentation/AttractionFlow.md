@@ -9,7 +9,7 @@
 - [ ] Session
 - [ ] Can't be possible create a session in a finish Attraction
 - [ ] Can't be possible update a status to published, validating, active in a draft attraction
-- [ ] Can be possible update session status to validating but attraction status need to be published
+- [x] Can be possible update session status to validating but attraction status need to be published
 - [ ] Can be possible change a session status to active and finished but need check before status
 - [ ] Can update tickets_validated only session status are validating
 - [ ] Can update tickets_sold only session status are published

@@ -9,6 +9,8 @@ class SessionStatus
     const DRAFT = 'draft';
     const PUBLISHED = 'published';
     const FINISH = 'finish';
+    const VALIDATING = 'validating';
+    const IN_PROGRESS = 'in_progress';
 
     private string $status;
 
@@ -33,7 +35,9 @@ class SessionStatus
     {
         return match ($this->status) {
             self::DRAFT => $status->status === self::PUBLISHED,
-            self::PUBLISHED => $status->status === self::DRAFT || $status->status === self::FINISH,
+            self::PUBLISHED => $status->status === self::DRAFT || $status->status === self::VALIDATING || $status->status === self::FINISH,
+            self::VALIDATING => $status->status === self::FINISH || $status->status === self::IN_PROGRESS,
+            self::IN_PROGRESS => $status->status === self::FINISH,
             self::FINISH => false,
             default => throw new InvalidSessionStatusException(),
         };
@@ -46,6 +50,6 @@ class SessionStatus
 
     private static function isValidStatus(string $status): bool
     {
-        return in_array($status, [self::DRAFT, self::PUBLISHED, self::FINISH]);
+        return in_array($status, [self::DRAFT, self::PUBLISHED, self::VALIDATING, self::IN_PROGRESS, self::FINISH]);
     }
 }
