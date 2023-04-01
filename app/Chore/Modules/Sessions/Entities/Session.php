@@ -2,6 +2,7 @@
 
 namespace App\Chore\Modules\Sessions\Entities;
 
+use App\Chore\Modules\Sessions\Exceptions\CantCheckinTicketsForThisSessionStatusException;
 use App\Chore\Modules\Sessions\Exceptions\CantEmitTicketsForThisSessionStatusException;
 use App\Chore\Modules\Sessions\Exceptions\MaxTicketsEmittedException;
 use App\Chore\Modules\Types\Time\Time;
@@ -57,13 +58,20 @@ class Session
 
     /**
      * @throws MaxTicketsEmittedException
+     * @throws CantCheckinTicketsForThisSessionStatusException
      */
     public function increaseTicketValidated(): void
     {
-        if ($this->ticketsSold++ > $this->tickets) {
+        if (!$this->canValidatingTicketStatus()) {
+            throw new CantCheckinTicketsForThisSessionStatusException();
+        }
+
+        // TODO: tickets ? or ticketsSold
+        // TODO: change this exception to a MaxTicketValidated
+        if ($this->ticketsValidated++ > $this->tickets) {
             throw new MaxTicketsEmittedException();
         }
-        $this->ticketsSold++;
+        $this->ticketsValidated++;
     }
 
     private function canSoldTicketStatus(): bool
@@ -71,8 +79,8 @@ class Session
         return in_array($this->status, [SessionStatus::PUBLISHED, SessionStatus::VALIDATING, SessionStatus::IN_PROGRESS]);
     }
 
-    private function canValidatingTicketStatus($status)
+    private function canValidatingTicketStatus()
     {
-        return in_array($status, [SessionStatus::VALIDATING, SessionStatus::IN_PROGRESS]);
+        return in_array($this->status, [SessionStatus::VALIDATING, SessionStatus::IN_PROGRESS]);
     }
 }

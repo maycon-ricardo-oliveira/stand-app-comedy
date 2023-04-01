@@ -23,4 +23,14 @@ class TicketRepositoryMemory implements TicketRepository
     public function getLastInsertedId(): ?TicketId {
         return $this->lastInsertedId;
     }
+
+    public function checkin(Ticket $ticket): bool
+    {
+        $toUpdate = $this->tickets[$ticket->id->toString()] ?? false;
+
+        $toUpdate->checkinAt = $ticket->checkinAt;
+        $toUpdate->status = $ticket->status;
+        $this->tickets[$ticket->id->toString()] = $toUpdate;
+        return true;
+    }
 }
