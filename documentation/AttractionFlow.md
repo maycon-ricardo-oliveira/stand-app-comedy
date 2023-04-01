@@ -33,7 +33,7 @@ Places
 
 Infra 
 - [ ] tests need a transaction insert in a database
-- [ ] test suite for controllers
+- [x] test suite for controllers
   - command  ```php artisan test --testsuite="unit,feature"```
 
 

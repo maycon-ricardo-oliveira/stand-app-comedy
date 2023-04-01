@@ -3,8 +3,6 @@
 namespace Tests\Feature;
 
 use App\Chore\Exceptions\InvalidTimeException;
-use App\Chore\Exceptions\SessionNotFoundException;
-use App\Chore\Exceptions\UserNotFoundException;
 use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
 use App\Chore\Modules\Adapters\HashAdapter\HashAdapter;
 use App\Chore\Modules\Adapters\UuidAdapter\RamseyUuidGenerator;
@@ -12,18 +10,17 @@ use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
 use App\Chore\Modules\Attractions\Exceptions\AttractionNotFoundException;
 use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Modules\Sessions\Entities\Session;
-use App\Chore\Modules\Sessions\Entities\SessionCode;
 use App\Chore\Modules\Sessions\Entities\SessionRepository;
 use App\Chore\Modules\Sessions\Exceptions\CantEmitTicketsForThisSessionStatusException;
 use App\Chore\Modules\Sessions\Exceptions\MaxTicketsEmittedException;
+use App\Chore\Modules\Sessions\Exceptions\SessionNotFoundException;
 use App\Chore\Modules\Sessions\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Modules\Sessions\UseCases\RegisterSession\RegisterSession;
 use App\Chore\Modules\Tickets\Entities\TicketRepository;
 use App\Chore\Modules\Tickets\Infra\Memory\TicketRepositoryMemory;
 use App\Chore\Modules\Tickets\UseCases\CreateTicket\CreateTicket;
-use App\Chore\Modules\Types\Time\ValidateTime;
+use App\Chore\Modules\User\Exceptions\UserNotFoundException;
 use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
-use DateTimeImmutable;
 use Exception;
 use Ramsey\Uuid\Uuid;
 

@@ -6,13 +6,12 @@ use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Entities\AttractionRepository;
 use App\Chore\Modules\Attractions\Exceptions\AttractionNotFoundException;
 use App\Chore\Modules\Attractions\Exceptions\CantPossibleUpdateSessionException;
-use App\Chore\Modules\Session\Exceptions\SessionNotFoundException;
 use App\Chore\Modules\Sessions\Entities\Session;
 use App\Chore\Modules\Sessions\Entities\SessionRepository;
 use App\Chore\Modules\Sessions\Entities\SessionStatus;
 use App\Chore\Modules\Sessions\Exceptions\InvalidSessionStatusException;
 use App\Chore\Modules\Sessions\Exceptions\InvalidSessionStatusTransitionException;
-use function Symfony\Component\Translation\t;
+use App\Chore\Modules\Sessions\Exceptions\SessionNotFoundException;
 
 class UpdateSessionStatus
 {

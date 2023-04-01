@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Chore\Exceptions;
+namespace App\Chore\Modules\User\Exceptions;
 
 use Throwable;
 
