@@ -42,7 +42,8 @@ class UpdateSessionStatusTest extends UnitTestCase
         $this->uuid = new UniqIdAdapter();
     }
 
-    public function baseSessionData() {
+    public function baseSessionData(): array
+    {
         return [
             "attractionId" => "63a277fc7b250",
             "userId" => "any_id_1",
@@ -77,16 +78,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'published';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "draft",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'draft';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -107,16 +100,9 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'validating';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "published",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'published';
+
 
         $session = $this->mockSession($sessionMockData);
 
@@ -137,16 +123,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'in_progress';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "validating",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'validating';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -167,16 +145,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'finish';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "in_progress",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'in_progress';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -194,16 +164,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'validating';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "draft",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'draft';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -221,16 +183,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'in_progress';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "draft",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'draft';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -248,16 +202,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'in_progress';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "draft",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'draft';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -275,16 +221,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'in_progress';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "published",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'published';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -302,16 +240,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'finish';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "published",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'published';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -329,16 +259,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'draft';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "published",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'published';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -357,16 +279,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'draft';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "validating",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'validating';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -384,16 +298,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'finish';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "validating",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'validating';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -411,16 +317,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'published';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "validating",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'validating';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -439,16 +337,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'draft';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "in_progress",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'in_progress';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -466,16 +356,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'published';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "in_progress",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'in_progress';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -493,16 +375,8 @@ class UpdateSessionStatusTest extends UnitTestCase
     {
         $status = 'validating';
 
-        $sessionMockData = [
-            "attractionId" => "63a277fc7b250",
-            "userId" => "any_id_1",
-            "tickets" => 10,
-            "ticketsSold" => 0,
-            "ticketsValidated" => 0,
-            "startAt" => "20:00:00",
-            "finishAt" => "21:00:00",
-            "status" => "in_progress",
-        ];
+        $sessionMockData = $this->baseSessionData();
+        $sessionMockData['status'] = 'in_progress';
 
         $session = $this->mockSession($sessionMockData);
 
@@ -567,6 +441,7 @@ class UpdateSessionStatusTest extends UnitTestCase
         $this->expectException(InvalidSessionStatusTransitionException::class);
         $useCase->handle($session->id, $status);
     }
+
     /**
      * @throws InvalidSessionStatusException
      * @throws SessionNotFoundException
@@ -585,4 +460,5 @@ class UpdateSessionStatusTest extends UnitTestCase
         $this->expectException(InvalidSessionStatusTransitionException::class);
         $useCase->handle($session->id, $status);
     }
+
 }
