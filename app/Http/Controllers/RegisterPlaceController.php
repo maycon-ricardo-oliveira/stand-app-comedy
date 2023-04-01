@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
 use App\Chore\Modules\Places\Infra\MySql\PlaceDAODatabase;
-use App\Chore\Modules\Places\UseCases\RegisterPlace;
+use App\Chore\Modules\Places\UseCases\RegisterPlace\RegisterPlace;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

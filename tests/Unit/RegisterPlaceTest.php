@@ -5,12 +5,10 @@ namespace Tests\Unit;
 use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
 use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
 use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
-use App\Chore\Modules\Places\Entities\Place;
 use App\Chore\Modules\Places\Entities\PlaceRepository;
 use App\Chore\Modules\Places\Infra\Memory\PlaceRepositoryMemory;
-use App\Chore\Modules\Places\UseCases\RegisterPlace;
+use App\Chore\Modules\Places\UseCases\RegisterPlace\RegisterPlace;
 use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
-use Exception;
 
 class RegisterPlaceTest extends UnitTestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Chore\Modules\Places\UseCases;
+namespace App\Chore\Modules\Places\UseCases\RegisterPlace;
 
 use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 use App\Chore\Modules\Adapters\UuidAdapter\IUniqId;

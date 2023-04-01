@@ -7,10 +7,9 @@ use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
 use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Modules\Places\Entities\PlaceRepository;
 use App\Chore\Modules\Places\Infra\Memory\PlaceRepositoryMemory;
-use App\Chore\Modules\Places\UseCases\RegisterPlace;
 use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
+use App\Http\Controllers\GetPlaceByIdController;
 use App\Http\Controllers\RegisterPlaceController;
-use App\Http\Controllers\RegisterSessionController;
 use Illuminate\Http\Request;
 
 class PlacesControllerTest extends ApiTestCase
@@ -62,6 +61,20 @@ class PlacesControllerTest extends ApiTestCase
         $this->assertSame(200, $response->getData()->status);
         $this->assertIsObject($response->getData()->data);
         $this->assertSame($response->getData()->data->name, $request->name);
+
+    }
+
+    public function testMustBeReturn200OnGetPlaceByIdController()
+    {
+        $request = new Request();
+        $request->placeId = "63d332d4be676";
+
+        $controller = new GetPlaceByIdController();
+        $response = $controller->handle($request);
+
+        $this->assertSame(200, $response->getData()->status);
+        $this->assertIsObject($response->getData()->data);
+        $this->assertSame($response->getData()->data->id, $request->placeId);
 
     }
 

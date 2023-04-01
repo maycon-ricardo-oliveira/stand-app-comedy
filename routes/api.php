@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FollowComedianController;
 use App\Http\Controllers\GetComedianByIdController;
+use App\Http\Controllers\GetPlaceByIdController;
 use App\Http\Controllers\GetUserProfileByIdController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\ListAttractionsByComedianNameController;
@@ -39,5 +40,6 @@ Route::prefix('v1')->group(function () {
     Route::post('attractions',  [RegisterAttractionController::class, 'handle']);
 
     Route::post('places',  [RegisterPlaceController::class, 'handle']);
+    Route::post('places/{placeId}',  [GetPlaceByIdController::class, 'handle']);
 
 });

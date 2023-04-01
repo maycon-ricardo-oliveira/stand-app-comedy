@@ -29,7 +29,7 @@ Checkin
 - [ ] Can update tickets_validated only session status are validating
 
 Places 
-- [ ] Need a use case using mysql implementation
+- [x] Need a use case using mysql implementation
 
 Comedians 
 - [ ] Register Comedian
