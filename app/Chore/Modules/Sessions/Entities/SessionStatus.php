@@ -35,8 +35,8 @@ class SessionStatus
     {
         return match ($this->status) {
             self::DRAFT => $status->status === self::PUBLISHED,
-            self::PUBLISHED => $status->status === self::DRAFT || $status->status === self::VALIDATING || $status->status === self::FINISH,
-            self::VALIDATING => $status->status === self::FINISH || $status->status === self::IN_PROGRESS,
+            self::PUBLISHED => $status->status === self::DRAFT || $status->status === self::VALIDATING,
+            self::VALIDATING => $status->status === self::PUBLISHED || $status->status === self::IN_PROGRESS,
             self::IN_PROGRESS => $status->status === self::FINISH,
             self::FINISH => false,
             default => throw new InvalidSessionStatusException(),

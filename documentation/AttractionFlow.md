@@ -7,6 +7,9 @@
   - [x] can't publish to publish
 
 - [ ] Session
+
+'draft', 'published', 'validating', 'in_progress', 'finish'
+
 - [ ] Can't be possible create a session in a finish Attraction
 - [ ] Can't be possible update a status to published, validating, active in a draft attraction
 - [x] Can be possible update session status to validating but attraction status need to be published
