@@ -2,13 +2,15 @@
 
 namespace App\Chore\Modules\Sessions\UseCases\RegisterSession;
 
-use App\Chore\Exceptions\AttractionNotFoundException;
+use App\Chore\Exceptions\InvalidTimeException;
 use App\Chore\Exceptions\UserNotFoundException;
 use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 use App\Chore\Modules\Adapters\UuidAdapter\IUniqId;
 use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
 use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Entities\AttractionRepository;
+use App\Chore\Modules\Attractions\Exceptions\AttractionNotFoundException;
+use App\Chore\Modules\Attractions\Exceptions\CantPossibleCreateSessionException;
 use App\Chore\Modules\Sessions\Entities\Session;
 use App\Chore\Modules\Sessions\Entities\SessionCode;
 use App\Chore\Modules\Sessions\Entities\SessionRepository;
@@ -40,9 +42,10 @@ class RegisterSession
 
     /**
      * @throws UserNotFoundException
-     * @throws AttractionNotFoundException
+     * @throws AttractionNotFoundException|InvalidTimeException
+     * @throws CantPossibleCreateSessionException
      */
-    public function handle(array $session, IDateTime $date)
+    public function handle(array $session, IDateTime $date): ?Session
     {
         $attraction = $this->attractionRepo->findAttractionById($session['attractionId']);
         $owner = $this->userRepo->findUserById($session['userId']);
@@ -54,6 +57,8 @@ class RegisterSession
         if (!$owner instanceof User) {
             throw new UserNotFoundException();
         }
+
+        $attraction->canCreateSession();
 
         $session = new Session(
             $this->uuid->id(),

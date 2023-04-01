@@ -183,4 +183,32 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
 
         return count($data) == 0 ? null : $data[0];
     }
+
+    public function updateAttraction(Attraction $attractionData): bool
+    {
+        $query = "update attractions
+              set
+                 title = :title,
+                 date = :date,
+                 duration = :duration,
+                 status = :status,
+                 comedian_id = :comedian_id,
+                 place_id = :place_id,
+                 owner_id = :owner_id,
+                 updated_at = :updated_at
+              where id = :id";
+
+        $params = [
+            "title" => $attractionData->title,
+            "date" => $attractionData->date->format('Y-m-d H:i:s'),
+            "duration" => $attractionData->duration,
+            "status" => $attractionData->status,
+            "comedian_id" => $attractionData->comedian->id,
+            "place_id" => $attractionData->place->id,
+            "owner_id" => $attractionData->owner,
+            "updated_at" => $this->time->format('Y-m-d H:i:s'),
+        ];
+        $this->connection->query($query, $params);
+        return true;
+    }
 }

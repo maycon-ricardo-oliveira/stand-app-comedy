@@ -17,6 +17,7 @@
 - [ ] Integrate with GeoLocation Google Api
 - [ ] Different roles to users
 - [ ] Login with google using socialite lib
+- [ ] can't register two sessions on a same time for same attraction
 
 ### Business Rules
 - [ ] Only Attractions in a future date can be returned

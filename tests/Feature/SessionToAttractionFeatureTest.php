@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use App\Chore\Exceptions\InvalidTimeException;
 use App\Chore\Exceptions\UserNotFoundException;
@@ -10,19 +10,22 @@ use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
 use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Exceptions\AttractionNotFoundException;
 use App\Chore\Modules\Attractions\Exceptions\CantPossibleCreateSessionException;
-use App\Chore\Modules\Attractions\Exceptions\InvalidAttractionStatusTransitionException;
+use App\Chore\Modules\Attractions\Exceptions\CantPossibleUpdateSessionException;
 use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Modules\Attractions\UseCases\RegisterAttraction\RegisterAttraction;
+use App\Chore\Modules\Attractions\UseCases\UpdateAttractionStatus\UpdateAttractionStatus;
 use App\Chore\Modules\Comedians\Infra\Memory\ComedianRepositoryMemory;
 use App\Chore\Modules\Places\Infra\Memory\PlaceRepositoryMemory;
 use App\Chore\Modules\Sessions\Entities\Session;
 use App\Chore\Modules\Sessions\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Modules\Sessions\UseCases\RegisterSession\RegisterSession;
+use App\Chore\Modules\Sessions\UseCases\UpdateSessionStatus\UpdateSessionStatus;
 use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
 use Exception;
 
-class RegisterSessionTest  extends UnitTestCase
+class SessionToAttractionFeatureTest extends FeatureTestCase
 {
+
     private SessionRepositoryMemory $sessionRepo;
     private AttractionRepositoryMemory $attractionRepo;
     private UserRepositoryMemory $userRepo;
@@ -31,11 +34,10 @@ class RegisterSessionTest  extends UnitTestCase
     private DateTimeAdapter $date;
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function setUp(): void
     {
-        parent::setUp();
 
         $this->date = new DateTimeAdapter();
         $hash = new HashAdapter();
@@ -106,8 +108,16 @@ class RegisterSessionTest  extends UnitTestCase
         return $useCase->handle($attractionData, $this->date);
     }
 
-    public function testMustRegisterSession()
+    /**
+     * @throws UserNotFoundException
+     * @throws InvalidTimeException
+     * @throws CantPossibleCreateSessionException
+     * @throws AttractionNotFoundException
+     * @throws Exception
+     */
+    public function testMustRegisterSessionOnAFinishAttraction()
     {
+
         $date = new DateTimeAdapter();
         $useCase = new RegisterSession(
             $this->sessionRepo,
@@ -116,75 +126,81 @@ class RegisterSessionTest  extends UnitTestCase
             $this->uuid
         );
 
-        $session = $this->baseSessionData();
+        $sessionData = $this->baseSessionData();
+        $attractionData = $this->baseAttractionData();
+        $attractionData['status'] = 'finish';
+        $attraction = $this->mockAttraction($attractionData);
+        $sessionData['attractionId'] = $attraction->id;
 
-        $response = $useCase->handle($session, $date);
-
-        $this->assertSame($response->attractionId, $session["attractionId"]);
-        $this->assertSame($response->createdBy, $session["userId"]);
+        $this->expectException(CantPossibleCreateSessionException::class);
+        $useCase->handle($sessionData, $date);
     }
 
-
-    public function testMustRegisterSessionUsingInvalidAttractionId()
+    /**
+     * @throws CantPossibleUpdateSessionException
+     * @throws AttractionNotFoundException
+     * @throws Exception
+     */
+    public function testCantUpdateSessionStatusOnADraftAttraction()
     {
-        $this->expectExceptionMessage('Attraction not found');
-
-        $date = new DateTimeAdapter();
-        $useCase = new RegisterSession(
+        $useCase = new UpdateSessionStatus(
             $this->sessionRepo,
-            $this->attractionRepo,
-            $this->userRepo,
-            $this->uuid
+            $this->attractionRepo
         );
 
-        $session = $this->baseSessionData();
-        $session["attractionId"] = "invalid_attraction_id";
+        $attractionUseCase = new UpdateAttractionStatus(
+            $this->attractionRepo,
+        );
 
-        $response = $useCase->handle($session, $date);
+        $newStatusSession = 'published';
+        $newStatusAttraction = 'draft';
 
-        $this->assertSame($response->attractionId, $session["attractionId"]);
-        $this->assertSame($response->createdBy, $session["userId"]);
+        $attractionData = $this->baseAttractionData();
+        $attractionData['status'] = 'published';
+        $attraction = $this->mockAttraction($attractionData);
+
+        $sessionData = $this->baseSessionData();
+        $sessionData['attractionId'] = $attraction->id;
+        $session = $this->mockSession($sessionData);
+
+        $attractionUseCase->handle($attraction->id, $newStatusAttraction);
+
+        $this->expectException(CantPossibleUpdateSessionException::class);
+        $useCase->handle($session->id, $newStatusSession);
     }
 
-    public function testMustRegisterSessionUsingInvalidUserId()
+    /**
+     * @throws CantPossibleUpdateSessionException
+     * @throws AttractionNotFoundException
+     * @throws Exception
+     */
+    public function testCantMustUpdateSessionOnAFinishAttraction()
     {
-        $this->expectExceptionMessage('User not found');
 
-        $date = new DateTimeAdapter();
-        $useCase = new RegisterSession(
+        $useCase = new UpdateSessionStatus(
             $this->sessionRepo,
-            $this->attractionRepo,
-            $this->userRepo,
-            $this->uuid
+            $this->attractionRepo
         );
 
-        $session = $this->baseSessionData();
-        $session["userId"] = "invalid_user_id";
-
-        $response = $useCase->handle($session, $date);
-
-        $this->assertSame($response->attractionId, $session["attractionId"]);
-        $this->assertSame($response->createdBy, $session["userId"]);
-    }
-
-    public function testMustRegisterSessionUsingInvalidTime()
-    {
-        $this->expectExceptionMessage('Invalid time format');
-
-        $date = new DateTimeAdapter();
-        $useCase = new RegisterSession(
-            $this->sessionRepo,
+        $attractionUseCase = new UpdateAttractionStatus(
             $this->attractionRepo,
-            $this->userRepo,
-            $this->uuid
         );
-        $session = $this->baseSessionData();
-        $session["startAt"] = "20:0";
 
-        $response = $useCase->handle($session, $date);
+        $newStatusSession = 'validating';
+        $newStatusAttraction = 'finish';
 
-        $this->assertSame($response->attractionId, $session["attractionId"]);
-        $this->assertSame($response->createdBy, $session["userId"]);
+        $attractionData = $this->baseAttractionData();
+        $attractionData['status'] = 'published';
+        $attraction = $this->mockAttraction($attractionData);
+
+        $sessionData = $this->baseSessionData();
+        $sessionData['attractionId'] = $attraction->id;
+        $session = $this->mockSession($sessionData);
+
+        $attractionUseCase->handle($attraction->id, $newStatusAttraction);
+
+        $this->expectException(CantPossibleUpdateSessionException::class);
+        $useCase->handle($session->id, $newStatusSession);
     }
 
 }

@@ -17,5 +17,6 @@ interface AttractionRepository
     public function registerAttraction(Attraction $attractionData, IDateTime $date): bool;
 
     public function findAttractionById(string $attractionId): ?Attraction;
+    public function updateAttraction(Attraction $attractionData): bool;
 
 }

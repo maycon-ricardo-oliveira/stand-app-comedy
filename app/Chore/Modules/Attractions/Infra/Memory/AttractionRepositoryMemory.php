@@ -77,7 +77,7 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "lat" => -23.546185,
             "lng" => -46.579876,
             "distance" => 10,
-            "status" => 'draft',
+            "status" => 'published',
             "duration" => '180',
             "owner" => '63d1c98e22ccb'
         ], [
@@ -98,7 +98,7 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "lat" => -23.546185,
             "lng" => -46.579876,
             "distance" => 20,
-            "status" => 'draft',
+            "status" => 'published',
             "owner" => '63d1c98e22ccb'
         ]];
     }
@@ -127,9 +127,22 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
 
     public function findAttractionById(string $attractionId): ?Attraction
     {
-        $response = array_filter($this->attractions, function ($attraction) use ($attractionId) {
-            return str_contains($attraction->id, $attractionId);
-        });
+        $response = array_values(array_filter($this->attractions, function ($attraction) use ($attractionId) {
+            return $attraction->id == $attractionId;
+        }));
         return count($response) == 0 ? null : $response[0];
+    }
+
+    public function updateAttraction(Attraction $attractionData): bool
+    {
+        foreach ($this->attractions as $attraction) {
+            if ($attraction->id == $attractionData->id) {
+                $attraction->status = $attractionData->status;
+                return true;
+            }
+
+        }
+
+        return false;
     }
 }

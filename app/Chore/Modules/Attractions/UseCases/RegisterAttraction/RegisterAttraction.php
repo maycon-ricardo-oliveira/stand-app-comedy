@@ -7,13 +7,13 @@ use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 use App\Chore\Modules\Adapters\UuidAdapter\IUniqId;
 use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Entities\AttractionRepository;
+use App\Chore\Modules\Attractions\Entities\AttractionStatus;
 use App\Chore\Modules\Comedians\Entities\Comedian;
 use App\Chore\Modules\Comedians\Entities\ComedianRepository;
 use App\Chore\Modules\Places\Entities\Place;
 use App\Chore\Modules\Places\Entities\PlaceRepository;
 use App\Chore\Modules\User\Entities\User;
 use App\Chore\Modules\User\Entities\UserRepository;
-use App\Models\Enums\AttractionStatus;
 
 class RegisterAttraction
 {
@@ -65,7 +65,7 @@ class RegisterAttraction
             $attractionData["duration"],
             $comedian,
             $place,
-            in_array($attractionData["status"], AttractionStatus::$status) ?? AttractionStatus::DRAFT,
+            (new AttractionStatus($attractionData["status"]))->getStatus(),
             $owner->id,
             $time
         );

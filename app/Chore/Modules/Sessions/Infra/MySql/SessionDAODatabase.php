@@ -117,4 +117,39 @@ class SessionDAODatabase extends BaseDAODatabase implements SessionRepository
         $this->connection->query($query, $params);
         return true;
     }
+    public function update(Session $session): bool
+    {
+        $query = "update sessions
+              set
+                    attraction_id = :attraction_id,
+                    session_code = :session_code,
+                    tickets = :tickets,
+                    tickets_sold = :tickets_sold,
+                    tickets_validated = :tickets_validated,
+                    start_at = :start_at,
+                    finish_at = :finish_at,
+                    status = :status,
+                    updated_at = :updated_at,
+                    created_at = :created_at,
+                    created_by = :created_by
+              where id = :id";
+
+        $params = [
+            "id" => $session->id,
+            "attraction_id" => $session->attractionId,
+            "session_code" => $session->sessionCode->toString(),
+            "tickets" => $session->tickets,
+            "tickets_sold" => $session->ticketsSold,
+            "tickets_validated" => $session->ticketsValidated,
+            "start_at" => $session->startAt->getTime(),
+            "finish_at" => $session->finishAt->getTime(),
+            "status" => $session->status,
+            "created_at" => $session->createdAt->format('Y-m-d H:i:s'),
+            "updated_at" => $this->time->format('Y-m-d H:i:s'),
+            "created_by" => $session->createdBy
+        ];
+
+        $this->connection->query($query, $params);
+        return true;
+    }
 }

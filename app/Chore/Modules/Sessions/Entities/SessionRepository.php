@@ -13,4 +13,6 @@ interface SessionRepository
 
     public function register(Session $session): bool;
 
+    public function update(Session $session): bool;
+
 }

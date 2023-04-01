@@ -2,18 +2,25 @@
 
 namespace Tests\Unit;
 
+use App\Chore\Exceptions\SessionNotFoundException;
+use App\Chore\Exceptions\UserNotFoundException;
 use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
 use App\Chore\Modules\Adapters\HashAdapter\HashAdapter;
 use App\Chore\Modules\Adapters\UuidAdapter\RamseyUuidGenerator;
+use App\Chore\Modules\Attractions\Exceptions\AttractionNotFoundException;
 use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Modules\Sessions\Entities\Session;
 use App\Chore\Modules\Sessions\Entities\SessionCode;
+use App\Chore\Modules\Sessions\Exceptions\MaxTicketsEmittedException;
 use App\Chore\Modules\Sessions\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Modules\Tickets\Entities\TicketRepository;
 use App\Chore\Modules\Tickets\Infra\Memory\TicketRepositoryMemory;
 use App\Chore\Modules\Tickets\UseCases\CreateTicket\CreateTicket;
 use App\Chore\Modules\Types\Time\ValidateTime;
 use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
+use DateInterval;
+use DateTimeImmutable;
+use Exception;
 use Ramsey\Uuid\Uuid;
 
 class CreateTicketTest extends UnitTestCase
@@ -24,7 +31,7 @@ class CreateTicketTest extends UnitTestCase
     private DateTimeAdapter $date;
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     protected function setUp(): void {
 
@@ -37,10 +44,10 @@ class CreateTicketTest extends UnitTestCase
             0,
             ValidateTime::validate("21:00:00"),
             ValidateTime::validate("22:00:00"),
-            "draft",
+            "published",
             'any_owner',
-            new \DateTimeImmutable(),
-            new \DateTimeImmutable(),
+            new DateTimeImmutable(),
+            new DateTimeImmutable(),
         );
 
         $this->ticketRepository = new TicketRepositoryMemory();
@@ -61,7 +68,14 @@ class CreateTicketTest extends UnitTestCase
         );
     }
 
-    public function testCreateValidTicket(): void {
+    /**
+     * @throws SessionNotFoundException
+     * @throws UserNotFoundException
+     * @throws AttractionNotFoundException
+     * @throws MaxTicketsEmittedException
+     */
+    public function testCreateValidTicket(): void
+    {
         $ownerId = "any_id_1";
         $attractionId = "63a277fc7b250";
         $sessionId = "642660f112d9a";
@@ -80,59 +94,82 @@ class CreateTicketTest extends UnitTestCase
         $this->assertEquals($status, $ticket->status->toString());
     }
 
-    public function testCreateUsingInvalidUser(): void {
-
-        $this->expectExceptionMessage("User not found");
+    /**
+     * @throws SessionNotFoundException
+     * @throws UserNotFoundException
+     * @throws AttractionNotFoundException
+     * @throws MaxTicketsEmittedException
+     */
+    public function testCreateUsingInvalidUser(): void
+    {
 
         $ownerId = "invalid_owner_id";
         $attractionId = "63a277fc7b250";
         $sessionId = "642660f112d9a";
         $payedAt = new DateTimeAdapter();
 
+        $this->expectExceptionMessage("User not found");
         $this->createTicket->handle($ownerId, $attractionId, $sessionId, $payedAt);
 
     }
 
-    public function testCreateUsingInvalidAttraction(): void {
-
-        $this->expectExceptionMessage("Attraction not found");
+    /**
+     * @throws UserNotFoundException
+     * @throws SessionNotFoundException
+     * @throws AttractionNotFoundException
+     * @throws MaxTicketsEmittedException
+     */
+    public function testCreateUsingInvalidAttraction(): void
+    {
 
         $ownerId = "any_id_1";
         $attractionId = "invalid_attraction_id";
         $sessionId = "642660f112d9a";
 
         $payedAt = new DateTimeAdapter();
-
+        $this->expectExceptionMessage("Attraction not found");
         $this->createTicket->handle($ownerId, $attractionId, $sessionId, $payedAt);
 
     }
 
-    public function testMustThrowExceptionUsingInvalidSession(): void {
-
-        $this->expectExceptionMessage('Session not found');
+    /**
+     * @throws SessionNotFoundException
+     * @throws UserNotFoundException
+     * @throws AttractionNotFoundException
+     * @throws MaxTicketsEmittedException
+     */
+    public function testMustThrowExceptionUsingInvalidSession(): void
+    {
 
         $ownerId = "any_id_1";
         $attractionId = "63a277fc7b250";
         $sessionId = "invalid_session_id";
 
         $futureDate = new DateTimeAdapter();
-        $futurePayedAt = $futureDate->add(new \DateInterval('P1D'));
+        $futurePayedAt = $futureDate->add(new DateInterval('P1D'));
 
+        $this->expectExceptionMessage('Session not found');
         $this->createTicket->handle($ownerId, $attractionId, $sessionId, $futurePayedAt);
 
     }
 
-    public function testMustThrowExceptionPassingFuturePayedDate(): void {
-
-        $this->expectExceptionMessage('Payed date invalid');
+    /**
+     * @throws SessionNotFoundException
+     * @throws UserNotFoundException
+     * @throws AttractionNotFoundException
+     * @throws MaxTicketsEmittedException
+     */
+    public function testMustThrowExceptionPassingFuturePayedDate(): void
+    {
 
         $ownerId = "any_id_1";
         $attractionId = "63a277fc7b250";
         $sessionId = "642660f112d9a";
 
         $futureDate = new DateTimeAdapter();
-        $futurePayedAt = $futureDate->add(new \DateInterval('P1D'));
+        $futurePayedAt = $futureDate->add(new DateInterval('P1D'));
 
+        $this->expectExceptionMessage('Payed date invalid');
         $this->createTicket->handle($ownerId, $attractionId, $sessionId, $futurePayedAt);
 
     }
