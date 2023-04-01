@@ -1,10 +1,11 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Api;
 
 
 use App\Http\Controllers\RegisterSessionController;
 use Illuminate\Http\Request;
+use Tests\Feature\FeatureTestCase;
 
 class RegisterSessionControllerTest extends FeatureTestCase
 {

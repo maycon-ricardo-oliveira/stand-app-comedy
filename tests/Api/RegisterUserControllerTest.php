@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Api;
 
-use App\Http\Controllers\RegisterAttractionController;
 use App\Http\Controllers\RegisterUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Tests\Feature\FeatureTestCase;
 
 class RegisterUserControllerTest extends FeatureTestCase
 {

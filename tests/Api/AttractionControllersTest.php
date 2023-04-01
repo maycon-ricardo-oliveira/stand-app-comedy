@@ -1,12 +1,13 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Api;
 
 use App\Http\Controllers\ListAttractionsByComedianController;
 use App\Http\Controllers\ListAttractionsByComedianNameController;
 use App\Http\Controllers\ListAttractionsByLocationController;
 use App\Http\Controllers\ListAttractionsByPlaceController;
 use Illuminate\Http\Request;
+use Tests\Feature\FeatureTestCase;
 
 class AttractionControllersTest extends FeatureTestCase
 {
