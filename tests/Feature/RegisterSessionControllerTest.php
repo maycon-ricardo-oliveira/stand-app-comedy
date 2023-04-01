@@ -25,7 +25,6 @@ class RegisterSessionControllerTest extends FeatureTestCase
         $controller = new RegisterSessionController();
         $response = $controller->handle($request);
 
-
         $this->assertSame(200, $response->getData()->status);
         $this->assertIsObject($response->getData()->data);
         $this->assertSame($response->getData()->data->attractionId, $request->attractionId);

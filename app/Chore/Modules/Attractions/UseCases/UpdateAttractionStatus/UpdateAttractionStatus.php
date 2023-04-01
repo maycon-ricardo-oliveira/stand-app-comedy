@@ -2,12 +2,12 @@
 
 namespace App\Chore\Modules\Attractions\UseCases\UpdateAttractionStatus;
 
-use App\Chore\Exceptions\AttractionNotFoundException;
-use App\Chore\Exceptions\InvalidAttractionStatusException;
-use App\Chore\Exceptions\InvalidAttractionStatusTransitionException;
 use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Entities\AttractionRepository;
 use App\Chore\Modules\Attractions\Entities\AttractionStatus;
+use App\Chore\Modules\Attractions\Exceptions\AttractionNotFoundException;
+use App\Chore\Modules\Attractions\Exceptions\InvalidAttractionStatusException;
+use App\Chore\Modules\Attractions\Exceptions\InvalidAttractionStatusTransitionException;
 
 class UpdateAttractionStatus
 {
@@ -21,9 +21,8 @@ class UpdateAttractionStatus
     }
 
     /**
-     * @throws InvalidAttractionStatusException
      * @throws AttractionNotFoundException
-     * @throws InvalidAttractionStatusTransitionException
+     * @throws InvalidAttractionStatusTransitionException|InvalidAttractionStatusException
      */
     public function handle(string $attractionId, string $status): ?Attraction
     {

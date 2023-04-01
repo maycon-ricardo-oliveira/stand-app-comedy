@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Chore\Modules\Attractions\Entities;
+namespace App\Chore\Modules\Sessions\Entities;
 
+use App\Chore\Modules\Sessions\Exceptions\InvalidSessionStatusException;
 
-use App\Chore\Modules\Attractions\Exceptions\InvalidAttractionStatusException;
-
-class AttractionStatus
+class SessionStatus
 {
     const DRAFT = 'draft';
     const PUBLISHED = 'published';
@@ -14,29 +13,29 @@ class AttractionStatus
     private string $status;
 
     /**
-     * @throws InvalidAttractionStatusException
+     * @throws InvalidSessionStatusException
      */
     public function __construct(string $status)
     {
         if (!self::isValidStatus($status)) {
-            throw new InvalidAttractionStatusException();
+            throw new InvalidSessionStatusException();
         }
 
         $this->status = $status;
     }
 
     /**
-     * @param AttractionStatus $status
+     * @param SessionStatus $status
      * @return bool
-     * @throws InvalidAttractionStatusException
+     * @throws InvalidSessionStatusException
      */
-    public function canTransitionTo(AttractionStatus $status): bool
+    public function canTransitionTo(SessionStatus $status): bool
     {
         return match ($this->status) {
             self::DRAFT => $status->status === self::PUBLISHED,
             self::PUBLISHED => $status->status === self::DRAFT || $status->status === self::FINISH,
             self::FINISH => false,
-            default => throw new InvalidAttractionStatusException(),
+            default => throw new InvalidSessionStatusException(),
         };
     }
 

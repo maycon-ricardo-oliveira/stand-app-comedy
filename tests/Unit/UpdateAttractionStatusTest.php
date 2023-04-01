@@ -2,15 +2,12 @@
 
 namespace Tests\Unit;
 
-use App\Chore\Exceptions\AttractionNotFoundException;
-use App\Chore\Exceptions\InvalidAttractionStatusException;
-use App\Chore\Exceptions\InvalidAttractionStatusTransitionException;
 use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
 use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 use App\Chore\Modules\Adapters\HashAdapter\HashAdapter;
 use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
 use App\Chore\Modules\Attractions\Entities\Attraction;
-use App\Chore\Modules\Attractions\Entities\AttractionRepository;
+use App\Chore\Modules\Attractions\Exceptions\InvalidAttractionStatusTransitionException;
 use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Modules\Attractions\UseCases\RegisterAttraction\RegisterAttraction;
 use App\Chore\Modules\Attractions\UseCases\UpdateAttractionStatus\UpdateAttractionStatus;
@@ -46,10 +43,9 @@ class UpdateAttractionStatusTest extends UnitTestCase
         $this->uuid = new UniqIdAdapter();
     }
 
+
     /**
      * @throws InvalidAttractionStatusTransitionException
-     * @throws AttractionNotFoundException
-     * @throws InvalidAttractionStatusException
      * @throws Exception
      */
     public function testHandleDraftToPublished()
@@ -77,7 +73,6 @@ class UpdateAttractionStatusTest extends UnitTestCase
 
     /**
      * @throws InvalidAttractionStatusTransitionException
-     * @throws AttractionNotFoundException|InvalidAttractionStatusException
      * @throws Exception
      */
     public function testHandlePublishedToDraft()
@@ -102,6 +97,10 @@ class UpdateAttractionStatusTest extends UnitTestCase
         $this->assertInstanceOf(Attraction::class, $result);
     }
 
+    /**
+     * @throws InvalidAttractionStatusTransitionException
+     * @throws Exception
+     */
     public function testHandlePublishedToFinish()
     {
         $status = 'finish';
@@ -124,6 +123,11 @@ class UpdateAttractionStatusTest extends UnitTestCase
         $this->assertInstanceOf(Attraction::class, $result);
     }
 
+
+    /**
+     * @throws InvalidAttractionStatusTransitionException
+     * @throws Exception
+     */
     public function testHandleDraftToFinish()
     {
         $status = 'finish';
@@ -145,6 +149,11 @@ class UpdateAttractionStatusTest extends UnitTestCase
         $useCase->handle($attraction->id, $status);
     }
 
+
+    /**
+     * @throws InvalidAttractionStatusTransitionException
+     * @throws Exception
+     */
     public function testCannotPublishAttractionWhenAlreadyPublished()
     {
         $status = 'published';
@@ -180,6 +189,5 @@ class UpdateAttractionStatusTest extends UnitTestCase
         );
 
         return $useCase->handle($attractionData, $this->date);
-
     }
 }

@@ -1,11 +1,10 @@
 
-- [ ] Attraction
-- [ ] Must ensure change status 
+- [x] Attraction
+- [x] Must ensure change status 
   - [x] draft to published
   - [x] published to finish
   - [x] published to draft
-
-  - [ ] on change status draft to published update all sessions to
+  - [x] can't publish to publish
 
 - [ ] Session
 - [ ] Can't be possible create a session in a finish Attraction
@@ -14,6 +13,7 @@
 - [ ] Can be possible change a session status to active and finished but need check before status
 - [ ] Can update tickets_validated only session status are validating
 - [ ] Can update tickets_sold only session status are published
+- [ ] on change status draft to published update all sessions to
 
 Tickets 
 - [ ] Can create tickets only max limit on tickets session 
@@ -26,3 +26,5 @@ Tickets
 
 Places 
 - [ ] Need a use case using mysql implementation
+
+

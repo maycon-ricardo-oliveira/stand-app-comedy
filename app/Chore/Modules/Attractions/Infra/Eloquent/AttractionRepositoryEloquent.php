@@ -50,4 +50,9 @@ class AttractionRepositoryEloquent extends EloquentBase implements AttractionRep
     {
         return $this->getModel()->with('place')->where(['id' => $attractionId])->first();
     }
+
+    public function updateAttraction(Attraction $attractionData): bool
+    {
+        // TODO: Implement updateAttraction() method.
+    }
 }

@@ -2,12 +2,12 @@
 
 namespace App\Chore\Modules\Tickets\UseCases\CreateTicket;
 
-use App\Chore\Exceptions\AttractionNotFoundException;
 use App\Chore\Exceptions\SessionNotFoundException;
 use App\Chore\Exceptions\UserNotFoundException;
 use App\Chore\Modules\Adapters\UuidAdapter\UuidGenerator;
 use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Entities\AttractionRepository;
+use App\Chore\Modules\Attractions\Exceptions\AttractionNotFoundException;
 use App\Chore\Modules\Sessions\Entities\Session;
 use App\Chore\Modules\Sessions\Entities\SessionRepository;
 use App\Chore\Modules\Tickets\Entities\Ticket;
