@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('tickets_validated')->default(0);
             $table->time('start_at')->nullable();
             $table->time('finish_at')->nullable();
-            $table->enum('status', ['draft', 'published', 'validating', 'active', 'finish']);
+            $table->enum('status', ['draft', 'published', 'validating', 'in_progress', 'finish']);
             $table->timestamps();
         });
     }
