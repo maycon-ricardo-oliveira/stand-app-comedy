@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class RegisterSessionControllerTest extends ApiTestCase
 {
 
-    public function testMustBeReturn200OnListAttractionsByComedianController()
+    public function testMustBeReturn200OnRegisterSessionController()
     {
 
         $request = new Request();

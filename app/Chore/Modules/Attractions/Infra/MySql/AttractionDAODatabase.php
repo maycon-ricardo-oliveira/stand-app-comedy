@@ -33,7 +33,8 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
                 a.owner_id as owner,
                 a.duration as duration,
                 c.id as comedianId,
-                p.id as placeId
+                p.id as placeId,
+                p.image as image
             from attractions a
             inner join places p on p.id = a.place_id
             inner join comedians c on c.id = a.comedian_id

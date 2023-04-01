@@ -8,17 +8,25 @@ use App\Chore\Modules\Attractions\Infra\MySql\AttractionDAODatabase;
 use App\Chore\Modules\Attractions\UseCases\RegisterAttraction\RegisterAttraction;
 use App\Chore\Modules\Comedians\Infra\MySql\ComedianDAODatabase;
 use App\Chore\Modules\Places\Infra\MySql\PlaceDAODatabase;
+use App\Chore\Modules\Places\UseCases\RegisterPlace;
 use App\Chore\Modules\User\Infra\MySql\UserDAODatabase;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class RegisterAttractionController extends Controller
+class RegisterPlaceController extends Controller
 {
+    private RegisterPlace $useCase;
+    private UniqIdAdapter $uuid;
+    private PlaceDAODatabase $placeRepo;
 
     public function __construct()
     {
         parent::__construct();
+
+        $this->placeRepo = new PlaceDAODatabase($this->dbConnection, $this->time);
+        $this->uuid = new UniqIdAdapter();
+        $this->useCase = new RegisterPlace($this->placeRepo, $this->time, $this->uuid);
     }
 
     /**
@@ -57,29 +65,26 @@ class RegisterAttractionController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function handle(Request $request)
+    public function handle(Request $request): JsonResponse
     {
-        $date = new DateTimeAdapter();
-        $attractionRepo = new AttractionDAODatabase($this->dbConnection, $date);
-        $userRepo = new UserDAODatabase($this->dbConnection, $date);
-        $placeRepo = new PlaceDAODatabase($this->dbConnection, $this->time);
-        $comedianRepo = new ComedianDAODatabase($this->dbConnection, $date);
-        $uuid = new UniqIdAdapter();
 
-        $useCase = new RegisterAttraction($attractionRepo, $comedianRepo, $placeRepo, $userRepo, $uuid);
+        try {
 
-        $attraction = [
-            "title" => $request->title,
-            "date" => $request->date,
-            "status" => $request->status,
-            "comedianId" => $request->comedianId,
-            "placeId" => $request->placeId,
-            "ownerId" => $request->ownerId,
-            "duration" => $request->duration,
-        ];
+            $placeData = [
+                "name" => $request->name,
+                "seats" => $request->seats,
+                "address" => $request->address,
+                "zipcode" => $request->zipcode,
+                "image" => $request->image,
+                "lat" => $request->lat,
+                "lng" => $request->lng,
+            ];
 
-        return $this->response->successResponse($useCase->handle($attraction, $date));
+            return $this->response->successResponse($this->useCase->handle($placeData));
 
+        } catch(Exception $exception) {
+            return $this->response->badRequestResponse($exception->getMessage());
+        }
     }
 
 }

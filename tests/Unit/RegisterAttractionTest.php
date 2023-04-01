@@ -10,6 +10,7 @@ use App\Chore\Modules\Attractions\UseCases\RegisterAttraction\RegisterAttraction
 use App\Chore\Modules\Comedians\Infra\Memory\ComedianRepositoryMemory;
 use App\Chore\Modules\Places\Infra\Memory\PlaceRepositoryMemory;
 use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
+use Exception;
 
 class RegisterAttractionTest extends UnitTestCase
 {
@@ -21,7 +22,7 @@ class RegisterAttractionTest extends UnitTestCase
     private UniqIdAdapter $uuid;
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function setUp(): void
     {
@@ -37,6 +38,9 @@ class RegisterAttractionTest extends UnitTestCase
         $this->uuid = new UniqIdAdapter();
     }
 
+    /**
+     * @throws Exception
+     */
     public function testMustRegisterAttraction()
     {
         $date = new DateTimeAdapter();
@@ -62,6 +66,10 @@ class RegisterAttractionTest extends UnitTestCase
 
         $this->assertSame($response->title, $attraction["title"]);
     }
+
+    /**
+     * @throws Exception
+     */
     public function testMustReturnExceptionToRegisterAttractionUsingANotExistentComedian()
     {
         $this->expectExceptionMessage("Comedian not found");

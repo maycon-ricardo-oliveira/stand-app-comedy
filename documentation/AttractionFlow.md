@@ -31,6 +31,10 @@ Checkin
 Places 
 - [ ] Need a use case using mysql implementation
 
+Comedians 
+- [ ] Register Comedian
+
+
 Infra 
 - [ ] tests need a transaction insert in a database
 - [x] test suite for controllers

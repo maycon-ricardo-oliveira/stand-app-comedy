@@ -78,6 +78,7 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "lng" => -46.579876,
             "distance" => 10,
             "status" => 'published',
+            "image" => 'https://image.com/image.jpg',
             "duration" => '180',
             "owner" => '63d1c98e22ccb'
         ], [
@@ -95,6 +96,7 @@ class AttractionRepositoryMemory extends AttractionMapper implements AttractionR
             "placeId" => "63d332d4be676",
             "address" => "Av. Salim Farah Maluf, 1850 - Quarta Parada, SP",
             "zipcode" => "03157-200",
+            "image" => 'https://image.com/image.jpg',
             "lat" => -23.546185,
             "lng" => -46.579876,
             "distance" => 20,
