@@ -10,8 +10,11 @@ use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
 use App\Chore\Modules\Comedians\Infra\Memory\ComedianRepositoryMemory;
 use App\Chore\Modules\Places\Infra\Memory\PlaceRepositoryMemory;
 use App\Chore\Modules\Sessions\Entities\Session;
+use App\Chore\Modules\Sessions\Exceptions\CantCheckinTicketsForThisSessionStatusException;
+use App\Chore\Modules\Sessions\Exceptions\InvalidSessionStatusTransitionException;
 use App\Chore\Modules\Sessions\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Modules\Sessions\UseCases\RegisterSession\RegisterSession;
+use App\Chore\Modules\Sessions\UseCases\UpdateSessionStatus\UpdateSessionStatus;
 use App\Chore\Modules\Tickets\Entities\Ticket;
 use App\Chore\Modules\Tickets\Entities\TicketRepository;
 use App\Chore\Modules\Tickets\Infra\Memory\TicketRepositoryMemory;
@@ -32,6 +35,7 @@ class CheckinTicketTest extends UnitTestCase
 
     private CreateTicket $createTicketUseCase;
     private CheckinTicket $checkinTicketUseCase;
+    private UpdateSessionStatus $updateSessionUseCase;
 
     /**
      * @throws Exception
@@ -67,15 +71,18 @@ class CheckinTicketTest extends UnitTestCase
             $this->date,
             $uuidGenerator
         );
+
+        $this->updateSessionUseCase = new UpdateSessionStatus(
+            $this->sessionRepo,
+            $this->attractionRepo
+        );
     }
 
     /**
      * @throws Exception
      */
-    public function baseTicketData(): array
+    public function baseTicketData(Session $session): array
     {
-        $session = $this->mockSession($this->baseSessionData());
-
         return [
             'ownerId' => 'any_id_1',
             'attractionId' => '63a277fc7b250',
@@ -129,7 +136,6 @@ class CheckinTicketTest extends UnitTestCase
         return $useCase->handle($sessionData, $this->date);
     }
 
-
     /**
      * @throws Exception
      */
@@ -137,7 +143,8 @@ class CheckinTicketTest extends UnitTestCase
     {
         $status = "used";
 
-        $ticketMockData = $this->baseTicketData();
+        $session = $this->mockSession($this->baseSessionData());
+        $ticketMockData = $this->baseTicketData($session);
         $ticket = $this->mockTicket($ticketMockData);
 
         $result = $this->checkinTicketUseCase->handle($ticket->id->toString());
@@ -145,7 +152,81 @@ class CheckinTicketTest extends UnitTestCase
         $this->assertInstanceOf(Ticket::class, $result);
         $this->assertEquals($result->status->toString(), $status);
         $this->assertNotNull($result->checkinAt);
+    }
 
+    /**
+     * @throws Exception
+     */
+    public function testCheckinProgressSession()
+    {
+
+        $status = 'used';
+
+        $sessionData = $this->baseSessionData();
+        $sessionData['status'] = 'in_progress';
+        $session = $this->mockSession($sessionData);
+        $ticketMockData = $this->baseTicketData($session);
+        $ticket = $this->mockTicket($ticketMockData);
+
+        $result = $this->checkinTicketUseCase->handle($ticket->id->toString());
+
+        $this->assertInstanceOf(Ticket::class, $result);
+        $this->assertEquals($result->status->toString(), $status);
+        $this->assertEquals($session->id, $result->sessionId);
+
+        $this->assertNotNull($result->checkinAt);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testCheckinPublishedSession()
+    {
+
+        $sessionData = $this->baseSessionData();
+        $sessionData['status'] = 'published';
+        $session = $this->mockSession($sessionData);
+        $ticketMockData = $this->baseTicketData($session);
+        $ticket = $this->mockTicket($ticketMockData);
+
+        $this->expectException(CantCheckinTicketsForThisSessionStatusException::class);
+        $this->checkinTicketUseCase->handle($ticket->id->toString());
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testCheckinDraftSession()
+    {
+
+        $sessionData = $this->baseSessionData();
+        $sessionData['status'] = 'in_progress';
+        $session = $this->mockSession($sessionData);
+        $ticketMockData = $this->baseTicketData($session);
+        $ticket = $this->mockTicket($ticketMockData);
+
+        $this->updateSessionUseCase->handle($session->id, 'finish');
+
+        $this->expectException(CantCheckinTicketsForThisSessionStatusException::class);
+        $this->checkinTicketUseCase->handle($ticket->id->toString());
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testCheckinFinishSession()
+    {
+
+        $sessionData = $this->baseSessionData();
+        $sessionData['status'] = 'in_progress';
+        $session = $this->mockSession($sessionData);
+        $ticketMockData = $this->baseTicketData($session);
+        $ticket = $this->mockTicket($ticketMockData);
+
+        $this->updateSessionUseCase->handle($session->id, 'finish');
+
+        $this->expectException(CantCheckinTicketsForThisSessionStatusException::class);
+        $this->checkinTicketUseCase->handle($ticket->id->toString());
     }
 
 }
