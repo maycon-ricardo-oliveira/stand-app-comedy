@@ -12,6 +12,7 @@ use App\Chore\Modules\Places\Infra\Memory\PlaceRepositoryMemory;
 use App\Chore\Modules\Sessions\Entities\Session;
 use App\Chore\Modules\Sessions\Exceptions\CantCheckinTicketsForThisSessionStatusException;
 use App\Chore\Modules\Sessions\Exceptions\InvalidSessionStatusTransitionException;
+use App\Chore\Modules\Sessions\Exceptions\MaxTicketsValidatedException;
 use App\Chore\Modules\Sessions\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Modules\Sessions\UseCases\RegisterSession\RegisterSession;
 use App\Chore\Modules\Sessions\UseCases\UpdateSessionStatus\UpdateSessionStatus;
@@ -152,6 +153,7 @@ class CheckinTicketTest extends UnitTestCase
         $this->assertInstanceOf(Ticket::class, $result);
         $this->assertEquals($result->status->toString(), $status);
         $this->assertNotNull($result->checkinAt);
+
     }
 
     /**
@@ -227,6 +229,41 @@ class CheckinTicketTest extends UnitTestCase
 
         $this->expectException(CantCheckinTicketsForThisSessionStatusException::class);
         $this->checkinTicketUseCase->handle($ticket->id->toString());
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testCheckinMaxAllowedTickets()
+    {
+
+        $sessionData = $this->baseSessionData();
+        $sessionData['ticketsValidated'] = 10;
+        $session = $this->mockSession($sessionData);
+        $ticketMockData = $this->baseTicketData($session);
+        $ticket = $this->mockTicket($ticketMockData);
+
+        $this->expectException(MaxTicketsValidatedException::class);
+        $this->checkinTicketUseCase->handle($ticket->id->toString());
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testCheckinIncreaseValidatedTickets()
+    {
+
+        $sessionData = $this->baseSessionData();
+        $session = $this->mockSession($sessionData);
+        $ticketMockData = $this->baseTicketData($session);
+        $ticket = $this->mockTicket($ticketMockData);
+
+        $this->checkinTicketUseCase->handle($ticket->id->toString());
+
+        $result = $this->sessionRepo->findSessionById($session->id);
+
+        $this->assertEquals($result->id, $session->id);
+        $this->assertEquals($sessionData["ticketsValidated"] + 1, $result->ticketsValidated);
     }
 
 }

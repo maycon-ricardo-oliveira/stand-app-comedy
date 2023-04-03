@@ -16,13 +16,16 @@ use App\Chore\Modules\Sessions\Exceptions\MaxTicketsEmittedException;
 use App\Chore\Modules\Sessions\Exceptions\SessionNotFoundException;
 use App\Chore\Modules\Sessions\Infra\Memory\SessionRepositoryMemory;
 use App\Chore\Modules\Sessions\UseCases\RegisterSession\RegisterSession;
+use App\Chore\Modules\Sessions\UseCases\UpdateSessionStatus\UpdateSessionStatus;
 use App\Chore\Modules\Tickets\Entities\TicketRepository;
 use App\Chore\Modules\Tickets\Infra\Memory\TicketRepositoryMemory;
+use App\Chore\Modules\Tickets\UseCases\CheckinTicket\CheckinTicket;
 use App\Chore\Modules\Tickets\UseCases\CreateTicket\CreateTicket;
 use App\Chore\Modules\User\Exceptions\UserNotFoundException;
 use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
 use Exception;
 use Ramsey\Uuid\Uuid;
+
 
 class CreateAValidTicketFeatureTest extends FeatureTestCase
 {
@@ -31,8 +34,10 @@ class CreateAValidTicketFeatureTest extends FeatureTestCase
 
     private SessionRepository $sessionRepo;
     private CreateTicket $createTicket;
+    private CheckinTicket $checkinTicket;
     private RamseyUuidGenerator $uuidGenerator;
     private DateTimeAdapter $date;
+    private UpdateSessionStatus $updateSessionUseCase;
 
     /**
      * @throws Exception|InvalidTimeException
@@ -55,6 +60,18 @@ class CreateAValidTicketFeatureTest extends FeatureTestCase
             new UserRepositoryMemory($this->date, $hash),
             $this->uuidGenerator,
             $this->date
+        );
+
+        $this->checkinTicket = new CheckinTicket(
+            $this->ticketRepository,
+            $this->sessionRepo,
+            $this->date,
+            $this->uuidGenerator
+        );
+
+        $this->updateSessionUseCase = new UpdateSessionStatus(
+            $this->sessionRepo,
+            $this->attractionRepo
         );
     }
 
@@ -148,6 +165,40 @@ class CreateAValidTicketFeatureTest extends FeatureTestCase
 
         $this->assertEquals($oldTicketsSold + 1, $afterCreateTicketSession->ticketsSold);
         $this->assertEquals($session->id, $afterCreateTicketSession->id);
+    }
+
+    /**
+     * @throws SessionNotFoundException
+     * @throws UserNotFoundException
+     * @throws AttractionNotFoundException
+     * @throws MaxTicketsEmittedException
+     * @throws Exception
+     */
+    public function testMustIncreaseTicketsValidatedWhenCheckinValidTicket(): void
+    {
+        $ownerId = "any_id_1";
+        $attractionId = "63a277fc7b250";
+        $payedAt = new DateTimeAdapter();
+
+        $sessionMockData = $this->baseSessionData();
+        $session = $this->mockSession($sessionMockData);
+
+        $ticketsValidated = $session->ticketsValidated;
+        $this->createTicket->handle($ownerId, $attractionId, $session->id, $payedAt);
+
+        $ticketId = $this->ticketRepository->getLastInsertedId();
+        $ticket = $this->ticketRepository->findById($ticketId);
+
+        $this->updateSessionUseCase->handle($session->id, 'validating');
+        $checkin = $this->checkinTicket->handle($ticketId->toString());
+        $afterCheckinTicketSession = $this->sessionRepo->findSessionById($session->id);
+
+        $this->assertTrue(Uuid::isValid($ticket->id->toString()));
+        $this->assertEquals($ownerId, $ticket->ownerId);
+        $this->assertEquals($attractionId, $ticket->attractionId);
+        $this->assertEquals($ticketsValidated + 1, $afterCheckinTicketSession->ticketsValidated);
+        $this->assertEquals($session->id, $afterCheckinTicketSession->id);
+        $this->assertEquals($checkin->checkinAt, $this->date);
     }
 
     /**

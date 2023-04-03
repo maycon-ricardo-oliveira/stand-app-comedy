@@ -6,6 +6,12 @@ Auth (Tests\Unit\Auth)
 
 Checkin Ticket (Tests\Unit\CheckinTicket)
  [x] Checkin valid ticket
+ [x] Checkin progress session
+ [x] Checkin published session
+ [x] Checkin draft session
+ [x] Checkin finish session
+ [x] Checkin max allowed tickets
+ [x] Checkin increase validated tickets
 
 Create Ticket (Tests\Unit\CreateTicket)
  [x] Create valid ticket
@@ -108,6 +114,7 @@ User Register (Tests\Unit\UserRegister)
 Create AValid Ticket Feature (Tests\Feature\CreateAValidTicketFeature)
  [x] Create valid ticket
  [x] Must increase tickets sold when create valid ticket
+ [x] Must increase tickets validated when checkin valid ticket
  [x] Must throw max tickets emitted exception
  [x] Must throw cant emit tickets for this session status exception
  [x] Tickets sold out to session

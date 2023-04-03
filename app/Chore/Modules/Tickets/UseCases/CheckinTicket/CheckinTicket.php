@@ -9,6 +9,7 @@ use App\Chore\Modules\Sessions\Entities\SessionRepository;
 use App\Chore\Modules\Sessions\Entities\SessionStatus;
 use App\Chore\Modules\Sessions\Exceptions\CantCheckinTicketsForThisSessionStatusException;
 use App\Chore\Modules\Sessions\Exceptions\MaxTicketsEmittedException;
+use App\Chore\Modules\Sessions\Exceptions\MaxTicketsValidatedException;
 use App\Chore\Modules\Sessions\Exceptions\SessionNotFoundException;
 use App\Chore\Modules\Sessions\UseCases\UpdateSessionStatus\UpdateSessionStatus;
 use App\Chore\Modules\Tickets\Entities\Ticket;
@@ -35,10 +36,12 @@ class CheckinTicket
     }
 
     /**
-     * @throws SessionNotFoundException
-     * @throws MaxTicketsEmittedException
+     * @param string $ticketId
+     * @return Ticket
      * @throws CantCheckinTicketsForThisSessionStatusException
-     * @throws Exception
+     * @throws SessionNotFoundException
+     * @throws TicketNotFoundException
+     * @throws MaxTicketsValidatedException
      */
     public function handle(string $ticketId): Ticket
     {

@@ -5,6 +5,7 @@ namespace App\Chore\Modules\Sessions\Entities;
 use App\Chore\Modules\Sessions\Exceptions\CantCheckinTicketsForThisSessionStatusException;
 use App\Chore\Modules\Sessions\Exceptions\CantEmitTicketsForThisSessionStatusException;
 use App\Chore\Modules\Sessions\Exceptions\MaxTicketsEmittedException;
+use App\Chore\Modules\Sessions\Exceptions\MaxTicketsValidatedException;
 use App\Chore\Modules\Types\Time\Time;
 use DateTimeImmutable;
 
@@ -57,21 +58,21 @@ class Session
     }
 
     /**
-     * @throws MaxTicketsEmittedException
      * @throws CantCheckinTicketsForThisSessionStatusException
+     * @throws MaxTicketsValidatedException
      */
-    public function increaseTicketValidated(): void
+    public function increaseTicketValidated(int $amount = 1): void
     {
+
+        if ($this->ticketsValidated + $amount > $this->tickets) {
+            throw new MaxTicketsValidatedException();
+        }
+
         if (!$this->canValidatingTicketStatus()) {
             throw new CantCheckinTicketsForThisSessionStatusException();
         }
 
-        // TODO: tickets ? or ticketsSold
-        // TODO: change this exception to a MaxTicketValidated
-        if ($this->ticketsValidated++ > $this->tickets) {
-            throw new MaxTicketsEmittedException();
-        }
-        $this->ticketsValidated++;
+        $this->ticketsValidated += $amount;
     }
 
     private function canSoldTicketStatus(): bool
