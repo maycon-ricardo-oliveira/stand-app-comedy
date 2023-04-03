@@ -200,12 +200,12 @@ class CheckinTicketTest extends UnitTestCase
     {
 
         $sessionData = $this->baseSessionData();
-        $sessionData['status'] = 'in_progress';
         $session = $this->mockSession($sessionData);
         $ticketMockData = $this->baseTicketData($session);
         $ticket = $this->mockTicket($ticketMockData);
 
-        $this->updateSessionUseCase->handle($session->id, 'finish');
+        $this->updateSessionUseCase->handle($session->id, 'published');
+        $this->updateSessionUseCase->handle($session->id, 'draft');
 
         $this->expectException(CantCheckinTicketsForThisSessionStatusException::class);
         $this->checkinTicketUseCase->handle($ticket->id->toString());
