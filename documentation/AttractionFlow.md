@@ -1,15 +1,12 @@
 
-- [x] Attraction
+- [x] Attraction  'draft' > 'published' > 'finish'
 - [x] Must ensure change status 
   - [x] draft to published
   - [x] published to finish
   - [x] published to draft
   - [x] can't publish to publish
 
-- [x] Session
-
-'draft', 'published', 'validating', 'in_progress', 'finish'
-
+- [x] Session  'draft' > 'published' > 'validating' > 'in_progress' > 'finish'
 - [x] Can't be possible create a session in a finish Attraction
 - [x] Can't be possible update a status to published, validating, in_progress in a draft attraction
 - [x] Can be possible update session status to validating but attraction status need to be published
@@ -21,19 +18,18 @@
 - [x] Every create ticket need sum ticket_sold on session
 - [x] Can't sell more tickets than available on session definition
 
-Checkin
-- [ ] Can't validate more tickets than sold on session definition
-- [ ] Must ensure validate ticket on session status validating
+- [x] Checkin
+- [x] Can't validate more tickets than sold on session definition
+- [x] Must ensure validate ticket on session status validating
 - [ ] Must ensure validate ticket on session finish_at time
-- [ ] Checkin ticket can do it only sessions status VALIDATING and IN_PROGRESS
-- [ ] Can update tickets_validated only session status are validating
+- [x] Checkin ticket can do it only sessions status VALIDATING and IN_PROGRESS
+- [x] Can update tickets_validated only session status are validating
 
-Places 
+- [x] Places 
 - [x] Need a use case using mysql implementation
 
-Comedians 
+- [ ] Comedians 
 - [ ] Register Comedian
-
 
 Infra 
 - [ ] tests need a transaction insert in a database

@@ -86,4 +86,24 @@ class TicketDAODatabase implements TicketRepository
         if (count($data) == 0) return null;
         return TicketId::fromString($data[0]['id'], $this->uuidGenerator);
     }
+
+    public function checkin(Ticket $ticket)
+    {
+        $query = "update tickets
+              set
+                    checkin_at = :checkin_at,
+                    status = :status,
+                    updated_at = :updated_at
+              where id = :id";
+
+        $params = [
+            "id" => $ticket->id,
+            "checkin_at" => $this->time->format('Y-m-d H:i:s'),
+            "status" => $ticket->status,
+            "updated_at" => $this->time->format('Y-m-d H:i:s'),
+        ];
+
+        $this->connection->query($query, $params);
+        return true;
+    }
 }

@@ -3,6 +3,7 @@
          xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
+         defaultTestSuite="unit,feature"
 >
     <testsuites>
         <testsuite name="unit">
@@ -23,6 +24,10 @@
             <directory suffix=".php">./app</directory>
         </include>
     </coverage>
+    <logging>
+        <testdoxText outputFile="testdox.txt"/>
+        <text outputFile="logfile.txt"/>
+    </logging>
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
