@@ -22,7 +22,7 @@
 - [x] Can't sell more tickets than available on session definition
 
 Checkin
-- [ ] Can't validate more tickets than sold on session definition
+- [x] Can't validate more tickets than sold on session definition
 - [ ] Must ensure validate ticket on session status validating
 - [ ] Must ensure validate ticket on session finish_at time
 - [ ] Checkin ticket can do it only sessions status VALIDATING and IN_PROGRESS
@@ -33,7 +33,6 @@ Places
 
 Comedians 
 - [ ] Register Comedian
-
 
 Infra 
 - [ ] tests need a transaction insert in a database

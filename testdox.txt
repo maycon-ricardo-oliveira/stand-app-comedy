@@ -1,0 +1,122 @@
+Auth (Tests\Unit\Auth)
+ [x] Login is working
+ [x] Login is wrong
+ [x] Logout is working
+ [x] Refresh token is working
+
+Checkin Ticket (Tests\Unit\CheckinTicket)
+ [x] Checkin valid ticket
+
+Create Ticket (Tests\Unit\CreateTicket)
+ [x] Create valid ticket
+ [x] Create using invalid user
+ [x] Create using invalid attraction
+ [x] Must throw exception using invalid session
+ [x] Must throw exception passing future payed date
+
+Example (Tests\Unit\Example)
+ [x] That true is true
+
+Find Place By Id (Tests\Unit\FindPlaceById)
+ [x] Find place by id
+
+Follow Comedian (Tests\Unit\FollowComedian)
+ [x] Must follow a comedian
+ [x] Must return exception un follow a not existent comedian
+ [x] Must return exception un follow a not existent user
+
+Get Comedian Details By Id (Tests\Unit\GetComedianDetailsById)
+ [x] Get comedian details by id
+
+Get Ticket By Id (Tests\Unit\GetTicketById)
+ [x] Handle
+ [x] Execute returns null when ticket not found
+
+List Attractions By Comedian (Tests\Unit\ListAttractionsByComedian)
+ [x] Must return attractions of an artist name is passed
+ [x] Must return null when not know name is passed
+ [x] Must return attractions of an artist id is passed
+
+List Attractions By Location (Tests\Unit\ListAttractionsByLocation)
+ [x] Must return a list of attractions
+ [x] Must ensure only attractions are lower distance then distance passed
+ [x] Must return attractions with specific days date
+ [x] Must return false when event is passed
+
+List Attractions By Place (Tests\Unit\ListAttractionsByPlace)
+ [x] Must be return a list of attractions
+
+List Follow Comedians (Tests\Unit\ListFollowComedians)
+ [x] Must return list follow comedians
+ [x] Must return exception to list follow comedians using a not existent user
+
+Register Attraction (Tests\Unit\RegisterAttraction)
+ [x] Must register attraction
+ [x] Must return exception to register attraction using a not existent comedian
+ [x] Must return exception to register attraction using a not existent place
+ [x] Must return exception to register attraction using a not existent user
+
+Register Place (Tests\Unit\RegisterPlace)
+ [x] Register place
+
+Register Session (Tests\Unit\RegisterSession)
+ [x] Must register session
+ [x] Must register session using invalid attraction id
+ [x] Must register session using invalid user id
+ [x] Must register session using invalid time
+
+Un Follow AComedian (Tests\Unit\UnFollowAComedian)
+ [x] Must un follow a comedian
+ [x] Must return exception un follow a not existent comedian
+ [x] Must return exception un follow a not existent user
+ [x] Must follow and un follow a comedian
+
+Update Attraction Status (Tests\Unit\UpdateAttractionStatus)
+ [x] Handle draft to published
+ [x] Handle published to draft
+ [x] Handle published to finish
+ [x] Handle draft to finish
+ [x] Cannot publish attraction when already published
+
+Update Session Status (Tests\Unit\UpdateSessionStatus)
+ [x] Handle draft to published
+ [x] Handle published to validating
+ [x] Handle validating to in progress
+ [x] Handle in progress to finish
+ [x] Handle draft to validating
+ [x] Handle draft to progress
+ [x] Handle draft to finish
+ [x] Handle published to progress
+ [x] Handle published to finish
+ [x] Handle published to draft
+ [x] Handle validating to draft
+ [x] Handle validating to finish
+ [x] Handle validating to published
+ [x] Handle progress to draft
+ [x] Handle progress to published
+ [x] Handle progress to validating
+ [x] Handle finish to draft
+ [x] Handle finish to published
+ [x] Handle finish to validating
+ [x] Handle finish to progress
+
+User Register (Tests\Unit\UserRegister)
+ [x] Must resister as user
+ [x] Must return an user profile
+ [x] Must throw a exception using a existent email
+
+Create AValid Ticket Feature (Tests\Feature\CreateAValidTicketFeature)
+ [x] Create valid ticket
+ [x] Must increase tickets sold when create valid ticket
+ [x] Must throw max tickets emitted exception
+ [x] Must throw cant emit tickets for this session status exception
+ [x] Tickets sold out to session
+
+Session To Attraction Feature (Tests\Feature\SessionToAttractionFeature)
+ [x] Must register session on a finish attraction
+ [x] Cant update session status on a draft attraction
+ [x] Cant must update session on a finish attraction
+
+Update Attraction And Session Feature (Tests\Feature\UpdateAttractionAndSessionFeature)
+ [x] Must update only attraction
+
