@@ -15,6 +15,9 @@
         <testsuite name="api">
             <directory suffix="Test.php">./tests/Api</directory>
         </testsuite>
+        <testsuite name="scrapping">
+            <directory suffix="Test.php">./tests/Scrapping</directory>
+        </testsuite>
 <!--        <testsuite name="gateway">-->
 <!--            <directory suffix="Test.php">./tests/Gateways</directory>-->
 <!--        </testsuite>-->
