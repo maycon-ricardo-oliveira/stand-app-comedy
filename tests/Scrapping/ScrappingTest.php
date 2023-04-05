@@ -4,6 +4,7 @@ namespace Tests\Scrapping;
 
 use App\Chore\Modules\Pathfinder\Adapters\GuzzleHttpAdapter;
 use App\Chore\Modules\Pathfinder\Entities\SampaIngressosGateway;
+use App\Chore\Modules\Pathfinder\Entities\SymplaGateway;
 use App\Chore\Modules\Pathfinder\UseCases\ImportAttractions;
 use Tests\Unit\UnitTestCase;
 
@@ -13,7 +14,7 @@ class ScrappingTest extends UnitTestCase
     {
 
         $http = new GuzzleHttpAdapter();
-        $finder = new SampaIngressosGateway($http);
+        $finder = new SymplaGateway($http);
 
         $pathFinder = new ImportAttractions($finder);
 
