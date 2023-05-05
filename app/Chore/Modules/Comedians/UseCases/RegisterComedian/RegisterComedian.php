@@ -2,7 +2,6 @@
 
 namespace App\Chore\Modules\Comedians\UseCases\RegisterComedian;
 
-use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 use App\Chore\Modules\Adapters\HashAdapter\IHash;
 use App\Chore\Modules\Adapters\UuidAdapter\IUniqId;
 use App\Chore\Modules\Comedians\Entities\Comedian;

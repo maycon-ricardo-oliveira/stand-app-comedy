@@ -40,7 +40,6 @@ class ComedianDAODatabase extends ComedianMapper implements ComedianRepository
         return count($data) == 0 ? null : $data[0];
     }
 
-
     public function getListOfComedians(array $comedianIds)
     {
         $query = "SELECT  c.*,
@@ -59,16 +58,16 @@ class ComedianDAODatabase extends ComedianMapper implements ComedianRepository
 
     public function getComedianByName(string $name): ?Comedian
     {
+        $comedian = '%' . $name . '%';
         $query = "select
                 c.*,
                 c.name as comedianName,
                 c.mini_bio as miniBio
             from comedians c
-            where c.id = :id";
-        $params = ['name' => $name];
+            where c.id like :name";
 
+        $params = ['name' => $comedian];
         $comedianData = $this->connection->query($query, $params);
-
         $data = $this->mapper($comedianData);
 
         return count($data) == 0 ? null : $data[0];
@@ -76,6 +75,7 @@ class ComedianDAODatabase extends ComedianMapper implements ComedianRepository
 
     public function register(Comedian $comedian): bool
     {
+
        $query = "INSERT INTO comedians (id, name, mini_bio, thumbnail, created_at, updated_at)
                   VALUES (:id, :name, :mini_bio, :thumbnail, :created_at, :updated_at)";
 

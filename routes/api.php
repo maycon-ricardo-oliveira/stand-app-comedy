@@ -11,6 +11,7 @@ use App\Http\Controllers\ListAttractionsByPlaceController;
 use App\Http\Controllers\ListAttractionsByComedianController;
 use App\Http\Controllers\ListAttractionsByLocationController;
 use App\Http\Controllers\RegisterAttractionController;
+use App\Http\Controllers\RegisterComedianController;
 use App\Http\Controllers\RegisterPlaceController;
 use App\Http\Controllers\UnFollowComedianController;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,7 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::get('/comedian/{comedianId}',  [GetComedianByIdController::class, 'handle']);
+    Route::post('/comedians/',  [RegisterComedianController::class, 'handle']);
 
     Route::get('attractions/location',  [ListAttractionsByLocationController::class, 'handle']);
     Route::get('attractions/{place}',  [ListAttractionsByPlaceController::class, 'handle']);
