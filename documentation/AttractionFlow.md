@@ -28,8 +28,9 @@
 - [x] Places 
 - [x] Need a use case using mysql implementation
 
-- [ ] Comedians 
-- [ ] Register Comedian
+- [x] Comedians 
+- [x] Register Comedian
+- [x] Get Comedian by name
 
 Infra 
 - [ ] tests need a transaction insert in a database

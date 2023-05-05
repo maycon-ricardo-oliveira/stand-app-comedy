@@ -8,6 +8,7 @@ use App\Chore\Modules\Comedians\Entities\Comedian;
 use App\Chore\Modules\User\Entities\User;
 use App\Chore\Modules\User\Entities\UserRepository;
 use App\Chore\Modules\User\Infra\UserMapper;
+use App\Chore\Modules\User\UserAlreadyRegisteredException;
 
 class UserRepositoryMemory extends UserMapper implements UserRepository
 {
@@ -29,13 +30,17 @@ class UserRepositoryMemory extends UserMapper implements UserRepository
         $this->time = $time;
         $this->generateUsers($users);
     }
+
+    /**
+     * @throws UserAlreadyRegisteredException
+     */
     public function register(User $userData, IDateTime $date): bool
     {
 
         $user = $this->findUserByEmail($userData->email);
 
         if (count($user) != 0) {
-            throw new \Exception('This user already registered');
+            throw new UserAlreadyRegisteredException();
         }
 
         $this->users[] = $userData;
