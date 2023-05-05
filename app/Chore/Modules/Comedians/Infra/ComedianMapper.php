@@ -29,6 +29,7 @@ class ComedianMapper extends ArrayIterator
                 $item['id'],
                 $item['name'],
                 $item['miniBio'],
+                $item['thumbnail'] ?? '',
                 $item['socialMedias'] ?? []
             );
         }, $comediansData);
