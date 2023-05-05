@@ -7,6 +7,7 @@ use App\Chore\Modules\Adapters\HashAdapter\IHash;
 use App\Chore\Modules\Adapters\UuidAdapter\IUniqId;
 use App\Chore\Modules\User\Entities\User;
 use App\Chore\Modules\User\Entities\UserRepository;
+use App\Chore\Modules\User\UserAlreadyRegisteredException;
 
 class UserRegister
 {
@@ -22,13 +23,16 @@ class UserRegister
         $this->uuid = $uuid;
     }
 
+    /**
+     * @throws UserAlreadyRegisteredException
+     */
     public function handle($userData, IDateTime $date)
     {
 
         $user = $this->userRepository->findUserByEmail($userData['email']);
 
         if ($user instanceof User) {
-            throw new \Exception('This user already registered');
+            throw new UserAlreadyRegisteredException();
         }
 
         $user = new User(

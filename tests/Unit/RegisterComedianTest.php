@@ -8,7 +8,6 @@ use App\Chore\Modules\Comedians\Entities\ComedianRepository;
 use App\Chore\Modules\Comedians\Exceptions\ComedianAlreadyRegistered;
 use App\Chore\Modules\Comedians\Infra\Memory\ComedianRepositoryMemory;
 use App\Chore\Modules\Comedians\UseCases\RegisterComedian\RegisterComedian;
-use App\Oneclick\Exceptions\InvalidTokenException;
 use Exception;
 
 class RegisterComedianTest extends UnitTestCase

@@ -113,7 +113,7 @@ Update Session Status (Tests\Unit\UpdateSessionStatus)
 User Register (Tests\Unit\UserRegister)
  [x] Must resister as user
  [x] Must return an user profile
- [ ] Must throw a exception using a existent email
+ [x] Must throw a exception using a existent email
 
 Create AValid Ticket Feature (Tests\Feature\CreateAValidTicketFeature)
  [x] Create valid ticket

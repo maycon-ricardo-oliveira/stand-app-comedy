@@ -9,6 +9,8 @@ use App\Chore\Modules\Comedians\Infra\Memory\ComedianRepositoryMemory;
 use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
 use App\Chore\Modules\User\UseCases\GetUserProfile\GetUserProfileById;
 use App\Chore\Modules\User\UseCases\UserRegister\UserRegister;
+use App\Chore\Modules\User\UserAlreadyRegisteredException;
+use Exception;
 use Tests\TestCase;
 
 class UserRegisterTest extends TestCase
@@ -22,6 +24,9 @@ class UserRegisterTest extends TestCase
         $this->email = "user.test" . uniqid() . "@gmail.com";
     }
 
+    /**
+     * @throws UserAlreadyRegisteredException
+     */
     public function testMustResisterAsUser()
     {
 
@@ -71,11 +76,15 @@ class UserRegisterTest extends TestCase
 
     }
 
+
+    /**
+     * @return void
+     * @throws UserAlreadyRegisteredException
+     */
     public function testMustThrowAExceptionUsingAExistentEmail()
     {
 
-        $this->expectException(\Exception::class);
-        $this->expectDeprecationMessage('This user already registered');
+        $this->expectException(UserAlreadyRegisteredException::class);
 
         $bcrypt = new HashAdapter();
         $date = new DateTimeAdapter();
