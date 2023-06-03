@@ -117,8 +117,10 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
                 c.mini_bio as miniBio,
                 a.owner_id as owner,
                 p.id as placeId,
-                p.name as placeName
-
+                p.name as placeName,
+                c.id as comedianId,
+                c.name as comedianName,
+                c.mini_bio as miniBio
             from attractions a
             inner join places p on p.id = a.place_id
             inner join comedians c on c.id = a.comedian_id
