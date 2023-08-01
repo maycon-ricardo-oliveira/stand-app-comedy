@@ -36,6 +36,8 @@ class RegisterComedian
             $comedianData["name"],
             $comedianData["miniBio"],
             $comedianData["thumbnail"],
+            $item['imageMain'] ?? '',
+            $comedianData['onFire'] ?? false,
             $comedianData["attractions"]
         );
 

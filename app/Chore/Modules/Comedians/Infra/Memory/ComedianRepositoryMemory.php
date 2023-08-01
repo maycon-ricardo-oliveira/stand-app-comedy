@@ -4,6 +4,7 @@ namespace App\Chore\Modules\Comedians\Infra\Memory;
 
 use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 use App\Chore\Modules\Comedians\Entities\Comedian;
+use App\Chore\Modules\Comedians\Entities\ComedianMeta;
 use App\Chore\Modules\Comedians\Entities\ComedianRepository;
 use App\Chore\Modules\Comedians\Infra\ComedianMapper;
 
@@ -81,5 +82,20 @@ class ComedianRepositoryMemory extends ComedianMapper implements ComedianReposit
         }));
 
         return count($response) == 0 ? null : $response[0];
+    }
+
+    public function registerMeta(ComedianMeta $comedianMeta)
+    {
+        // TODO: Implement registerMeta() method.
+    }
+
+    public function getComedianMetas(string $id): array
+    {
+        // TODO: Implement getComedianMetas() method.
+    }
+
+    public function getAllComedians()
+    {
+        // TODO: Implement getAllComedians() method.
     }
 }

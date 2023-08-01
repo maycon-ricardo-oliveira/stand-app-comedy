@@ -17,9 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('comedian_id')->constrained('comedians');
             $table->string('name', 50)->nullable();
-            $table->string('src', 50)->nullable();
-            $table->string('src_thumb', 50)->nullable();
-            $table->string('url', 50)->nullable();
+            $table->string('src', 200)->nullable();
             $table->string('type', 50)->nullable();
             $table->timestamps();
         });

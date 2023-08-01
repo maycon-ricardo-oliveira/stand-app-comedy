@@ -24,7 +24,7 @@ Example (Tests\Unit\Example)
  [x] That true is true
 
 Find Place By Id (Tests\Unit\FindPlaceById)
- [x] Find place by id
+ [ ] Find place by id
 
 Follow Comedian (Tests\Unit\FollowComedian)
  [x] Must follow a comedian
@@ -63,8 +63,8 @@ Register Attraction (Tests\Unit\RegisterAttraction)
  [x] Must return exception to register attraction using a not existent user
 
 Register Comedian (Tests\Unit\RegisterComedian)
- [x] Must register comedian
- [x] Must return exception to register comedian
+ [ ] Must register comedian
+ [ ] Must return exception to register comedian
 
 Register Place (Tests\Unit\RegisterPlace)
  [x] Register place
@@ -114,20 +114,4 @@ User Register (Tests\Unit\UserRegister)
  [x] Must resister as user
  [x] Must return an user profile
  [x] Must throw a exception using a existent email
-
-Create AValid Ticket Feature (Tests\Feature\CreateAValidTicketFeature)
- [x] Create valid ticket
- [x] Must increase tickets sold when create valid ticket
- [x] Must increase tickets validated when checkin valid ticket
- [x] Must throw max tickets emitted exception
- [x] Must throw cant emit tickets for this session status exception
- [x] Tickets sold out to session
-
-Session To Attraction Feature (Tests\Feature\SessionToAttractionFeature)
- [x] Must register session on a finish attraction
- [x] Cant update session status on a draft attraction
- [x] Cant must update session on a finish attraction
-
-Update Attraction And Session Feature (Tests\Feature\UpdateAttractionAndSessionFeature)
- [x] Must update only attraction
 

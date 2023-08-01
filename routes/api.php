@@ -1,8 +1,10 @@
 <?php
 
+use App\Chore\Modules\Comedians\UseCases\GetAllComedians\GetAllComedians;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FollowComedianController;
 use App\Http\Controllers\GetComedianByIdController;
+use App\Http\Controllers\GetComediansController;
 use App\Http\Controllers\GetPlaceByIdController;
 use App\Http\Controllers\GetUserProfileByIdController;
 use App\Http\Controllers\HealthController;
@@ -12,6 +14,7 @@ use App\Http\Controllers\ListAttractionsByComedianController;
 use App\Http\Controllers\ListAttractionsByLocationController;
 use App\Http\Controllers\RegisterAttractionController;
 use App\Http\Controllers\RegisterComedianController;
+use App\Http\Controllers\RegisterComedianMetaController;
 use App\Http\Controllers\RegisterPlaceController;
 use App\Http\Controllers\UnFollowComedianController;
 use Illuminate\Support\Facades\Route;
@@ -31,8 +34,11 @@ Route::prefix('v1')->group(function () {
         Route::get('/user/{userId}',  [GetUserProfileByIdController::class, 'handle']);
     });
 
+    Route::get('/comedians',  [GetComediansController::class, 'handle']);
     Route::get('/comedian/{comedianId}',  [GetComedianByIdController::class, 'handle']);
+
     Route::post('/comedians/',  [RegisterComedianController::class, 'handle']);
+    Route::post('/comedians/meta',  [RegisterComedianMetaController::class, 'handle']);
 
     Route::get('attractions/location',  [ListAttractionsByLocationController::class, 'handle']);
     Route::get('attractions/{place}',  [ListAttractionsByPlaceController::class, 'handle']);
@@ -42,6 +48,6 @@ Route::prefix('v1')->group(function () {
     Route::post('attractions',  [RegisterAttractionController::class, 'handle']);
 
     Route::post('places',  [RegisterPlaceController::class, 'handle']);
-    Route::post('places/{placeId}',  [GetPlaceByIdController::class, 'handle']);
+    Route::get('places/{placeId}',  [GetPlaceByIdController::class, 'handle']);
 
 });

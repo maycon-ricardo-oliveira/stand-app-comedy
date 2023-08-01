@@ -10,5 +10,9 @@ interface ComedianRepository
     public function getComedianByName(string $name): ?Comedian;
     public function getListOfComedians(array $comedianIds);
     public function register(Comedian $comedian);
+    public function registerMeta(ComedianMeta $comedianMeta);
+    public function getComedianMetas(string $id): array;
+
+    public function getAllComedians();
 
 }
