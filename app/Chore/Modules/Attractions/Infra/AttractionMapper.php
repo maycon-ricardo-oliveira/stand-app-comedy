@@ -34,6 +34,8 @@ class AttractionMapper extends ArrayIterator {
                     $item['comedianName'],
                     $item['miniBio'],
                     $item['thumbnail'] ?? '',
+                    $item['imageMain'] ?? '',
+                    $comedianData['onFire'] ?? false,
                     $item['socialMedias'] ?? [],
                     $item['attractions'] ?? [],
                 ),

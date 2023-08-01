@@ -37,9 +37,6 @@ class ListAttractionsByComedianController extends Controller
      */
     public function handle(Request $request)
     {
-        $this->validate($request, [
-            'comedianId' => 'required|string'
-        ]);
 
         $repo = new AttractionDAODatabase($this->dbConnection, $this->time);
         $useCase = new ListAttractionsByComedianId($repo);
