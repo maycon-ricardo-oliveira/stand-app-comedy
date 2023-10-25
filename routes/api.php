@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\FacebookAuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FollowComedianController;
@@ -28,6 +29,9 @@ Route::prefix('v1')->group(function () {
     Route::group(['middleware' => ['web']], function () {
         Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
         Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+
+        Route::get('auth/facebook', [FacebookAuthController::class, 'redirectToFacebook']);
+        Route::get('auth/facebook/callback', [FacebookAuthController::class, 'handleFacebookCallback']);
     });
 
     Route::middleware('jwt.verify')->group(function() {
