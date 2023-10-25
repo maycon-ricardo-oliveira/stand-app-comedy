@@ -1,6 +1,6 @@
 <?php
 
-use App\Chore\Modules\Comedians\UseCases\GetAllComedians\GetAllComedians;
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FollowComedianController;
 use App\Http\Controllers\GetComedianByIdController;
@@ -8,10 +8,10 @@ use App\Http\Controllers\GetComediansController;
 use App\Http\Controllers\GetPlaceByIdController;
 use App\Http\Controllers\GetUserProfileByIdController;
 use App\Http\Controllers\HealthController;
-use App\Http\Controllers\ListAttractionsByComedianNameController;
-use App\Http\Controllers\ListAttractionsByPlaceController;
 use App\Http\Controllers\ListAttractionsByComedianController;
+use App\Http\Controllers\ListAttractionsByComedianNameController;
 use App\Http\Controllers\ListAttractionsByLocationController;
+use App\Http\Controllers\ListAttractionsByPlaceController;
 use App\Http\Controllers\RegisterAttractionController;
 use App\Http\Controllers\RegisterComedianController;
 use App\Http\Controllers\RegisterComedianMetaController;
@@ -24,6 +24,11 @@ Route::prefix('v1')->group(function () {
 
     Route::post('login', [AuthController::class, 'login']);
     Route::post('/user/register',  [UnFollowComedianController::class, 'handle']);
+
+    Route::group(['middleware' => ['web']], function () {
+        Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
+        Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+    });
 
     Route::middleware('jwt.verify')->group(function() {
         Route::post('refresh', [AuthController::class, 'refresh']);
