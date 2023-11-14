@@ -47,5 +47,15 @@ _After that, you should register your personal keys on the **.env** file._
 ```
 
 
+### Documentation
+The documentation are located on http://localhost:8888/api/documentation
+- To update documentation run the follow command:
+```
+    l5-swagger:generate
+```
+
+
+
+
 ## License
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AppleAuthController;
 use App\Http\Controllers\Auth\FacebookAuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\AuthController;
@@ -32,6 +33,9 @@ Route::prefix('v1')->group(function () {
 
         Route::get('auth/facebook', [FacebookAuthController::class, 'redirectToFacebook']);
         Route::get('auth/facebook/callback', [FacebookAuthController::class, 'handleFacebookCallback']);
+
+        Route::post('auth/apple', [AppleAuthController::class, 'redirectToApple']);
+        Route::post('auth/apple/callback', [AppleAuthController::class, 'handleAppleCallback']);
     });
 
     Route::middleware('jwt.verify')->group(function() {
