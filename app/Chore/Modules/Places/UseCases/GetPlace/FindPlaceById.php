@@ -13,9 +13,9 @@ class FindPlaceById
         $this->placeRepo = $placeRepo;
     }
 
-    public function handle()
+    public function handle($placeId)
     {
-        $place = $this->placeRepo->getPlaceById();
+        $place = $this->placeRepo->getPlaceById($placeId);
         return $place;
     }
 }
