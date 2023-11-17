@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Chore\Modules\Comedians\Infra\MySql\ComedianDAODatabase;
-use App\Chore\Modules\Comedians\UseCases\GetAllComedians\GetAllComedians;
-use App\Chore\Modules\Places\Infra\MySql\PlaceDAODatabase;
-use App\Chore\Modules\Places\UseCases\GetPlace\FindPlaceById;
-use Exception;
+use App\Chore\Modules\Comedians\UseCases\GetComedianDetailsById\GetComedianDetailsById;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class GetComediansController extends Controller
+class GetAttractionByIdController extends Controller
 {
 
     public function __construct()
@@ -20,11 +17,16 @@ class GetComediansController extends Controller
 
     /**
      * @OA\Get(
-     *   path="/api/v1/comedians",
+     *   path="/api/v1/comedian/{comedianId}",
      *   tags={"comedian"},
-     *   operationId="GetComediansController@handle",
-     *   description="Returns all comedians",
+     *   operationId="GetComedianByIdController@handle",
+     *   description="Returns details by comedian id",
      *   security={ {"token": {} }},
+     *   @OA\Parameter(
+     *     name="comedianId", in="path", example="63a277fc7b251",
+     *     description="Comedian id",
+     *     @OA\Schema(type="string")
+     *   ),
      *   @OA\Response(
      *     response=200,
      *     description="Successful Operation",
@@ -41,17 +43,14 @@ class GetComediansController extends Controller
      */
     public function handle(Request $request)
     {
-        try {
 
-            $repo = new ComedianDAODatabase($this->dbConnection, $this->time);
-            $useCase = new GetAllComedians($repo);
+        $repo = new ComedianDAODatabase($this->dbConnection, $this->time);
+        $useCase = new GetComedianDetailsById($repo);
 
-            $response = $useCase->handle();
+        $response = $useCase->handle($request->comedianId);
 
-            return $this->response->successResponse($response);
+        return $this->response->successResponse($response);
 
-        } catch (Exception $exception) {
-            return $this->response->badRequestResponse($exception->getMessage());
-        }
     }
+
 }

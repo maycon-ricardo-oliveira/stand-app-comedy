@@ -22,6 +22,7 @@ use App\Chore\Modules\Tickets\Infra\Memory\TicketRepositoryMemory;
 use App\Chore\Modules\Tickets\UseCases\CheckinTicket\CheckinTicket;
 use App\Chore\Modules\Tickets\UseCases\CreateTicket\CreateTicket;
 use App\Chore\Modules\User\Infra\Memory\UserRepositoryMemory;
+use DateTimeImmutable;
 use Exception;
 
 class CheckinTicketTest extends UnitTestCase
@@ -88,7 +89,7 @@ class CheckinTicketTest extends UnitTestCase
             'ownerId' => 'any_id_1',
             'attractionId' => '63a277fc7b250',
             'sessionId' => $session->id,
-            'payedAt' =>  new DateTimeAdapter(),
+            'payedAt' =>  new DateTimeImmutable(),
             'checkinAt' => null,
         ];
     }

@@ -51,10 +51,8 @@ _After that, you should register your personal keys on the **.env** file._
 The documentation are located on http://localhost:8888/api/documentation
 - To update documentation run the follow command:
 ```
-    l5-swagger:generate
+    php artisan l5-swagger:generate
 ```
-
-
 
 
 ## License

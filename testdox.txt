@@ -24,7 +24,7 @@ Example (Tests\Unit\Example)
  [x] That true is true
 
 Find Place By Id (Tests\Unit\FindPlaceById)
- [ ] Find place by id
+ [x] Find place by id
 
 Follow Comedian (Tests\Unit\FollowComedian)
  [x] Must follow a comedian
@@ -42,6 +42,10 @@ List Attractions By Comedian (Tests\Unit\ListAttractionsByComedian)
  [x] Must return attractions of an artist name is passed
  [x] Must return null when not know name is passed
  [x] Must return attractions of an artist id is passed
+
+List Attractions By Id (Tests\Unit\ListAttractionsById)
+ [x] Must be return attraction
+ [x] Must be return exception using a invalid id
 
 List Attractions By Location (Tests\Unit\ListAttractionsByLocation)
  [x] Must return a list of attractions
@@ -63,8 +67,8 @@ Register Attraction (Tests\Unit\RegisterAttraction)
  [x] Must return exception to register attraction using a not existent user
 
 Register Comedian (Tests\Unit\RegisterComedian)
- [ ] Must register comedian
- [ ] Must return exception to register comedian
+ [x] Must register comedian
+ [x] Must return exception to register comedian
 
 Register Place (Tests\Unit\RegisterPlace)
  [x] Register place
