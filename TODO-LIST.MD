@@ -1,7 +1,7 @@
 [ ] - create forgot password endpoint
 [ ] - create authentication with apple
 [ ] - create integration with a email service dispatch
-[ ] - create a banner module (primary ans secondary and simple)
+[ ] - create a banner module (primary and secondary and simple)
 [ ] - more accessed comedians
 
 [ ] - put locations in a user
@@ -10,4 +10,4 @@
 [ ] - get comedian by id get attractions and pictures too
 [x] - get places by id get attractions and pictures too
 
-[ ] - get attractions by id
+[x] - get attractions by id

@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
+use App\Chore\Modules\Attractions\Infra\MySql\AttractionDAODatabase;
+use App\Chore\Modules\Attractions\UseCases\GetAttractionById\GetAttractionById;
 use App\Chore\Modules\Comedians\Infra\MySql\ComedianDAODatabase;
 use App\Chore\Modules\Comedians\UseCases\GetComedianDetailsById\GetComedianDetailsById;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -17,14 +22,14 @@ class GetAttractionByIdController extends Controller
 
     /**
      * @OA\Get(
-     *   path="/api/v1/comedian/{comedianId}",
+     *   path="/api/v1/attraction/{attractionId}",
      *   tags={"comedian"},
-     *   operationId="GetComedianByIdController@handle",
-     *   description="Returns details by comedian id",
+     *   operationId="GetAttractionByIdController@handle",
+     *   description="Returns attraction details by id",
      *   security={ {"token": {} }},
      *   @OA\Parameter(
-     *     name="comedianId", in="path", example="63a277fc7b251",
-     *     description="Comedian id",
+     *     name="attractionId", in="path", example="63d332d50ff63",
+     *     description="Attraction id",
      *     @OA\Schema(type="string")
      *   ),
      *   @OA\Response(
@@ -32,24 +37,29 @@ class GetAttractionByIdController extends Controller
      *     description="Successful Operation",
      *     @OA\JsonContent(
      *       type="array",
-     *       @OA\Items(ref="#/components/schemas/ComedianResponse")
+     *       @OA\Items(ref="#/components/schemas/AttractionResponse")
      *     ),
      *   ),
      *   @OA\Response(response=404, description="Not found operation"),
      * )
      * @param Request $request
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(Request $request)
     {
 
-        $repo = new ComedianDAODatabase($this->dbConnection, $this->time);
-        $useCase = new GetComedianDetailsById($repo);
+        try {
 
-        $response = $useCase->handle($request->comedianId);
+            $repo = new AttractionDAODatabase($this->dbConnection, $this->time);
+            $useCase = new GetAttractionById($repo);
+            $response = $useCase->handle($request->attractionId);
 
-        return $this->response->successResponse($response);
+            return $this->response->successResponse($response);
+
+        } catch (Exception $exception) {
+            return $this->response->badRequestResponse($exception->getMessage());
+        }
 
     }
 

@@ -1,10 +1,12 @@
 <?php
 
+use App\Chore\Modules\Attractions\UseCases\GetAttractionById\GetAttractionById;
 use App\Http\Controllers\Auth\AppleAuthController;
 use App\Http\Controllers\Auth\FacebookAuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FollowComedianController;
+use App\Http\Controllers\GetAttractionByIdController;
 use App\Http\Controllers\GetComedianByIdController;
 use App\Http\Controllers\GetComediansController;
 use App\Http\Controllers\GetPlaceByIdController;
@@ -55,6 +57,7 @@ Route::prefix('v1')->group(function () {
 
     Route::get('attractions/location',  [ListAttractionsByLocationController::class, 'handle']);
     Route::get('attractions/{place}',  [ListAttractionsByPlaceController::class, 'handle']);
+    Route::get('attraction/{attractionId}',  [GetAttractionByIdController::class, 'handle']);
     Route::get('attractions/comedian/{comedianId}',  [ListAttractionsByComedianController::class, 'handle']);
     Route::get('attractions/comedian/name/{comedianName}',  [ListAttractionsByComedianNameController::class, 'handle']);
 
