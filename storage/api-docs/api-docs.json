@@ -193,6 +193,96 @@
                 ]
             }
         },
+        "/api/v1/comedians": {
+            "get": {
+                "tags": [
+                    "comedian"
+                ],
+                "description": "Returns all comedians",
+                "operationId": "GetComediansController@handle",
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ComedianResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "comedian"
+                ],
+                "description": "Register Comedians",
+                "operationId": "RegisterComedianController@handle",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "Comediante"
+                                    },
+                                    "miniBio": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "Comediante mini bio"
+                                    },
+                                    "thumbnail": {
+                                        "type": "string",
+                                        "format": "",
+                                        "example": "https://image.com/image.jpg"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ComedianResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
         "/api/v1/places/{placeId}": {
             "get": {
                 "tags": [
@@ -571,66 +661,6 @@
                                     "type": "array",
                                     "items": {
                                         "$ref": "#/components/schemas/AttractionResponse"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found operation"
-                    }
-                },
-                "security": [
-                    {
-                        "token": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/comedians": {
-            "post": {
-                "tags": [
-                    "comedian"
-                ],
-                "description": "Register Comedians",
-                "operationId": "RegisterComedianController@handle",
-                "requestBody": {
-                    "description": "",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "format": "",
-                                        "example": "Comediante"
-                                    },
-                                    "miniBio": {
-                                        "type": "string",
-                                        "format": "",
-                                        "example": "Comediante mini bio"
-                                    },
-                                    "thumbnail": {
-                                        "type": "string",
-                                        "format": "",
-                                        "example": "https://image.com/image.jpg"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/ComedianResponse"
                                     }
                                 }
                             }

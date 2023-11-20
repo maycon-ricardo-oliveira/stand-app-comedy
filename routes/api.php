@@ -1,17 +1,21 @@
 <?php
 
-use App\Chore\Modules\Comedians\UseCases\GetAllComedians\GetAllComedians;
+use App\Chore\Modules\Attractions\UseCases\GetAttractionById\GetAttractionById;
+use App\Http\Controllers\Auth\AppleAuthController;
+use App\Http\Controllers\Auth\FacebookAuthController;
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FollowComedianController;
+use App\Http\Controllers\GetAttractionByIdController;
 use App\Http\Controllers\GetComedianByIdController;
 use App\Http\Controllers\GetComediansController;
 use App\Http\Controllers\GetPlaceByIdController;
 use App\Http\Controllers\GetUserProfileByIdController;
 use App\Http\Controllers\HealthController;
-use App\Http\Controllers\ListAttractionsByComedianNameController;
-use App\Http\Controllers\ListAttractionsByPlaceController;
 use App\Http\Controllers\ListAttractionsByComedianController;
+use App\Http\Controllers\ListAttractionsByComedianNameController;
 use App\Http\Controllers\ListAttractionsByLocationController;
+use App\Http\Controllers\ListAttractionsByPlaceController;
 use App\Http\Controllers\RegisterAttractionController;
 use App\Http\Controllers\RegisterComedianController;
 use App\Http\Controllers\RegisterComedianMetaController;
@@ -24,6 +28,17 @@ Route::prefix('v1')->group(function () {
 
     Route::post('login', [AuthController::class, 'login']);
     Route::post('/user/register',  [UnFollowComedianController::class, 'handle']);
+
+    Route::group(['middleware' => ['web']], function () {
+        Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
+        Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+
+        Route::get('auth/facebook', [FacebookAuthController::class, 'redirectToFacebook']);
+        Route::get('auth/facebook/callback', [FacebookAuthController::class, 'handleFacebookCallback']);
+
+        Route::post('auth/apple', [AppleAuthController::class, 'redirectToApple']);
+        Route::post('auth/apple/callback', [AppleAuthController::class, 'handleAppleCallback']);
+    });
 
     Route::middleware('jwt.verify')->group(function() {
         Route::post('refresh', [AuthController::class, 'refresh']);
@@ -42,6 +57,7 @@ Route::prefix('v1')->group(function () {
 
     Route::get('attractions/location',  [ListAttractionsByLocationController::class, 'handle']);
     Route::get('attractions/{place}',  [ListAttractionsByPlaceController::class, 'handle']);
+    Route::get('attraction/{attractionId}',  [GetAttractionByIdController::class, 'handle']);
     Route::get('attractions/comedian/{comedianId}',  [ListAttractionsByComedianController::class, 'handle']);
     Route::get('attractions/comedian/name/{comedianName}',  [ListAttractionsByComedianNameController::class, 'handle']);
 

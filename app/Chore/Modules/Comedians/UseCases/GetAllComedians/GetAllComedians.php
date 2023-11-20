@@ -19,6 +19,4 @@ class GetAllComedians
         return $this->comedianRepository->getAllComedians();
     }
 
-
-
 }

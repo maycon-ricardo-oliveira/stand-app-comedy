@@ -214,4 +214,9 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
         $this->connection->query($query, $params);
         return true;
     }
+
+    public function getAttractionById(string $attractionId)
+    {
+        // TODO: Implement getAttractionById() method.
+    }
 }

@@ -38,6 +38,8 @@ class RegisterComedian
             $comedianData["thumbnail"],
             $item['imageMain'] ?? '',
             $comedianData['onFire'] ?? false,
+            $comedianData["metas"] ?? [],
+            $comedianData["socialMedias"] ?? [],
             $comedianData["attractions"]
         );
 
