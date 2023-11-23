@@ -15,5 +15,5 @@ interface UserRepository
     public function checkIfIsFollowAComedian(User $user, Comedian $comedian);
     public function unFollowComedian(User $user, Comedian $comedian);
     public function listFollowComedians(User $user);
-
+    public function registerLocation(Location $location, User $user);
 }

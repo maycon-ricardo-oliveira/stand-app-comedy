@@ -5,6 +5,7 @@ namespace App\Chore\Modules\User\Infra\MySql;
 use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 use App\Chore\Modules\Adapters\MySqlAdapter\DBConnection;
 use App\Chore\Modules\Comedians\Entities\Comedian;
+use App\Chore\Modules\User\Entities\Location;
 use App\Chore\Modules\User\Entities\User;
 use App\Chore\Modules\User\Entities\UserRepository;
 use App\Chore\Modules\User\Infra\UserMapper;
@@ -125,5 +126,30 @@ class UserDAODatabase extends UserMapper implements UserRepository
         $data = $this->mapper($userData);
 
         return count($data) == 0 ? null : $data[0];
+    }
+
+    public function registerLocation(Location $location, User $user)
+    {
+        $query = "INSERT INTO user_locations (id, user_id, street, neighbourhood, city, state, country, zipcode, formattedAddress, lat, lng, created_at, updated_at)
+                  VALUES (:id, :user_id, :street, :neighbourhood, :city, :state, :country, :zipcode, :formattedAddress, :lat, :lng, :created_at, :updated_at)";
+
+        $params = [
+            "id" => $location->id,
+            "user_id" => $location->userId,
+            "street" => $location->street,
+            "neighbourhood" => $location->neighbourhood,
+            "city" => $location->city,
+            "state" => $location->state,
+            "country" => $location->country,
+            "zipcode" => $location->zipcode,
+            "formattedAddress" => $location->formattedAddress,
+            "lat" => $location->lat,
+            "lng" => $location->lng,
+            "created_at" => $this->time->format('Y-m-d H:i:s'),
+            "updated_at" => $this->time->format('Y-m-d H:i:s'),
+        ];
+
+        $this->connection->query($query, $params);
+        return true;
     }
 }
