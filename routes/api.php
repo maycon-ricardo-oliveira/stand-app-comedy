@@ -19,6 +19,7 @@ use App\Http\Controllers\ListAttractionsByPlaceController;
 use App\Http\Controllers\RegisterAttractionController;
 use App\Http\Controllers\RegisterComedianController;
 use App\Http\Controllers\RegisterComedianMetaController;
+use App\Http\Controllers\RegisterLocationController;
 use App\Http\Controllers\RegisterPlaceController;
 use App\Http\Controllers\UnFollowComedianController;
 use Illuminate\Support\Facades\Route;
@@ -44,9 +45,11 @@ Route::prefix('v1')->group(function () {
         Route::post('refresh', [AuthController::class, 'refresh']);
         Route::post('logout', [AuthController::class, 'logout']);
 
-        Route::post('/user/follow',  [FollowComedianController::class, 'handle']);
-        Route::post('/user/unfollow',  [UnFollowComedianController::class, 'handle']);
-        Route::get('/user/{userId}',  [GetUserProfileByIdController::class, 'handle']);
+        Route::post('/user/follow', [FollowComedianController::class, 'handle']);
+        Route::post('/user/unfollow', [UnFollowComedianController::class, 'handle']);
+        Route::get('/user/{userId}', [GetUserProfileByIdController::class, 'handle']);
+
+        Route::post('/user/location', [RegisterLocationController::class, 'handle']);
     });
 
     Route::get('/comedians',  [GetComediansController::class, 'handle']);

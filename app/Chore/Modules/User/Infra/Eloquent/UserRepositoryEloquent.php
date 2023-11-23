@@ -4,6 +4,7 @@ namespace App\Chore\Modules\User\Infra\Eloquent;
 
 use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 use App\Chore\Modules\Comedians\Entities\Comedian;
+use App\Chore\Modules\User\Entities\Location;
 use App\Chore\Modules\User\Entities\User;
 use App\Chore\Modules\User\Entities\UserRepository;
 use App\Chore\Modules\User\Infra\UserMapper;
@@ -55,5 +56,10 @@ class UserRepositoryEloquent extends UserMapper implements UserRepository
     public function listFollowComedians(User $user)
     {
         // TODO: Implement listFollowComedians() method.
+    }
+
+    public function registerLocation(Location $location, User $user)
+    {
+        // TODO: Implement registerLocation() method.
     }
 }
