@@ -27,6 +27,7 @@ class AttractionMapper extends ArrayIterator {
             return new Attraction(
                 $item['attractionId'],
                 $item['title'],
+                $item['description'] ?? '',
                 new DateTimeAdapter($item['date']),
                 $item["duration"],
                 new Comedian(

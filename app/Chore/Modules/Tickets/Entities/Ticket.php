@@ -28,6 +28,9 @@ class Ticket {
         $this->validatePaymentDate($time, $payedAt);
     }
 
+    /**
+     * @throws Exception
+     */
     private function validatePaymentDate(DateTimeImmutable $time, DateTimeImmutable $payedAt)
     {
         if (strtotime($payedAt->format('Y-m-d H:i:s')) > strtotime($time->format('Y-m-d H:i:s'))) {
