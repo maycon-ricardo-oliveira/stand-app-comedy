@@ -41,7 +41,7 @@ Route::prefix('v1')->group(function () {
         Route::post('auth/apple/callback', [AppleAuthController::class, 'handleAppleCallback']);
     });
 
-    Route::middleware('jwt.verify')->group(function() {
+    Route::middleware('')->group(function() {
         Route::post('refresh', [AuthController::class, 'refresh']);
         Route::post('logout', [AuthController::class, 'logout']);
 

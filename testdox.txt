@@ -119,3 +119,19 @@ User Register (Tests\Unit\UserRegister)
  [x] Must return an user profile
  [x] Must throw a exception using a existent email
 
+Create AValid Ticket Feature (Tests\Feature\CreateAValidTicketFeature)
+ [x] Create valid ticket
+ [x] Must increase tickets sold when create valid ticket
+ [x] Must increase tickets validated when checkin valid ticket
+ [x] Must throw max tickets emitted exception
+ [x] Must throw cant emit tickets for this session status exception
+ [x] Tickets sold out to session
+
+Session To Attraction Feature (Tests\Feature\SessionToAttractionFeature)
+ [x] Must register session on a finish attraction
+ [x] Cant update session status on a draft attraction
+ [x] Cant must update session on a finish attraction
+
+Update Attraction And Session Feature (Tests\Feature\UpdateAttractionAndSessionFeature)
+ [x] Must update only attraction
+

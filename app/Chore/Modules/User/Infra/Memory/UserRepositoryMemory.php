@@ -5,6 +5,7 @@ namespace App\Chore\Modules\User\Infra\Memory;
 use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 use App\Chore\Modules\Adapters\HashAdapter\IHash;
 use App\Chore\Modules\Comedians\Entities\Comedian;
+use App\Chore\Modules\User\Entities\Location;
 use App\Chore\Modules\User\Entities\User;
 use App\Chore\Modules\User\Entities\UserRepository;
 use App\Chore\Modules\User\Infra\UserMapper;
@@ -140,5 +141,10 @@ class UserRepositoryMemory extends UserMapper implements UserRepository
 
         return count($response) == 0 ? null : $response[0]->followingComedians;
 
+    }
+
+    public function registerLocation(Location $location, User $user)
+    {
+        // TODO: Implement registerLocation() method.
     }
 }
