@@ -71,7 +71,7 @@ class ComedianDAODatabase implements ComedianRepository
                 c.name as comedianName,
                 c.mini_bio as miniBio
             from comedians c
-            where c.id like :name";
+            where c.name like :name";
 
         $params = ['name' => $comedian];
         $comedianData = $this->connection->query($query, $params);

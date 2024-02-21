@@ -60,6 +60,7 @@ class RegisterAttractionTest extends UnitTestCase
             "duration" => '180',
             "placeId" => "any_id",
             "ownerId" => "any_id_3",
+            "image" => "image",
         ];
 
         $response = $useCase->handle($attraction, $date);
@@ -91,6 +92,7 @@ class RegisterAttractionTest extends UnitTestCase
             "duration" => '180',
             "placeId" => "any_id",
             "ownerId" => "any_id_3",
+            "image" => "image",
         ];
 
         $useCase->handle($attraction, $date);
@@ -118,6 +120,7 @@ class RegisterAttractionTest extends UnitTestCase
             "duration" => '180',
             "placeId" => "not_existent_id",
             "ownerId" => "any_id_3",
+            "image" => "image",
         ];
 
         $useCase->handle($attraction, $date);
@@ -144,6 +147,7 @@ class RegisterAttractionTest extends UnitTestCase
             "duration" => '180',
             "placeId" => "any_id",
             "ownerId" => "not_existent_id",
+            "image" => "image",
         ];
 
         $useCase->handle($attraction, $date);

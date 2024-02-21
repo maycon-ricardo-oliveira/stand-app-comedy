@@ -73,4 +73,12 @@ class PlaceRepositoryMemory extends PlaceMapper implements PlaceRepository
         $this->places[] = $place;
         return true;
     }
+
+    public function getPlaceByName(string $name): ?Place
+    {
+        $response = array_values(array_filter($this->places, function ($place) use ($name) {
+            return $place->name == $name;
+        }));
+        return count($response) == 0 ? null : $response[0];
+    }
 }

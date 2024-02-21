@@ -34,7 +34,7 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
                 a.duration as duration,
                 c.id as comedianId,
                 p.id as placeId,
-                p.image as image
+                p.image as imagePlace
             from attractions a
             inner join places p on p.id = a.place_id
             inner join comedians c on c.id = a.comedian_id
@@ -151,6 +151,7 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
             "duration" => $attractionData->duration,
             "status" => $attractionData->status,
             "comedian_id" => $attractionData->comedian->id,
+            "image" => $attractionData->image,
             "place_id" => $attractionData->place->id,
             "owner_id" => $attractionData->owner,
             "created_at" => $date->format('Y-m-d H:i:s'),

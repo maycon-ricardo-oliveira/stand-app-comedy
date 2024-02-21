@@ -4,8 +4,12 @@ namespace App\Chore\Modules\Places\UseCases\RegisterPlace;
 
 use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 use App\Chore\Modules\Adapters\UuidAdapter\IUniqId;
+use App\Chore\Modules\Comedians\Entities\Comedian;
+use App\Chore\Modules\Comedians\Exceptions\ComedianAlreadyRegistered;
 use App\Chore\Modules\Places\Entities\Place;
 use App\Chore\Modules\Places\Entities\PlaceRepository;
+use App\Chore\Modules\Places\Exceptions\PlaceAlreadyRegistered;
+use App\Chore\Modules\Places\Exceptions\PlaceAlreadyRegisteredException;
 use App\Chore\Modules\Types\Url\Url;
 
 class RegisterPlace
@@ -28,8 +32,16 @@ class RegisterPlace
 
     }
 
+    /**
+     * @throws PlaceAlreadyRegisteredException
+     */
     public function handle($placeData): ?Place
     {
+
+        $place = $this->placeRepo->getPlaceByName($placeData['name']);
+
+        if ($place instanceof Place) throw new PlaceAlreadyRegisteredException();
+
         $place = new Place(
             $this->uuid->id(),
             $placeData["name"],
