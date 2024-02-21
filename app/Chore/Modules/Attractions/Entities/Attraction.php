@@ -15,7 +15,8 @@ class Attraction
     public string $id;
     public string $title;
     public IDateTime $date;
-    public string $duration;
+    public int $duration;
+    public string $image;
     public Comedian $comedian;
     public false|string $timeToEvent;
     public Place $place;
@@ -27,6 +28,7 @@ class Attraction
      * @param string $title
      * @param IDateTime $date
      * @param int $duration
+     * @param string $image
      * @param Comedian $comedian
      * @param Place $place
      * @param string $status
@@ -37,7 +39,8 @@ class Attraction
         string $id,
         string $title,
         IDateTime $date,
-        string $duration,
+        int $duration,
+        string $image,
         Comedian $comedian,
         Place $place,
         string $status,
@@ -48,6 +51,7 @@ class Attraction
         $this->title = $title;
         $this->date = $date;
         $this->duration = $duration;
+        $this->image = $image;
         $this->comedian = $comedian;
         $this->timeToEvent = $this->getAmountTimeAtAttraction($time, $date);
         $this->place = $place;

@@ -1,0 +1,382 @@
+[
+  {
+    "title": "Rafael Portugal - Eu Comigo Mesmo",
+    "season": "Estreia dia 17 de Fevereiro (sábado). até 18 de Fevereiro",
+    "schedule": "Sábados, às 20h; domingos, às 19h.",
+    "placeLink": "https://www.sampaingressos.com.br/local/Teatro%20das%20Artes__63",
+    "price": "A partir de R$ 70,00",
+    "duration": null,
+    "classification": {
+      "label": "14 anos",
+      "image": "https://www.sampaingressos.com.br/templates/images/14anos.svg"
+    },
+    "address": "Avenida Rebouças, 3970 (Shopping Eldorado) - Pinheiros",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_131013.jpg?12511",
+    "placeTitle": "Teatro das Artes",
+    "placeSeats": 769,
+    "comedianName": "Rafael Portugal",
+    "seasonDate": {
+      "fim": "2024-02-18T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Comédia ao Vivo",
+    "season": "até 29 de Março",
+    "schedule": "Sextas, às 23h59",
+    "placeLink": "https://www.sampaingressos.com.br/local/Teatro%20Renaissance__47",
+    "price": "R$ 49,00",
+    "duration": "80 minutos.",
+    "classification": {
+      "label": "16 anos*",
+      "image": "https://www.sampaingressos.com.br/templates/images/16anos.svg"
+    },
+    "address": "Alameda Santos, 2233 - Cerqueira César",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_82977.jpg?12511",
+    "placeTitle": "Teatro Renaissance",
+    "placeSeats": 440,
+    "comedianName": null,
+    "seasonDate": {
+      "fim": "2024-03-29T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Nando Viana - Como faz para ficar aqui?",
+    "season": "até 1 de Março",
+    "schedule": "Sextas, às 22h",
+    "placeLink": "https://www.sampaingressos.com.br/local/Teatro%20MorumbiShopping__1892",
+    "price": "R$ 35,00",
+    "duration": "70 minutos.",
+    "classification": {
+      "label": "14 anos",
+      "image": "https://www.sampaingressos.com.br/templates/images/14anos.svg"
+    },
+    "address": "Av. Roque Petroni Júnior, 1089 - Piso G1 do Shopping - Morumbi",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_122755.jpg?12511",
+    "placeTitle": "Teatro MorumbiShopping",
+    "placeSeats": 250,
+    "comedianName": "Nando Viana",
+    "seasonDate": {
+      "fim": "2024-03-01T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Sintonia do Humor - Arianna Nutt e Convidados",
+    "season": "Sessão única hoje (sexta)",
+    "schedule": "Sexta, às 21h",
+    "placeLink": "https://www.sampaingressos.com.br/local/Bixiga%20Comedy%20Club__2842",
+    "price": "R$ 20,00",
+    "duration": "90 minutos",
+    "classification": {
+      "label": "16 anos",
+      "image": "https://www.sampaingressos.com.br/templates/images/16anos.svg"
+    },
+    "address": "Rua Rui Barbosa, 574 - Bela Vista",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_131049.jpg?12511",
+    "placeTitle": "Bixiga Comedy Club",
+    "placeSeats": 0,
+    "comedianName": "Sintonia do Humor",
+    "seasonDate": {
+      "inicio": "2024-02-16T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Errando na Mosca",
+    "season": "até 24 de Fevereiro",
+    "schedule": "Sábados, às 22h",
+    "placeLink": "https://www.sampaingressos.com.br/local/Clube%20Barbixas%20de%20Com%C3%A9dia__2925",
+    "price": "R$ 28,00",
+    "duration": "70 minutos",
+    "classification": {
+      "label": "18 anos",
+      "image": "https://www.sampaingressos.com.br/templates/images/18anos.svg"
+    },
+    "address": "R. Augusta, 1129 - Consolação",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_122982.jpg?12511",
+    "placeTitle": "Clube Barbixas de Comédia",
+    "placeSeats": 280,
+    "comedianName": null,
+    "seasonDate": {
+      "fim": "2024-02-24T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Maurício Meirelles em WebBullying - Geração Z - Especial 10 anos",
+    "season": "Estreia dia 17 de Fevereiro (sábado). até 9 de Março",
+    "schedule": "Sábados, às 22h30",
+    "placeLink": "https://www.sampaingressos.com.br/local/Teatro%20das%20Artes__63",
+    "price": "A partir de R$ 70,00",
+    "duration": null,
+    "classification": {
+      "label": "14 anos",
+      "image": "https://www.sampaingressos.com.br/templates/images/14anos.svg"
+    },
+    "address": "Avenida Rebouças, 3970 (Shopping Eldorado) - Pinheiros",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_126070.jpg?12511",
+    "placeTitle": "Teatro das Artes",
+    "placeSeats": 769,
+    "comedianName": "Maurício Meirelles em WebBullying",
+    "seasonDate": {
+      "fim": "2024-03-09T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Fábio Rabin: Ladeira Abaixo no Tatuapé",
+    "season": "Dia 18 de Fevereiro (domingo)",
+    "schedule": "Domingo, às 20h.",
+    "placeLink": "https://www.sampaingressos.com.br/local/Arena%20Tatuap%C3%A9__2639",
+    "price": "A partir de R$ 42,00",
+    "duration": "70 minutos.",
+    "classification": {
+      "label": "16 anos",
+      "image": "https://www.sampaingressos.com.br/templates/images/16anos.svg"
+    },
+    "address": "Rua Uriel Gaspar, 149 - Belenzinho",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_129439.jpg?12511",
+    "placeTitle": "Arena Tatuapé",
+    "placeSeats": 0,
+    "comedianName": "Fábio Rabin",
+    "seasonDate": {
+      "data": "2024-02-18T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "O Coringa com Maurício Dollenz",
+    "season": "até 3 de Março",
+    "schedule": "Sábado (17/02), às 22h; Domingo (03/03), às 20h",
+    "placeLink": "https://www.sampaingressos.com.br/local/Teatro%20Opus%20Frei%20Caneca__60",
+    "price": "R$ 50,00",
+    "duration": "70 minutos",
+    "classification": {
+      "label": "Livre*",
+      "image": "https://www.sampaingressos.com.br/templates/images/livre.svg"
+    },
+    "address": "Rua Frei Caneca, 569 - Shopping Frei Caneca, 7° andar - Bela Vista",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_129453.jpg?12511",
+    "placeTitle": "Teatro Opus Frei Caneca",
+    "placeSeats": 0,
+    "comedianName": null,
+    "seasonDate": {
+      "fim": "2024-03-03T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Thiago Ventura - Novo Show",
+    "season": "Estreia dia 4 de Março (segunda). até 25 de Março",
+    "schedule": "Segundas, às 20h",
+    "placeLink": "https://www.sampaingressos.com.br/local/Teatro%20Opus%20Frei%20Caneca__60",
+    "price": "R$ 50,00",
+    "duration": "80 minutos.",
+    "classification": {
+      "label": "16 anos",
+      "image": "https://www.sampaingressos.com.br/templates/images/16anos.svg"
+    },
+    "address": "Rua Frei Caneca, 569 - Shopping Frei Caneca, 7° andar - Bela Vista",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_130236.jpg?12511",
+    "placeTitle": "Teatro Opus Frei Caneca",
+    "placeSeats": 0,
+    "comedianName": "Thiago Ventura",
+    "seasonDate": {
+      "fim": "2024-03-25T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Bixiga Comedy apresenta: 33 Risos Festival",
+    "season": "até 30 de Março",
+    "schedule": "Sábados, às 23h",
+    "placeLink": "https://www.sampaingressos.com.br/local/Bixiga%20Comedy%20Club__2842",
+    "price": "R$ 20,00",
+    "duration": null,
+    "classification": {
+      "label": "14 anos",
+      "image": "https://www.sampaingressos.com.br/templates/images/14anos.svg"
+    },
+    "address": "Rua Rui Barbosa, 574 - Bela Vista",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_118036.jpg?12511",
+    "placeTitle": "Bixiga Comedy Club",
+    "placeSeats": 0,
+    "comedianName": "Bixiga Comedy apresenta",
+    "seasonDate": {
+      "fim": "2024-03-30T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "4 Amigos - Fila de Piadas",
+    "season": "Estreia dia 11 de Março (segunda). até 27 de Maio",
+    "schedule": "Segundas, às 21h30 (exceto 22 e 29/04)",
+    "placeLink": "https://www.sampaingressos.com.br/local/Teatro%20Bradesco__213",
+    "price": "R$ 40,00",
+    "duration": "80 minutos",
+    "classification": {
+      "label": "16 anos*",
+      "image": "https://www.sampaingressos.com.br/templates/images/16anos.svg"
+    },
+    "address": "Rua Palestra Itália, nº 500 - 3º Piso do Shopping Bourbon - Perdizes",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_130084.jpg?12511",
+    "placeTitle": "Teatro Bradesco",
+    "placeSeats": 1457,
+    "comedianName": "4 Amigos",
+    "seasonDate": {
+      "fim": "2024-05-27T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Toninho Tornado e Netto Tomaz - Na Pegada da Comédia",
+    "season": "Dia 29 de Fevereiro (quinta)",
+    "schedule": "Quinta, às 21h",
+    "placeLink": "https://www.sampaingressos.com.br/local/Arena%20Tatuap%C3%A9__2639",
+    "price": "A partir de R$ 42,00",
+    "duration": "65 minutos",
+    "classification": {
+      "label": "16 anos",
+      "image": "https://www.sampaingressos.com.br/templates/images/16anos.svg"
+    },
+    "address": "Rua Uriel Gaspar, 149 - Belenzinho",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_129864.jpg?12511",
+    "placeTitle": "Arena Tatuapé",
+    "placeSeats": 0,
+    "comedianName": "Toninho Tornado e Netto Tomaz",
+    "seasonDate": {
+      "data": "2024-02-29T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Tradicional Noite de Stand Up Comedy",
+    "season": "Dia 17 de Fevereiro (sábado)",
+    "schedule": "sábado, às 20h",
+    "placeLink": "https://www.sampaingressos.com.br/local/My%20F...%20Comedy%20Club__1000040",
+    "price": "R$ 25,00",
+    "duration": null,
+    "classification": {
+      "label": "18 anos*",
+      "image": "https://www.sampaingressos.com.br/templates/images/18anos.svg"
+    },
+    "address": "Alameda Santos, 1518 (a 100m do metrô Trianon) - Jardim Paulista",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_127313.jpg?12511",
+    "placeTitle": "My F... Comedy Club",
+    "placeSeats": 90,
+    "comedianName": "Tradicional Noite de",
+    "seasonDate": {
+      "data": "2024-02-17T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Afonso Padilha - Ninguém se Importa Stand-up Comedy",
+    "season": "Dia 7 de Março (quinta)",
+    "schedule": "Quinta, às 21h",
+    "placeLink": "https://www.sampaingressos.com.br/local/Marte%20Hall__2555",
+    "price": "R$ 59,90",
+    "duration": "80 minutos.",
+    "classification": {
+      "label": "16 anos*",
+      "image": "https://www.sampaingressos.com.br/templates/images/16anos.svg"
+    },
+    "address": "Rua Domingos de Morais, 348 - Vila Mariana",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_115187.jpg?12511",
+    "placeTitle": "Marte Hall",
+    "placeSeats": 0,
+    "comedianName": "Afonso Padilha",
+    "seasonDate": {
+      "data": "2024-03-07T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Feliz Sexta - Stand-up Comedy",
+    "season": "até 29 de Março",
+    "schedule": "Sextas, às 23h",
+    "placeLink": "https://www.sampaingressos.com.br/local/Bixiga%20Comedy%20Club__2842",
+    "price": "R$ 20,00",
+    "duration": "80 minutos",
+    "classification": {
+      "label": "14 anos",
+      "image": "https://www.sampaingressos.com.br/templates/images/14anos.svg"
+    },
+    "address": "Rua Rui Barbosa, 574 - Bela Vista",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_123455.jpg?12511",
+    "placeTitle": "Bixiga Comedy Club",
+    "placeSeats": 0,
+    "comedianName": "Feliz Sexta",
+    "seasonDate": {
+      "fim": "2024-03-29T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Noite da Comédia",
+    "season": "até 30 de Março",
+    "schedule": "sábados, às 19h",
+    "placeLink": "https://www.sampaingressos.com.br/local/Bixiga%20Comedy%20Club__2842",
+    "price": "R$ 20,00",
+    "duration": "80 minutos",
+    "classification": {
+      "label": "14 anos",
+      "image": "https://www.sampaingressos.com.br/templates/images/14anos.svg"
+    },
+    "address": "Rua Rui Barbosa, 574 - Bela Vista",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_123783.jpg?12511",
+    "placeTitle": "Bixiga Comedy Club",
+    "placeSeats": 0,
+    "comedianName": null,
+    "seasonDate": {
+      "fim": "2024-03-30T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Em Pé na Rede",
+    "season": "até 27 de Fevereiro",
+    "schedule": "terças, às 20h30",
+    "placeLink": "https://www.sampaingressos.com.br/local/Clube%20Barbixas%20de%20Com%C3%A9dia__2925",
+    "price": "R$ 20,00",
+    "duration": "90 minutos",
+    "classification": {
+      "label": "14 anos",
+      "image": "https://www.sampaingressos.com.br/templates/images/14anos.svg"
+    },
+    "address": "R. Augusta, 1129 - Consolação",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_124785.jpg?12511",
+    "placeTitle": "Clube Barbixas de Comédia",
+    "placeSeats": 280,
+    "comedianName": null,
+    "seasonDate": {
+      "fim": "2024-02-27T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Bruna Louise - Ela Tá Correndo Atrás",
+    "season": "Estreia hoje. até 29 de Março",
+    "schedule": "Sextas, às 22h30 (exceto 23/02); Dia 08/03 também às 20h",
+    "placeLink": "https://www.sampaingressos.com.br/local/Teatro%20Opus%20Frei%20Caneca__60",
+    "price": "R$ 59,00",
+    "duration": "70 minutos.",
+    "classification": {
+      "label": "16 anos*",
+      "image": "https://www.sampaingressos.com.br/templates/images/16anos.svg"
+    },
+    "address": "Rua Frei Caneca, 569 - Shopping Frei Caneca, 7° andar - Bela Vista",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_130239.jpg?12511",
+    "placeTitle": "Teatro Opus Frei Caneca",
+    "placeSeats": 0,
+    "comedianName": "Bruna Louise",
+    "seasonDate": {
+      "fim": "2024-03-29T03:00:00.000Z"
+    }
+  },
+  {
+    "title": "Fritada com Andressa Urach",
+    "season": "Dia 6 de Março (quarta)",
+    "schedule": "Quarta, às 21h.",
+    "placeLink": "https://www.sampaingressos.com.br/local/Marte%20Hall__2555",
+    "price": "R$ 35,90",
+    "duration": null,
+    "classification": {
+      "label": "16 anos",
+      "image": "https://www.sampaingressos.com.br/templates/images/16anos.svg"
+    },
+    "address": "Rua Domingos de Morais, 348 - Vila Mariana",
+    "image": "https://sampaingressos.com.br/fotosEspetaculos/foto_131094.jpg?12511",
+    "placeTitle": "Marte Hall",
+    "placeSeats": 0,
+    "comedianName": null,
+    "seasonDate": {
+      "data": "2024-03-06T03:00:00.000Z"
+    }
+  }
+]

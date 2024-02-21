@@ -9,6 +9,7 @@ use App\Chore\Modules\Comedians\Exceptions\ComedianAlreadyRegistered;
 use App\Chore\Modules\Places\Entities\Place;
 use App\Chore\Modules\Places\Entities\PlaceRepository;
 use App\Chore\Modules\Places\Exceptions\PlaceAlreadyRegistered;
+use App\Chore\Modules\Places\Exceptions\PlaceAlreadyRegisteredException;
 use App\Chore\Modules\Types\Url\Url;
 
 class RegisterPlace
@@ -32,14 +33,14 @@ class RegisterPlace
     }
 
     /**
-     * @throws PlaceAlreadyRegistered
+     * @throws PlaceAlreadyRegisteredException
      */
     public function handle($placeData): ?Place
     {
 
         $place = $this->placeRepo->getPlaceByName($placeData['name']);
 
-        if ($place instanceof Place) throw new PlaceAlreadyRegistered();
+        if ($place instanceof Place) throw new PlaceAlreadyRegisteredException();
 
         $place = new Place(
             $this->uuid->id(),
