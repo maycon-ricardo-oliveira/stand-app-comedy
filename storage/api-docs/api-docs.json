@@ -150,6 +150,49 @@
                 ]
             }
         },
+        "/api/v1/attraction/{attractionId}": {
+            "get": {
+                "tags": [
+                    "comedian"
+                ],
+                "description": "Returns attraction details by id",
+                "operationId": "GetAttractionByIdController@handle",
+                "parameters": [
+                    {
+                        "name": "attractionId",
+                        "in": "path",
+                        "description": "Attraction id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "63d332d50ff63"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AttractionResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found operation"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
         "/api/v1/comedian/{comedianId}": {
             "get": {
                 "tags": [

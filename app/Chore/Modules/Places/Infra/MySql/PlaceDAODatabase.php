@@ -52,4 +52,23 @@ class PlaceDAODatabase extends PlaceMapper implements PlaceRepository
         $this->connection->query($query, $params);
         return true;
     }
+
+    public function getPlaceByName(string $name): ?Place
+    {
+        $place = '%' . $name . '%';
+        $query = "select *
+            from places p
+            where p.name like :name";
+
+        $params = ['name' => $place];
+        $placeData = $this->connection->query($query, $params);
+
+        if (count($placeData) == 0) {
+            return null;
+        }
+
+        $data = $this->mapper($placeData);
+
+        return count($data) == 0 ? null : $data[0];
+    }
 }

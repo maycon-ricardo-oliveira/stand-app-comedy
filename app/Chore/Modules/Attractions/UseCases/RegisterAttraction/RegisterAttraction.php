@@ -64,6 +64,7 @@ class RegisterAttraction
             $attractionData["description"] ?? '',
             $date,
             $attractionData["duration"],
+            $attractionData["image"] ?? '',
             $comedian,
             $place,
             (new AttractionStatus($attractionData["status"]))->getStatus(),

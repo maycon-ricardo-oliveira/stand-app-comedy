@@ -72,6 +72,7 @@ Register Comedian (Tests\Unit\RegisterComedian)
 
 Register Place (Tests\Unit\RegisterPlace)
  [x] Register place
+ [x] Must return exception to register place
 
 Register Session (Tests\Unit\RegisterSession)
  [x] Must register session
