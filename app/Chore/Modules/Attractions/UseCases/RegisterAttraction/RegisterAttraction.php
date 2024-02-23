@@ -61,6 +61,7 @@ class RegisterAttraction
         $attraction = new Attraction(
             $this->uuid->id(),
             $attractionData["title"],
+            $attractionData["description"] ?? '',
             $date,
             $attractionData["duration"],
             $attractionData["image"] ?? '',

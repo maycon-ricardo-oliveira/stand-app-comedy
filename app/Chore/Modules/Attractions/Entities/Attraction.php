@@ -14,6 +14,7 @@ class Attraction
 {
     public string $id;
     public string $title;
+    public string $description;
     public IDateTime $date;
     public int $duration;
     public string $image;
@@ -26,6 +27,7 @@ class Attraction
     /**
      * @param string $id
      * @param string $title
+     * @param string $description
      * @param IDateTime $date
      * @param int $duration
      * @param string $image
@@ -38,6 +40,7 @@ class Attraction
     public function __construct(
         string $id,
         string $title,
+        string $description,
         IDateTime $date,
         int $duration,
         string $image,
@@ -49,6 +52,7 @@ class Attraction
     {
         $this->id = $id;
         $this->title = $title;
+        $this->description = $description;
         $this->date = $date;
         $this->duration = $duration;
         $this->image = $image;
