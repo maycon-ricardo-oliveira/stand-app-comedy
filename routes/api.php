@@ -1,6 +1,5 @@
 <?php
 
-use App\Chore\Modules\Attractions\UseCases\GetAttractionById\GetAttractionById;
 use App\Http\Controllers\Auth\AppleAuthController;
 use App\Http\Controllers\Auth\FacebookAuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
@@ -21,6 +20,7 @@ use App\Http\Controllers\RegisterComedianController;
 use App\Http\Controllers\RegisterComedianMetaController;
 use App\Http\Controllers\RegisterLocationController;
 use App\Http\Controllers\RegisterPlaceController;
+use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\UnFollowComedianController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +28,7 @@ Route::prefix('v1')->group(function () {
     Route::get('health', [HealthController::class, 'healthCheck']);
 
     Route::post('login', [AuthController::class, 'login']);
-    Route::post('/user/register',  [UnFollowComedianController::class, 'handle']);
+    Route::post('/user/register', [RegisterUserController::class, 'handle']);
 
     Route::group(['middleware' => ['web']], function () {
         Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle']);

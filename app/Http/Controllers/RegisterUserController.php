@@ -11,6 +11,7 @@ use App\Chore\Modules\User\UseCases\UserRegister\UserRegister;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use OpenApi\Annotations as OA;
 
 class RegisterUserController extends Controller
 {
@@ -58,12 +59,22 @@ class RegisterUserController extends Controller
         $uuid = new UniqIdAdapter();
         $useCase = new UserRegister($repo, $hash, $uuid);
 
-        $userData = [
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" => $request->password,
-        ];
+        try {
 
-        return $this->response->successResponse($useCase->handle($userData, $time));
+            $this->validate($request, [
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+            ]);
+
+            $userData = [
+                "name" => $request->name,
+                "email" => $request->email,
+                "password" => $request->password,
+            ];
+            return $this->response->successResponse($useCase->handle($userData, $time));
+        } catch(Exception $exception) {
+            return $this->response->errorResponse($exception->getMessage());
+        }
     }
 }
