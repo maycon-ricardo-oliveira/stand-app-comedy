@@ -8,9 +8,11 @@ use App\Chore\Modules\Adapters\MySqlAdapter\MySqlAdapter;
 use App\Chore\Modules\Adapters\UuidAdapter\UniqIdAdapter;
 use App\Chore\Modules\User\Infra\MySql\UserDAODatabase;
 use App\Chore\Modules\User\UseCases\UserRegister\UserRegister;
+use App\Mail\ForgotPassword;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use OpenApi\Annotations as OA;
 
 class RegisterUserController extends Controller
@@ -72,7 +74,11 @@ class RegisterUserController extends Controller
                 "email" => $request->email,
                 "password" => $request->password,
             ];
-            return $this->response->successResponse($useCase->handle($userData, $time));
+            $response = $useCase->handle($userData, $time);
+
+            Mail::to($response->email)->send(new ForgotPassword($response));
+
+            return $this->response->successResponse($response);
         } catch(Exception $exception) {
             return $this->response->errorResponse($exception->getMessage());
         }
