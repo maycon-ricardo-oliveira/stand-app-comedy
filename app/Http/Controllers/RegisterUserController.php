@@ -76,7 +76,8 @@ class RegisterUserController extends Controller
             ];
             $response = $useCase->handle($userData, $time);
 
-            Mail::to($response->email)->send(new ForgotPassword($response));
+//            TODO: change this email for a confirm email
+//            Mail::to($response->email)->send(new ForgotPassword($response));
 
             return $this->response->successResponse($response);
         } catch(Exception $exception) {

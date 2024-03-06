@@ -4,16 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Chore\Modules\Adapters\AuthAdapter\AuthAdapter;
 use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
+use App\Chore\Modules\Adapters\HashAdapter\HashAdapter;
 use App\Chore\Modules\Adapters\MySqlAdapter\MySqlAdapter;
 use App\Chore\Modules\User\Infra\MySql\UserDAODatabase;
 use App\Chore\Modules\User\UseCases\Auth\Auth;
+use App\Mail\SendCodeResetPassword;
 use Exception;
+use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    private AuthAdapter $auth;
+    private MySqlAdapter $mysql;
+    private UserDAODatabase $repo;
+    private Auth $useCase;
+
     /**
      * Create a new AuthController instance.
      *
@@ -22,6 +32,10 @@ class AuthController extends Controller
     public function __construct()
     {
         parent::__construct();
+        $this->auth = new AuthAdapter();
+        $this->mysql = new MySqlAdapter();
+        $this->repo = new UserDAODatabase($this->mysql, $this->time);
+        $this->useCase = new Auth($this->repo, $this->auth, new HashAdapter());
     }
 
     /**
@@ -58,21 +72,17 @@ class AuthController extends Controller
      */
     public function login(Request $request): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|string|min:6',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+        try {
+            $this->validate($request, [
+                'email' => 'required|email',
+                'password' => 'required|string|min:6',
+            ]);
+            $response = $this->useCase->login($request->email, $request->password);
+            return $this->response->successResponse($response);
+        } catch(Exception $exception) {
+            return $this->response->errorResponse($exception->getMessage());
         }
 
-        $auth = new AuthAdapter();
-        $mysql = new MySqlAdapter();
-        $repo = new UserDAODatabase($mysql, $this->time);
-        $useCase = new Auth($repo, $auth);
-
-        return $this->response->successResponse($useCase->login($request->email, $request->password));
     }
 
     /**
@@ -90,14 +100,7 @@ class AuthController extends Controller
      */
     public function logout(): JsonResponse
     {
-        $auth = new AuthAdapter();
-
-        $time = new DateTimeAdapter();
-        $mysql = new MySqlAdapter();
-        $repo = new UserDAODatabase($mysql, $time);
-        $useCase = new Auth($repo, $auth);
-
-        $useCase->logout();
+        $this->useCase->logout();
         return $this->response->successResponse('Successfully logged out');
     }
 
@@ -108,14 +111,56 @@ class AuthController extends Controller
      */
     public function refresh(): JsonResponse
     {
-        $auth = new AuthAdapter();
-
-        $time = new DateTimeAdapter();
-        $mysql = new MySqlAdapter();
-        $repo = new UserDAODatabase($mysql, $time);
-        $useCase = new Auth($repo, $auth);
-
-        return $this->response->successResponse($useCase->refresh());
+        return $this->response->successResponse($this->useCase->refresh());
     }
 
+
+    public function forgotPassword(Request $request): JsonResponse
+    {
+        try {
+            $this->validate($request, [
+                'email' => 'required|email|exists:users',
+            ]);
+
+            $response = $this->useCase->forgotPassword($request->email);
+            Mail::to($request->email)->send(new SendCodeResetPassword($response));
+
+            return $this->response->successResponse($response);
+        } catch(Exception $exception) {
+            return $this->response->errorResponse($exception->getMessage());
+        }
+    }
+
+    public function checkCode(Request $request)
+    {
+        try {
+            $request->validate([
+                'token' => 'required|string|exists:password_resets',
+            ]);
+
+            $token = $this->useCase->checkCode($request->token);
+            return $this->response->successResponse(['token' => $token]);
+
+        } catch (Exception $exception) {
+            return $this->response->errorResponse($exception->getMessage());
+        }
+    }
+    public function resetPassword(Request $request)
+    {
+        try {
+            $request->validate([
+                'token' => 'required|string|exists:password_resets',
+                'password' => 'required|string|min:6',
+            ]);
+
+            $this->useCase->resetPassword($request->token, $request->password);
+            return $this->response->successResponse([
+                'message' =>'Password has been successfully reset',
+                'status' => 'ok'
+            ]);
+
+        } catch (Exception $exception) {
+            return $this->response->errorResponse($exception->getMessage());
+        }
+    }
 }

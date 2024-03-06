@@ -30,6 +30,10 @@ Route::prefix('v1')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('/user/register', [RegisterUserController::class, 'handle']);
 
+    Route::post('password/email', [AuthController::class, 'forgotPassword']);
+    Route::post('password/code/check', [AuthController::class, 'checkCode']);
+    Route::post('password/reset', [AuthController::class, 'resetPassword']);
+
     Route::group(['middleware' => ['web']], function () {
         Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
         Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);

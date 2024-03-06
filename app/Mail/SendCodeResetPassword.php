@@ -2,14 +2,14 @@
 
 namespace App\Mail;
 
-use App\Chore\Modules\User\Entities\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ForgotPassword extends Mailable
+class SendCodeResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -23,7 +23,6 @@ class ForgotPassword extends Mailable
     public function __construct($code)
     {
         $this->code = $code;
-
     }
 
     /**
@@ -34,7 +33,7 @@ class ForgotPassword extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Forgot Password',
+            subject: 'Send Code Reset Password',
         );
     }
 
@@ -46,9 +45,9 @@ class ForgotPassword extends Mailable
     public function content()
     {
         return new Content(
-            view: 'emails.forgot',
+            view: 'emails.password',
             with: [
-                'code' => $this->code,
+                'code' => $this->code
             ],
         );
     }
@@ -62,4 +61,6 @@ class ForgotPassword extends Mailable
     {
         return [];
     }
+
+
 }
