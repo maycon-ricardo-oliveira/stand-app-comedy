@@ -6,6 +6,4 @@ interface IHash
 {
     public function make($value, $options = []);
 
-
-
 }
