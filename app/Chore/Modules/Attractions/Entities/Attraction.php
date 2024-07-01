@@ -16,7 +16,7 @@ class Attraction
     public string $title;
     public string $description;
     public IDateTime $date;
-    public int $duration;
+    public string $duration;
     public string $image;
     public Comedian $comedian;
     public false|string $timeToEvent;
@@ -24,17 +24,20 @@ class Attraction
     public string $status;
     public string $owner;
 
+    public ?Classification $classification;
+
     /**
      * @param string $id
      * @param string $title
      * @param string $description
      * @param IDateTime $date
-     * @param int $duration
+     * @param string $duration
      * @param string $image
      * @param Comedian $comedian
      * @param Place $place
      * @param string $status
      * @param string $owner
+     * @param Classification|null $classification
      * @param IDateTime $time
      */
     public function __construct(
@@ -42,12 +45,13 @@ class Attraction
         string $title,
         string $description,
         IDateTime $date,
-        int $duration,
+        string $duration,
         string $image,
         Comedian $comedian,
         Place $place,
         string $status,
         string $owner,
+        ?Classification $classification,
         IDateTime $time)
     {
         $this->id = $id;
@@ -61,6 +65,7 @@ class Attraction
         $this->place = $place;
         $this->status = $status;
         $this->owner = $owner;
+        $this->classification = $classification;
     }
 
     public function getAmountTimeAtAttraction(IDateTime $time, IDateTime $date): false|string
