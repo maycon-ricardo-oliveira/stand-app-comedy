@@ -70,7 +70,13 @@ class UserDAODatabase extends UserMapper implements UserRepository
 
         $data = $this->mapper($userData);
 
-        return count($data) == 0 ? null : $data[0];
+        if (count($data) == 0) {
+            return null;
+        }
+        $user = $data[0];
+        $locations = $this->getLocations($user);
+        $user->locations = $locations;
+        return $user;
     }
 
     public function followComedian(User $user, Comedian $comedian, string $id)
@@ -151,5 +157,32 @@ class UserDAODatabase extends UserMapper implements UserRepository
 
         $this->connection->query($query, $params);
         return true;
+    }
+
+    public function getLocations(User $user)
+    {
+        $query = "select * from user_locations ul where ul.user_id = :user_id";
+        $params = ['user_id' => $user->id];
+
+        $userLocations = $this->connection->query($query, $params);
+
+        $locations = [];
+        foreach ($userLocations as $location) {
+            $locations[] = new Location(
+                $location["id"],
+                $location["user_id"],
+                $location["street"] ?? '',
+                $location["neighbourhood"] ?? '',
+                $location["city"] ?? '',
+                $location["state"] ?? '',
+                $location["country"] ?? '',
+                $location["zipcode"] ?? '',
+                $location["formattedAddress"] ?? '',
+                $location["lat"] ?? '',
+                $location["ln"] ?? ''
+            );
+
+        }
+        return $locations;
     }
 }
