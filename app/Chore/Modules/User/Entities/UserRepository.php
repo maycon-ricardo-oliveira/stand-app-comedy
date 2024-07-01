@@ -8,7 +8,7 @@ use App\Chore\Modules\Comedians\Entities\Comedian;
 
 interface UserRepository
 {
-    public function register(User $user, IDateTime $date): bool;
+    public function register(User $user, $password, $rememberToken, IDateTime $date): bool;
     public function findUserByEmail(string $email);
     public function findUserById(string $id): ?User;
     public function followComedian(User $user, Comedian $comedian, string $id);

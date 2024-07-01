@@ -24,7 +24,7 @@ class UserDAODatabase extends UserMapper implements UserRepository
         $this->time = $time;
     }
 
-    public function register(User $user, IDateTime $date): bool
+    public function register(User $user, $password, $rememberToken, IDateTime $date): bool
     {
 
         $query = "INSERT INTO users (id, name, email, password, remember_token, created_at, updated_at)
@@ -34,8 +34,8 @@ class UserDAODatabase extends UserMapper implements UserRepository
             "id" => $user->id,
             "name" => $user->name,
             "email" => $user->email,
-            "password" =>$user->password,
-            "remember_token" => $user->rememberToken,
+            "password" => $password,
+            "remember_token" => $rememberToken,
             "created_at" => $date->format('Y-m-d H:i:s'),
             "updated_at" => $date->format('Y-m-d H:i:s'),
         ];
