@@ -49,12 +49,16 @@ class FollowComedianController extends Controller
     {
         try {
 
+            $this->validate($request, [
+                'comedianId' => 'required|string',
+            ]);
+
             $uuid = new UniqIdAdapter();
             $userRepo = new UserDAODatabase($this->dbConnection, $this->time);
             $comedianRepo = new ComedianDAODatabase($this->dbConnection, $this->time);
 
             $auth = new AuthAdapter();
-            $useCase = new FollowComedian($userRepo, $comedianRepo,$uuid);
+            $useCase = new FollowComedian($userRepo, $comedianRepo, $uuid);
             $response = $useCase->handle($auth->auth->user()->getAuthIdentifier(), $request->comedianId);
 
             return $this->response->successResponse($response);

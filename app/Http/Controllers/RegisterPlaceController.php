@@ -65,6 +65,16 @@ class RegisterPlaceController extends Controller
 
         try {
 
+            $this->validate($request, [
+                'name' => 'required|string',
+                'seats' => 'required|integer|min:1',
+                'address' => 'required|string',
+                'zipcode' => 'required|string',
+                'image' => 'required|string',
+                'lat' => 'required|string',
+                'lng' => 'required|string',
+            ]);
+
             $placeData = [
                 "name" => $request->name,
                 "seats" => $request->seats,

@@ -165,6 +165,26 @@ class AttractionDAODatabase implements AttractionRepository
         ];
 
         $this->connection->query($query, $params);
+
+        $query = "INSERT INTO attraction_classification (
+                    id,
+                    attraction_id,
+                    name,
+                    image,
+                    created_at,
+                    updated_at)
+                  VALUES (:id, :attraction_id, :name, :image, :created_at, :updated_at)";
+
+        $params = [
+            'id' => $attractionData->classification->id,
+            'attraction_id' => $attractionData->id,
+            'name' => $attractionData->classification->name,
+            'image' => $attractionData->classification->image,
+            "created_at" => $date->format('Y-m-d H:i:s'),
+            "updated_at" => $date->format('Y-m-d H:i:s'),
+        ];
+        $this->connection->query($query, $params);
+
         return true;
 
     }

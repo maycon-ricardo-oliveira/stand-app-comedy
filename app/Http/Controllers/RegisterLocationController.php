@@ -31,6 +31,19 @@ class RegisterLocationController extends Controller
 
         try {
 
+            $this->validate($request, [
+                'userId' => 'required|string',
+                'street' => 'required|string',
+                'neighbourhood' => 'required|string',
+                'city' => 'required|string',
+                'state' => 'required|string',
+                'country' => 'required|string',
+                'zipcode' => 'required|string',
+                'formattedAddress' => 'nullable|string',
+                'lat' => 'required|string',
+                'lng' => 'required|string',
+            ]);
+
             $location = [
                 "userId" => $request->userId,
                 "street" => $request->street,
@@ -39,7 +52,7 @@ class RegisterLocationController extends Controller
                 "state" => $request->state,
                 "country" => $request->country,
                 "zipcode" => $request->zipcode,
-                "formattedAddress" => $request->formattedAddress,
+                "formattedAddress" => $request->formattedAddress ?? '',
                 "lat" => $request->lat,
                 "lng" => $request->lng,
             ];

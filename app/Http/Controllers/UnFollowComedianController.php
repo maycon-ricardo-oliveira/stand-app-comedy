@@ -47,6 +47,9 @@ class UnFollowComedianController extends Controller
      */
     public function handle(Request $request)
     {
+        $this->validate($request, [
+            'comedianId' => 'required|string',
+        ]);
         $userRepo = new UserDAODatabase($this->dbConnection, $this->time);
         $comedianRepo = new ComedianDAODatabase($this->dbConnection, $this->time);
 

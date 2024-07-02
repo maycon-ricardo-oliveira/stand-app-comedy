@@ -57,7 +57,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/comedians',  [GetComediansController::class, 'handle']);
     Route::get('/comedian/{comedianId}',  [GetComedianByIdController::class, 'handle']);
 
-    Route::post('/comedians/',  [RegisterComedianController::class, 'handle']);
+    Route::post('/comedians',  [RegisterComedianController::class, 'handle']);
     Route::post('/comedians/meta',  [RegisterComedianMetaController::class, 'handle']);
 
     Route::get('attractions/location',  [ListAttractionsByLocationController::class, 'handle']);

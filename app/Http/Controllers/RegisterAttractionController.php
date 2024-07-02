@@ -59,26 +59,45 @@ class RegisterAttractionController extends Controller
      */
     public function handle(Request $request)
     {
-        $date = new DateTimeAdapter();
-        $attractionRepo = new AttractionDAODatabase($this->dbConnection, $date);
-        $userRepo = new UserDAODatabase($this->dbConnection, $date);
-        $placeRepo = new PlaceDAODatabase($this->dbConnection, $this->time);
-        $comedianRepo = new ComedianDAODatabase($this->dbConnection, $date);
-        $uuid = new UniqIdAdapter();
 
-        $useCase = new RegisterAttraction($attractionRepo, $comedianRepo, $placeRepo, $userRepo, $uuid);
+        try {
+            $this->validate($request, [
+                'title' => 'required|string',
+                'date' => 'required|string',
+                'status' => 'required|string',
+                'comedianId' => 'required|string',
+                'placeId' => 'required|string',
+                'ownerId' => 'required|string',
+                'duration' => 'required|string',
+                'classificationName' => 'required|string',
+                'classificationUrl' => 'required|string',
+            ]);
 
-        $attraction = [
-            "title" => $request->title,
-            "date" => $request->date,
-            "status" => $request->status,
-            "comedianId" => $request->comedianId,
-            "placeId" => $request->placeId,
-            "ownerId" => $request->ownerId,
-            "duration" => $request->duration,
-        ];
+            $attraction = [
+                "title" => $request->title,
+                "date" => $request->date,
+                "status" => $request->status,
+                "comedianId" => $request->comedianId,
+                "placeId" => $request->placeId,
+                "ownerId" => $request->ownerId,
+                "duration" => $request->duration,
+                "classificationName" => $request->classificationName,
+                "classificationUrl" => $request->classificationUrl,
+            ];
 
-        return $this->response->successResponse($useCase->handle($attraction, $date));
+            $date = new DateTimeAdapter();
+            $attractionRepo = new AttractionDAODatabase($this->dbConnection, $date);
+            $userRepo = new UserDAODatabase($this->dbConnection, $date);
+            $placeRepo = new PlaceDAODatabase($this->dbConnection, $this->time);
+            $comedianRepo = new ComedianDAODatabase($this->dbConnection, $date);
+            $uuid = new UniqIdAdapter();
+
+            $useCase = new RegisterAttraction($attractionRepo, $comedianRepo, $placeRepo, $userRepo, $uuid);
+            return $this->response->successResponse($useCase->handle($attraction, $date));
+
+        } catch(Exception $exception) {
+            return $this->response->badRequestResponse($exception->getMessage());
+        }
 
     }
 
