@@ -3,6 +3,7 @@
 namespace App\Chore\Modules\User\Entities;
 
 use App\Chore\Modules\Comedians\Entities\Comedian;
+use App\Models\UserLocations;
 
 class User
 {
@@ -10,13 +11,15 @@ class User
     public string $id;
     public string $name;
     public string $email;
-    public string $password;
-    public string $rememberToken;
+    private string $password;
+    private string $rememberToken;
 
     /**
      * @var Comedian[]
      */
     public mixed $followingComedians;
+
+    public array $locations;
 
     /**
      * @param string $id
@@ -25,6 +28,8 @@ class User
      * @param string $password
      * @param string $rememberToken
      * @param Comedian[] $followingComedians
+     * @param UserLocations[] $locations
+     *
      */
     public function __construct(
         string $id,
@@ -32,7 +37,8 @@ class User
         string $email,
         string $password,
         string $rememberToken,
-        array $followingComedians = []
+        array $followingComedians = [],
+        array $locations = []
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -40,6 +46,7 @@ class User
         $this->password = $password;
         $this->rememberToken = $rememberToken;
         $this->followingComedians = $followingComedians;
+        $this->locations = $locations;
     }
 
 }

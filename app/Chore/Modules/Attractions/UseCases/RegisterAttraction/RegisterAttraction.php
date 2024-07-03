@@ -8,10 +8,12 @@ use App\Chore\Modules\Adapters\UuidAdapter\IUniqId;
 use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Entities\AttractionRepository;
 use App\Chore\Modules\Attractions\Entities\AttractionStatus;
+use App\Chore\Modules\Attractions\Entities\Classification;
 use App\Chore\Modules\Comedians\Entities\Comedian;
 use App\Chore\Modules\Comedians\Entities\ComedianRepository;
 use App\Chore\Modules\Places\Entities\Place;
 use App\Chore\Modules\Places\Entities\PlaceRepository;
+use App\Chore\Modules\Types\Url\Url;
 use App\Chore\Modules\User\Entities\User;
 use App\Chore\Modules\User\Entities\UserRepository;
 
@@ -58,6 +60,12 @@ class RegisterAttraction
 
         $date = new DateTimeAdapter($attractionData["date"]);
 
+        $classification = new Classification(
+            $this->uuid->id(),
+            $attractionData["classificationName"],
+            $attractionData["classificationUrl"],
+        );
+
         $attraction = new Attraction(
             $this->uuid->id(),
             $attractionData["title"],
@@ -69,6 +77,7 @@ class RegisterAttraction
             $place,
             (new AttractionStatus($attractionData["status"]))->getStatus(),
             $owner->id,
+            $classification,
             $time
         );
 

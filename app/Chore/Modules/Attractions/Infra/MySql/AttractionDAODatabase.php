@@ -2,13 +2,19 @@
 
 namespace App\Chore\Modules\Attractions\Infra\MySql;
 
+use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
 use App\Chore\Modules\Adapters\DateTimeAdapter\IDateTime;
 use App\Chore\Modules\Adapters\MySqlAdapter\DBConnection;
 use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Entities\AttractionRepository;
+use App\Chore\Modules\Attractions\Entities\Classification;
 use App\Chore\Modules\Attractions\Infra\AttractionMapper;
+use App\Chore\Modules\Comedians\Entities\Comedian;
+use App\Chore\Modules\Places\Entities\Place;
+use App\Chore\Modules\Types\Url\Url;
+use App\Models\AttractionClassification;
 
-class AttractionDAODatabase extends AttractionMapper implements AttractionRepository
+class AttractionDAODatabase implements AttractionRepository
 {
     const EARTH_RADIUS_IN_KM = 6371;
 
@@ -18,7 +24,6 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
 
     public function __construct(DBConnection $connection, IDateTime $time)
     {
-        parent::__construct();
         $this->connection = $connection;
         $this->time = $time;
     }
@@ -42,6 +47,7 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
         $params = ['place' => $place];
 
         $attractionsData = $this->connection->query($query, $params);
+
         return $this->mapper($this->time, $attractionsData);
 
     }
@@ -159,6 +165,26 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
         ];
 
         $this->connection->query($query, $params);
+
+        $query = "INSERT INTO attraction_classification (
+                    id,
+                    attraction_id,
+                    name,
+                    image,
+                    created_at,
+                    updated_at)
+                  VALUES (:id, :attraction_id, :name, :image, :created_at, :updated_at)";
+
+        $params = [
+            'id' => $attractionData->classification->id,
+            'attraction_id' => $attractionData->id,
+            'name' => $attractionData->classification->name,
+            'image' => $attractionData->classification->image,
+            "created_at" => $date->format('Y-m-d H:i:s'),
+            "updated_at" => $date->format('Y-m-d H:i:s'),
+        ];
+        $this->connection->query($query, $params);
+
         return true;
 
     }
@@ -219,5 +245,72 @@ class AttractionDAODatabase extends AttractionMapper implements AttractionReposi
     public function getAttractionById(string $attractionId)
     {
         // TODO: Implement getAttractionById() method.
+    }
+
+    public function getAttractionClassification(string $attractionId): ?Classification
+    {
+        $query = "select * from attraction_classification am
+            where am.attraction_id = :attraction_id";
+
+        $params = [
+            'attraction_id' => $attractionId,
+        ];
+
+        $response = $this->connection->query($query, $params);
+
+        if (count($response) == 0) {
+            return null;
+        }
+
+        $data = $response[0];
+        return new Classification(
+            $data->id,
+            $data->name,
+            $data->image,
+        );
+    }
+
+    public function mapper(IDateTime $time, $attractionsData = [])
+    {
+
+        return $attractionsData == [] ? $attractionsData : array_map(function ($item) use ($time) {
+
+            $classification = $this->getAttractionClassification($item['attractionId']);
+            return new Attraction(
+                $item['attractionId'],
+                $item['title'],
+                $item['description'] ?? '',
+                new DateTimeAdapter($item['date']),
+                $item["duration"],
+                $item["image"] ?? '',
+                new Comedian(
+                    $item['comedianId'],
+                    $item['comedianName'],
+                    $item['miniBio'],
+                    $item['thumbnail'] ?? '',
+                    $item['imageMain'] ?? '',
+                    $comedianData['onFire'] ?? false,
+                    $item['socialMedias'] ?? [],
+                    $item['attractions'] ?? [],
+                ),
+                new Place(
+                    $item['placeId'],
+                    $item['placeName'],
+                    $item['seats'],
+                    $item['address'],
+                    $item['zipcode'],
+                    new Url($item['imagePlace']),
+                    $item['lat'],
+                    $item['lng'],
+                    $item['distance'] ?? 0,
+                ),
+                $item['status'],
+                $item['owner'],
+                $classification ?? null,
+                $time
+            );
+
+        }, $attractionsData);
+
     }
 }

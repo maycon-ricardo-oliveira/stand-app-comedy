@@ -59,6 +59,12 @@ class RegisterComedianController extends Controller
     public function handle(Request $request): JsonResponse
     {
         try {
+            $this->validate($request, [
+                'name' => 'required|string',
+                'miniBio' => 'required|string',
+                'thumbnail' => 'required|string',
+            ]);
+
             $comedianData = [
                 'name' => $request->name,
                 'miniBio' => $request->miniBio,

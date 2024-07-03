@@ -21,44 +21,6 @@ class AttractionMapper extends ArrayIterator {
     /**
      * @throws Exception
      */
-    public function mapper(IDateTime $time, $attractionsData = [])
-    {
-        return $attractionsData == [] ? $attractionsData : array_map(function ($item) use ($time) {
-            return new Attraction(
-                $item['attractionId'],
-                $item['title'],
-                $item['description'] ?? '',
-                new DateTimeAdapter($item['date']),
-                $item["duration"],
-                $item["image"] ?? '',
-                new Comedian(
-                    $item['comedianId'],
-                    $item['comedianName'],
-                    $item['miniBio'],
-                    $item['thumbnail'] ?? '',
-                    $item['imageMain'] ?? '',
-                    $comedianData['onFire'] ?? false,
-                    $item['socialMedias'] ?? [],
-                    $item['attractions'] ?? [],
-                ),
-                new Place(
-                    $item['placeId'],
-                    $item['placeName'],
-                    $item['seats'],
-                    $item['address'],
-                    $item['zipcode'],
-                    new Url($item['imagePlace']),
-                    $item['lat'],
-                    $item['lng'],
-                    $item['distance'] ?? 0,
-                ),
-                $item['status'],
-                $item['owner'],
-                $time
-            );
 
-        }, $attractionsData);
-
-    }
 
 }

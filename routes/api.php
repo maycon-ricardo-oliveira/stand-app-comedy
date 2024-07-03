@@ -45,21 +45,19 @@ Route::prefix('v1')->group(function () {
         Route::post('auth/apple/callback', [AppleAuthController::class, 'handleAppleCallback']);
     });
 
-    Route::middleware('')->group(function() {
-        Route::post('refresh', [AuthController::class, 'refresh']);
-        Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('logout', [AuthController::class, 'logout']);
 
-        Route::post('/user/follow', [FollowComedianController::class, 'handle']);
-        Route::post('/user/unfollow', [UnFollowComedianController::class, 'handle']);
-        Route::get('/user/{userId}', [GetUserProfileByIdController::class, 'handle']);
+    Route::post('/user/follow', [FollowComedianController::class, 'handle']);
+    Route::post('/user/unfollow', [UnFollowComedianController::class, 'handle']);
+    Route::get('/user/{userId}', [GetUserProfileByIdController::class, 'handle']);
 
-        Route::post('/user/location', [RegisterLocationController::class, 'handle']);
-    });
+    Route::post('/user/location', [RegisterLocationController::class, 'handle']);
 
     Route::get('/comedians',  [GetComediansController::class, 'handle']);
     Route::get('/comedian/{comedianId}',  [GetComedianByIdController::class, 'handle']);
 
-    Route::post('/comedians/',  [RegisterComedianController::class, 'handle']);
+    Route::post('/comedians',  [RegisterComedianController::class, 'handle']);
     Route::post('/comedians/meta',  [RegisterComedianMetaController::class, 'handle']);
 
     Route::get('attractions/location',  [ListAttractionsByLocationController::class, 'handle']);

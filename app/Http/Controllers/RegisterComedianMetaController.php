@@ -25,6 +25,12 @@ class RegisterComedianMetaController extends Controller
     public function handle(Request $request): JsonResponse
     {
         try {
+            $this->validate($request, [
+                'comedianId' => 'required|string',
+                'name' => 'required|string',
+                'value' => 'required|string',
+            ]);
+
             $comedianMetaData = [
                 'comedianId' => $request->comedianId,
                 'name' => $request->name,

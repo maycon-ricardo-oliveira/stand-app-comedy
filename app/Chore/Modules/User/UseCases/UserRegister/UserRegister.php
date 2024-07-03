@@ -35,15 +35,17 @@ class UserRegister
             throw new UserAlreadyRegisteredException();
         }
 
+        $password = $this->bcrypt->make($userData["password"]);
+        $rememberToken = $this->uuid->rememberToken();
         $user = new User(
              $userData["id"] ?? $this->uuid->id(),
             $userData["name"],
             $userData["email"],
-            $this->bcrypt->make($userData["password"]),
-            $this->uuid->rememberToken(),
+            $password,
+            $rememberToken
         );
 
-        $this->userRepository->register($user, $date);
+        $this->userRepository->register($user, $password, $rememberToken, $date);
 
         return $this->userRepository->findUserByEmail($userData["email"]);
     }
