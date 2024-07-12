@@ -71,6 +71,7 @@ class AttractionDAODatabase implements AttractionRepository
                 a.owner_id as owner,
                 c.id as comedianId,
                 p.id as placeId,
+                p.image as imagePlace,
                 :earthRadiusInKM * 2 * ASIN(SQRT( POWER(SIN((:lat -  lat)*pi()/180/2),2)
                     +COS(:lat*pi()/180) * COS(lat*pi()/180) * POWER(SIN((:lng-lng) * pi()/180/2),2))
                 ) as distance
@@ -297,7 +298,7 @@ class AttractionDAODatabase implements AttractionRepository
                     $item['seats'],
                     $item['address'],
                     $item['zipcode'],
-                    new Url($item['imagePlace']),
+                    new Url($item['imagePlace']) ?? '',
                     $item['lat'],
                     $item['lng'],
                     $item['distance'] ?? 0,
@@ -316,24 +317,22 @@ class AttractionDAODatabase implements AttractionRepository
     {
         $query = "select a.*, p.*, c.*,
                 a.id as attractionId,
-                c.id as comedianId,
+                p.name as placeName,
+                c.name as comedianName,
                 c.mini_bio as miniBio,
                 a.owner_id as owner,
-                p.id as placeId,
-                p.name as placeName,
                 c.id as comedianId,
-                c.name as comedianName,
-                c.mini_bio as miniBio
+                p.id as placeId,
+                p.image as imagePlace
             from attractions a
             inner join places p on p.id = a.place_id
             inner join comedians c on c.id = a.comedian_id
-            where c.id = :comedian
-            ORDER BY a.date DESC LIMIT :limit
+            ORDER BY a.date DESC
+            LIMIT 8
             ";
 
-        $params = ['limit' => $limit];
 
-        $attractionsData = $this->connection->query($query, $params);
+        $attractionsData = $this->connection->query($query, );
         return $this->mapper($this->time, $attractionsData);
     }
 }

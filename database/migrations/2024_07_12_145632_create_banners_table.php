@@ -17,8 +17,10 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name', 100)->nullable();
             $table->string('url', 100)->nullable();
+            $table->text('image')->nullable();
             $table->enum('status', ['inactive', 'active']);
             $table->enum('type', ['primary', 'secondary', 'inline']);
+            $table->string('screen')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->timestamps();
