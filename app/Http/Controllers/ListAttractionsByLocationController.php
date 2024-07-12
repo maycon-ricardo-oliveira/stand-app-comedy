@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Chore\Modules\Attractions\Infra\MySql\AttractionDAODatabase;
-use App\Chore\Modules\Attractions\UseCases\ListAttractionsByLocation\ListAttractionsByLocation;
+use App\Chore\Modules\Attractions\UseCases\ListAttractionsByLocation\GetLastAttractions;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -60,7 +60,7 @@ class ListAttractionsByLocationController extends Controller
         $limit = $request->limit ?? 100;
 
         $dao = new AttractionDAODatabase($this->dbConnection, $this->time);
-        $listAttractions = new ListAttractionsByLocation($dao);
+        $listAttractions = new GetLastAttractions($dao);
         $response = $listAttractions->handle($lat, $lng, $distanceInKM, $limit);
 
         return $this->response->successResponse($response);

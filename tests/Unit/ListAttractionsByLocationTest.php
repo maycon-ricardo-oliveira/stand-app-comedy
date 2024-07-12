@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use App\Chore\Modules\Adapters\DateTimeAdapter\DateTimeAdapter;
 use App\Chore\Modules\Attractions\Infra\Memory\AttractionRepositoryMemory;
-use App\Chore\Modules\Attractions\UseCases\ListAttractionsByLocation\ListAttractionsByLocation;
+use App\Chore\Modules\Attractions\UseCases\ListAttractionsByLocation\GetLastAttractions;
 
 
 class ListAttractionsByLocationTest extends UnitTestCase
@@ -13,7 +13,7 @@ class ListAttractionsByLocationTest extends UnitTestCase
     {
         $date = new DateTimeAdapter();
         $repo = new AttractionRepositoryMemory($date);
-        $useCase = new ListAttractionsByLocation($repo);
+        $useCase = new GetLastAttractions($repo);
 
         $lat = '-23.546184';
         $lng = '-46.5798771';
@@ -29,7 +29,7 @@ class ListAttractionsByLocationTest extends UnitTestCase
     {
         $date = new DateTimeAdapter();
         $repo = new AttractionRepositoryMemory($date);
-        $useCase = new ListAttractionsByLocation($repo);
+        $useCase = new GetLastAttractions($repo);
 
         $lat = '-23.546184';
         $lng = '-46.5798771';
@@ -50,7 +50,7 @@ class ListAttractionsByLocationTest extends UnitTestCase
 
         $date = new DateTimeAdapter('2023-01-08 00:00:00');
         $repo = new AttractionRepositoryMemory($date);
-        $useCase = new ListAttractionsByLocation($repo);
+        $useCase = new GetLastAttractions($repo);
 
         $lat = '-23.546184';
         $lng = '-46.5798771';
@@ -70,7 +70,7 @@ class ListAttractionsByLocationTest extends UnitTestCase
 
         $date = new DateTimeAdapter('2023-01-11 00:00:01');
         $repo = new AttractionRepositoryMemory($date);
-        $useCase = new ListAttractionsByLocation($repo);
+        $useCase = new GetLastAttractions($repo);
 
         $lat = '-23.546184';
         $lng = '-46.5798771';

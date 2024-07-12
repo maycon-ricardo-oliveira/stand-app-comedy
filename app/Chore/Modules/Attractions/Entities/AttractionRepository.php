@@ -20,4 +20,7 @@ interface AttractionRepository
 
     public function updateAttraction(Attraction $attractionData): bool;
 
+    public function getLastAttractions(int $limit);
+
+
 }

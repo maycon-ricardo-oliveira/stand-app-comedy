@@ -8,11 +8,9 @@ use App\Chore\Modules\Adapters\MySqlAdapter\DBConnection;
 use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Entities\AttractionRepository;
 use App\Chore\Modules\Attractions\Entities\Classification;
-use App\Chore\Modules\Attractions\Infra\AttractionMapper;
 use App\Chore\Modules\Comedians\Entities\Comedian;
 use App\Chore\Modules\Places\Entities\Place;
 use App\Chore\Modules\Types\Url\Url;
-use App\Models\AttractionClassification;
 
 class AttractionDAODatabase implements AttractionRepository
 {
@@ -73,6 +71,7 @@ class AttractionDAODatabase implements AttractionRepository
                 a.owner_id as owner,
                 c.id as comedianId,
                 p.id as placeId,
+                p.image as imagePlace,
                 :earthRadiusInKM * 2 * ASIN(SQRT( POWER(SIN((:lat -  lat)*pi()/180/2),2)
                     +COS(:lat*pi()/180) * COS(lat*pi()/180) * POWER(SIN((:lng-lng) * pi()/180/2),2))
                 ) as distance
@@ -299,7 +298,7 @@ class AttractionDAODatabase implements AttractionRepository
                     $item['seats'],
                     $item['address'],
                     $item['zipcode'],
-                    new Url($item['imagePlace']),
+                    new Url($item['imagePlace']) ?? '',
                     $item['lat'],
                     $item['lng'],
                     $item['distance'] ?? 0,
@@ -312,5 +311,28 @@ class AttractionDAODatabase implements AttractionRepository
 
         }, $attractionsData);
 
+    }
+
+    public function getLastAttractions(int $limit)
+    {
+        $query = "select a.*, p.*, c.*,
+                a.id as attractionId,
+                p.name as placeName,
+                c.name as comedianName,
+                c.mini_bio as miniBio,
+                a.owner_id as owner,
+                c.id as comedianId,
+                p.id as placeId,
+                p.image as imagePlace
+            from attractions a
+            inner join places p on p.id = a.place_id
+            inner join comedians c on c.id = a.comedian_id
+            ORDER BY a.date DESC
+            LIMIT 8
+            ";
+
+
+        $attractionsData = $this->connection->query($query, );
+        return $this->mapper($this->time, $attractionsData);
     }
 }
