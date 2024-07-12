@@ -11,6 +11,7 @@ use App\Http\Controllers\GetComediansController;
 use App\Http\Controllers\GetPlaceByIdController;
 use App\Http\Controllers\GetUserProfileByIdController;
 use App\Http\Controllers\HealthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ListAttractionsByComedianController;
 use App\Http\Controllers\ListAttractionsByComedianNameController;
 use App\Http\Controllers\ListAttractionsByLocationController;
@@ -70,5 +71,10 @@ Route::prefix('v1')->group(function () {
 
     Route::post('places',  [RegisterPlaceController::class, 'handle']);
     Route::get('places/{placeId}',  [GetPlaceByIdController::class, 'handle']);
+
+
+    Route::get('home',  [HomeController::class, 'handle']);
+
+
 
 });

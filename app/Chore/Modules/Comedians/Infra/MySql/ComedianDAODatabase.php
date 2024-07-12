@@ -163,6 +163,7 @@ class ComedianDAODatabase implements ComedianRepository
                 FROM comedians c
                 LEFT JOIN comedian_metas cm on cm.comedian_id = c.id and cm.name = 'onFire'
                 LEFT JOIN comedian_media cmedia on cmedia.comedian_id = c.id and cmedia.name = 'image_main'
+                ORDER BY created_at DESC
                 ";
 
         $comedianData = $this->connection->query($query);

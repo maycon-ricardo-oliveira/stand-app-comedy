@@ -8,11 +8,9 @@ use App\Chore\Modules\Adapters\MySqlAdapter\DBConnection;
 use App\Chore\Modules\Attractions\Entities\Attraction;
 use App\Chore\Modules\Attractions\Entities\AttractionRepository;
 use App\Chore\Modules\Attractions\Entities\Classification;
-use App\Chore\Modules\Attractions\Infra\AttractionMapper;
 use App\Chore\Modules\Comedians\Entities\Comedian;
 use App\Chore\Modules\Places\Entities\Place;
 use App\Chore\Modules\Types\Url\Url;
-use App\Models\AttractionClassification;
 
 class AttractionDAODatabase implements AttractionRepository
 {
@@ -312,5 +310,30 @@ class AttractionDAODatabase implements AttractionRepository
 
         }, $attractionsData);
 
+    }
+
+    public function getLastAttractions(int $limit)
+    {
+        $query = "select a.*, p.*, c.*,
+                a.id as attractionId,
+                c.id as comedianId,
+                c.mini_bio as miniBio,
+                a.owner_id as owner,
+                p.id as placeId,
+                p.name as placeName,
+                c.id as comedianId,
+                c.name as comedianName,
+                c.mini_bio as miniBio
+            from attractions a
+            inner join places p on p.id = a.place_id
+            inner join comedians c on c.id = a.comedian_id
+            where c.id = :comedian
+            ORDER BY a.date DESC LIMIT :limit
+            ";
+
+        $params = ['limit' => $limit];
+
+        $attractionsData = $this->connection->query($query, $params);
+        return $this->mapper($this->time, $attractionsData);
     }
 }
