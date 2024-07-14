@@ -191,14 +191,15 @@ class AttractionDAODatabase implements AttractionRepository
     public function findAttractionById(string $attractionId): ?Attraction
     {
         $query = "select
+                a.*, p.*, c.*,
                 a.id as attractionId,
                 p.name as placeName,
                 c.name as comedianName,
-                c.id as comedianId,
                 c.mini_bio as miniBio,
                 a.owner_id as owner,
+                c.id as comedianId,
                 p.id as placeId,
-                a.*, p.*, c.*
+                p.image as imagePlace
             from attractions a
             inner join places p on p.id = a.place_id
             inner join comedians c on c.id = a.comedian_id

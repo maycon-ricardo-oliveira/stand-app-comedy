@@ -12,6 +12,7 @@ use App\Http\Controllers\GetPlaceByIdController;
 use App\Http\Controllers\GetUserProfileByIdController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HotContentController;
 use App\Http\Controllers\ListAttractionsByComedianController;
 use App\Http\Controllers\ListAttractionsByComedianNameController;
 use App\Http\Controllers\ListAttractionsByLocationController;
@@ -75,6 +76,7 @@ Route::prefix('v1')->group(function () {
 
     Route::get('home',  [HomeController::class, 'handle']);
 
-
+        Route::post('events/save', [HotContentController::class, 'saveHotContent']);
+        Route::get('events/{type}', [HotContentController::class, 'getHotContentByType']);
 
 });
