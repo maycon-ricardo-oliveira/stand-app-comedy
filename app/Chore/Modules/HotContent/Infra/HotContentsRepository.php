@@ -2,9 +2,11 @@
 
 namespace App\Chore\Modules\HotContent\Infra;
 
+use App\Chore\Modules\HotContent\Entities\ContentType;
 use App\Chore\Modules\HotContent\Entities\HotContent;
 use App\Chore\Modules\HotContent\Entities\HotContentRepository;
 use App\Models\HotContent as HotContentModel;
+use Illuminate\Support\Facades\DB;
 
 class HotContentsRepository implements HotContentRepository
 {
@@ -26,5 +28,17 @@ class HotContentsRepository implements HotContentRepository
             'updated_at' => $this->time->format('Y-m-d H:i:s')
         ]);
         return true;
+    }
+
+    public function getHotContentByType(ContentType $contentType)
+    {
+
+        $contents = HotContentModel::select(['content_id', 'content_type', DB::raw('COUNT(*) as count')])
+            ->where('content_type', $contentType->type)
+            ->groupBy('content_id', 'content_type')
+            ->orderBy('count', 'desc')
+            ->get();
+
+        return $contents;
     }
 }

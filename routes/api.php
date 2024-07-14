@@ -76,6 +76,7 @@ Route::prefix('v1')->group(function () {
 
     Route::get('home',  [HomeController::class, 'handle']);
 
-        Route::post('events/save', [HotContentController::class, 'handle']);
+        Route::post('events/save', [HotContentController::class, 'saveHotContent']);
+        Route::get('events/{type}', [HotContentController::class, 'getHotContentByType']);
 
 });
