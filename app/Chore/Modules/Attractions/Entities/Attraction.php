@@ -9,6 +9,7 @@ use App\Chore\Modules\Attractions\Exceptions\CantPossibleUpdateSessionException;
 use App\Chore\Modules\Comedians\Entities\Comedian;
 use App\Chore\Modules\Places\Entities\Place;
 use App\Chore\Modules\Sessions\Entities\SessionStatus;
+use Illuminate\Database\Eloquent\Model;
 
 class Attraction
 {
